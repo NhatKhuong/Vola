@@ -1,0 +1,19 @@
+.menuContent_pic_head {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-bottom: 1px solid #ccc;
+    user-select: none;
+}
+
+.menuContent_pic_head:hover {
+    cursor: pointer;
+    background-color: rgb(241, 234, 234);
+}
+
+.menuContent_pic_name {
+    font-weight: 600;
+}
+
+

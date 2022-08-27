@@ -1,0 +1,275 @@
+.content {
+    width: 100%;
+    display: flex;
+}
+
+.con1 {
+    flex: 0.7;
+}
+.con2 {
+    flex: 0.3;
+    background-color: #fff;
+}
+
+.chatContent {
+    flex: 1;
+}
+
+.chatContentHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+    border-bottom: 1px solid #ccc;
+}
+
+.chatContentHeader_info {
+    margin-left: 10px;
+}
+
+.chatContentHeader_info_menber {
+    font-size: 13px;
+    color: #72808e;
+}
+
+.chatContentHeader_info_menber svg {
+    font-size: 15px;
+}
+
+.chatContentHeader_left {
+    display: flex;
+}
+
+.chatContentHeader_left img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.chatContentHeader_info_menber {
+    display: flex;
+}
+
+.chatContentHeader_right {
+    display: flex;
+}
+
+.chatContentHeader_right_item {
+    font-size: 20px;
+    color: #72808e;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    /* background-color: #ccc; */
+}
+
+.chatContentHeader_right_item:hover {
+    background-color: #e8eaef;
+    cursor: pointer;
+}
+
+.chatContentHeader_right_item svg {
+    margin: auto;
+}
+
+.chatContentWindow {
+    margin-top: 2px;
+    height: 75vh;
+    background-color: #ccc;
+    overflow-y: auto;
+}
+
+.chatContentTool {
+    margin-top: 5px;
+    display: flex;
+}
+
+.chatContentTool_item {
+    padding: 7px;
+}
+
+.chatContentTool_item:hover {
+    cursor: pointer;
+    background-color: #e8eaef;
+}
+
+.chatContentTool_item svg {
+    font-size: 18px;
+}
+
+.chatContentInput {
+    display: flex;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.chatContentInput_text {
+    width: 95%;
+    height: 30px;
+}
+
+.chatContentInput_text input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    padding-left: 5px;
+    border: none;
+}
+
+.chatContentInput_react {
+    display: flex;
+}
+
+.chatContentInput_react svg {
+    font-size: 24px;
+    color: rgb(111, 96, 96);
+}
+
+.action_default:hover {
+    cursor: pointer;
+}
+
+.menuContent_header {
+    height: 66px;
+    display: flex;
+    margin: auto;
+    border-bottom: 1px solid #ccc;
+}
+
+.menuContent_header h3 {
+    margin: auto;
+    color: rgb(94, 88, 88);
+    font-weight: 500;
+}
+
+.menuContent_body {
+    height: 80vh;
+    overflow-y: auto;
+}
+
+.menuContent_header_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.menuContent_header_info .name {
+    margin-top: 10px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.menuContent_header_info .name > svg {
+    background-color: rgb(241, 234, 234);
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 50%;
+    color: #161d23;
+    margin-left: 10px;
+}
+
+.menuContent_header_info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.menuContent_header_info_listAction {
+    display: flex;
+}
+
+.menuContent_header_info_listAction_item {
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.menuContent_header_info_listAction_item svg {
+    background-color: rgb(241, 234, 234);
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 50%;
+    color: #161d23;
+}
+
+.menuContent_header_info_listAction_item_name {
+    color: #757575;
+    font-size: 12px;
+    width: 70px;
+    text-align: center;
+}
+
+.menuContent_pic_head {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.menuContent_pic_head:hover {
+    cursor: pointer;
+    background-color: rgb(241, 234, 234);
+}
+
+.menuContent_pic_name {
+    font-weight: 600;
+}
+
+.file{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.file:hover{
+    cursor: pointer;
+    background-color: rgb(241, 234, 234);
+
+}
+
+.file .name{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.file .byte{
+    font-size: 12px;
+    color: #757575;
+}
+
+.file .date{
+    font-size: 12px;
+    color: #757575;
+    margin-top: 20px;
+}
+
+.file img{
+    height: 30px;
+    width: 30px;
+}
+
+.info{
+    margin-right: 75px;
+    margin-left: 5px;
+}
+
+.info >a{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 100px;
+}
+
+.files{
+    max-height: 30vh;
+    overflow-y: auto;
+}
+
+

@@ -1,0 +1,36 @@
+.controlbar{
+    background-color: #0091ff;
+    width: 70px;
+    height: 100vh;
+}
+
+.controlbar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.control_top_item{
+    height: 60px;
+    display: flex;
+}
+
+.control_top_item svg{
+    font-size: 30px;
+    margin: auto;
+    color: #fff;
+
+}
+
+.control_top_item :hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.control_top_item img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: auto;
+}
