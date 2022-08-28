@@ -9,6 +9,7 @@ function FriendList() {
             name='Nhat Khuong'
             message='Hello jjj'
             time={new Date()}
+            info={false}
         />
 
 <MesageItem 
@@ -16,6 +17,7 @@ function FriendList() {
             name='Nhat Khuong'
             message='Hello jjj'
             time={new Date()}
+            info={false}
         />
 
 <MesageItem 
@@ -23,6 +25,7 @@ function FriendList() {
             name='Nhat Khuong'
             message='Hello jjj'
             time={new Date()}
+            info={false}
         />
         
     </div>

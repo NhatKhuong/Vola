@@ -4,10 +4,11 @@ import { FiMoreHorizontal } from "react-icons/fi";
 interface Props {
     avatar: string;
     name: string;
-    message: string;
+    message?: string;
     time?: Date;
+    info:boolean;
 }
-function MesageItem({ avatar, name, message, time }: Props) {
+function MesageItem({ avatar, name, message, time,info }: Props) {
     return (
         <div className={style.messageItem}>
             <div className={style.messageInfo}>
@@ -15,19 +16,21 @@ function MesageItem({ avatar, name, message, time }: Props) {
                     <img src={avatar} alt="" />
                 </div>
                 <div className={style.messageInfo_description}>
-                    <div className={style.messageInfo_description_name}>
+                    <div className={style.messageInfo_description_name} style={info ? {height:"100%",lineHeight:"40px"}: {}}>
                         {name}
-                    </div>
-                    <div className={style.messageInfo_description_inner}>
-                        {message}
-                    </div>
+                    </div> 
+                    {(!info) && <div className={style.messageInfo_description_inner}>{message}</div>}  
                 </div>
             </div>
             <div className={style.message_time}>
-                <div className={style.message_time_time}>{} Giờ</div>
-                <div className={style.message_time_more}>
-                    <FiMoreHorizontal />
-                </div>
+                {info ? <input type={"checkbox"}></input> 
+                :
+                <div className="">        
+                    <div className={style.message_time_time}>{} Giờ</div>
+                    <div className={style.message_time_more}>
+                        <FiMoreHorizontal />
+                    </div>
+                </div>}
             </div>
         </div>
     );

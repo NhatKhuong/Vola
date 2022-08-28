@@ -6,6 +6,9 @@ import { GiNails } from "react-icons/gi";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import ImageGrid from "../common/ImageGrid";
 import ExpandComponent from "../common/ExpandComponent";
+import ItemFileLink from "./ItemFileLink";
+import {RiDeleteBin6Line} from "react-icons/ri"
+import {CgDanger} from "react-icons/cg"
 
 function MenuContent() {
     return (
@@ -87,68 +90,92 @@ function MenuContent() {
 
                 <ExpandComponent title="Files">
                     <div className={style.files}>
-                        <div className={style.file}>
-                            <img src="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ" alt="" />
-                            <div className={style.info}>
-                                <div className={style.name}>Lab1.pdf</div>
-                                <div className={style.byte}>4KB</div>
-                            </div>
-                            <div className={style.date}>20/02/2022</div>
-                        </div>
-                        <div className={style.file}>
-                            <img src="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ" alt="" />
-                            <div className={style.info}>
-                                <div className={style.name}>Lab1.pdf</div>
-                                <div className={style.byte}>4KB</div>
-                            </div>
-                            <div className={style.date}>20/02/2022</div>
-                        </div>
-                        <div className={style.file}>
-                            <img src="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ" alt="" />
-                            <div className={style.info}>
-                                <div className={style.name}>Lab1.pdf</div>
-                                <div className={style.byte}>4KB</div>
-                            </div>
-                            <div className={style.date}>20/02/2022</div>
-                        </div>
-                        <div className={style.file}>
-                            <img src="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ" alt="" />
-                            <div className={style.info}>
-                                <div className={style.name}>Lab1.pdf</div>
-                                <div className={style.byte}>4KB</div>
-                            </div>
-                            <div className={style.date}>20/02/2022</div>
-                        </div>
+                        <ItemFileLink 
+                            avatar="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ"
+                            name="File PDF"
+                            discription="4KB"
+                            time={new Date()}
+                            isFile={true}
+                        />
+                        <ItemFileLink 
+                            avatar="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ"
+                            name="File PDF"
+                            discription="4KB"
+                            time={new Date()}
+                            isFile={true}
+                        />
+                        <ItemFileLink 
+                            avatar="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ"
+                            name="File PDF"
+                            discription="4KB"
+                            time={new Date()}
+                            isFile={true}
+                        />
+                        <ItemFileLink 
+                            avatar="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ"
+                            name="File PDF"
+                            discription="4KB"
+                            time={new Date()}
+                            isFile={true}
+                        />
                      </div>
                 </ExpandComponent>
 
                 <ExpandComponent title="Links">
                     <div className={style.files}>
-                        <div className={style.file}>
-                            <img src="https://media.istockphoto.com/vectors/chain-link-line-icon-editable-stroke-pixel-perfect-for-mobile-and-web-vector-id1136358844?k=20&m=1136358844&s=170667a&w=0&h=3Bh5In5m9TBTZmQZanOIrul0hSVGDXTlUj8I2X-JfiU=" alt="" />
-                            <div className={style.info}>
-                                <a href="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ" className={style.name}>https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ</a>
-                                <div className={style.byte}>4KB</div>
-                            </div>
-                            <div className={style.date}>20/02/2022</div>
-                        </div>
-                        <div className={style.file}>
-                            <img src="https://media.istockphoto.com/vectors/chain-link-line-icon-editable-stroke-pixel-perfect-for-mobile-and-web-vector-id1136358844?k=20&m=1136358844&s=170667a&w=0&h=3Bh5In5m9TBTZmQZanOIrul0hSVGDXTlUj8I2X-JfiU=" alt="" />
-                            <div className={style.info}>
-                                <a href="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ" className={style.name}>https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ</a>
-                                <div className={style.byte}>4KB</div>
-                            </div>
-                            <div className={style.date}>20/02/2022</div>
-                        </div>
-                        <div className={style.file}>
-                            <img src="https://media.istockphoto.com/vectors/chain-link-line-icon-editable-stroke-pixel-perfect-for-mobile-and-web-vector-id1136358844?k=20&m=1136358844&s=170667a&w=0&h=3Bh5In5m9TBTZmQZanOIrul0hSVGDXTlUj8I2X-JfiU=" alt="" />
-                            <div className={style.info}>
-                                <a href="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ" className={style.name}>https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ</a>
-                                <div className={style.byte}>4KB</div>
-                            </div>
-                            <div className={style.date}>20/02/2022</div>
-                        </div>
+                        <ItemFileLink 
+                            avatar="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
+                            name="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
+                            discription="4KB"
+                            time={new Date()}
+                            isFile={false}
+                        />
+                        <ItemFileLink 
+                            avatar="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
+                            name="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
+                            discription="4KB"
+                            time={new Date()}
+                            isFile={false}
+                        />
+                        <ItemFileLink 
+                            avatar="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
+                            name="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
+                            discription="4KB"
+                            time={new Date()}
+                            isFile={false}
+                        />
+                        <ItemFileLink 
+                            avatar="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
+                            name="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
+                            discription="4KB"
+                            time={new Date()}
+                            isFile={false}
+                        />
+                        <ItemFileLink 
+                            avatar="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
+                            name="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
+                            discription="4KB"
+                            time={new Date()}
+                            isFile={false}
+                        />
                      </div>
+                </ExpandComponent>
+                <ExpandComponent title="Thiết lập bảo mật">
+                    <div className={style.funtions}>
+                        <div className={style.funtion_item}>
+                            <div className={style.funtion_item_icon}>
+                                <RiDeleteBin6Line />
+                            </div>
+                            <div className={style.funtion_item_name}>Xóa lịch sử trò chuyện</div>
+                        </div>
+
+                        <div className={style.funtion_item}>
+                            <div className={style.funtion_item_icon}>
+                                <CgDanger />
+                            </div>
+                            <div className={style.funtion_item_name}>Chặn</div>
+                        </div>
+                    </div>
                 </ExpandComponent>
 
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import style from "./ControlBar.module.css"
 import {RiMessage3Fill} from "react-icons/ri" 
 import {TbListDetails} from "react-icons/tb"
