@@ -15,7 +15,7 @@ const Content = () => {
                 >
                     abc
                 </button> */}
-                <ChatContent />
+                <ChatContent showMenuChat={setMenu2}/>
             </div>
             {menu2 && <div className={style.con2}><MenuContent /></div>}
         </div>

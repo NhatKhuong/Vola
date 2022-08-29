@@ -9,6 +9,7 @@ function FriendTag() {
     <div className={style.friednTag}>
         <Search />
         <FriendList />
+        
     </div>
   )
 }

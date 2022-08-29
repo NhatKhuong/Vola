@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Content.module.css";
 import { AiOutlineUser } from "react-icons/ai";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
@@ -10,14 +10,22 @@ import ReactTooltip from "react-tooltip";
 import { EmojiButton } from "@joeattardi/emoji-button";
 import {VscReactions} from "react-icons/vsc"
 import ItemMessage from "./ItemMessage";
-function ChatContent() {
+import { inflate } from "zlib";
+
+interface Props{
+    showMenuChat:React.Dispatch<React.SetStateAction<boolean>>
+}
+
+function ChatContent(prop:Props) {
+    const [value, setValue] = useState("")
+
     useEffect(() => {
         const picker = new EmojiButton();
         const trigger = document.querySelector("#emoji-trigger");
 
         picker.on("emoji", (selection) => {
             // handle the selected emoji here
-            console.log(selection.emoji);
+            setValue(pre=>pre+selection.emoji)
         });
 
         (trigger as any).addEventListener("click", () =>
@@ -59,7 +67,7 @@ function ChatContent() {
                     <div className={style.chatContentHeader_right_item}>
                         <BsCameraVideo />
                     </div>
-                    <div className={style.chatContentHeader_right_item}>
+                    <div className={style.chatContentHeader_right_item} onClick={()=>prop.showMenuChat(pre=>!pre)}>
                         <MdOutlineTableRows />
                     </div>
                 </div>
@@ -96,6 +104,8 @@ function ChatContent() {
                     <input
                         type="text"
                         placeholder="Nhập @, tin nhắn tới bạn của bạn"
+                        value={value}
+                        onChange={(e)=>{setValue(e.target.value)}}
                     />
                 </div>
                 <div className={style.chatContentInput_react}>

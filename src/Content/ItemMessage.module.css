@@ -6,8 +6,8 @@
 
 .ItemMessage_content{
     display: flex;
-    flex-direction: ;
-
+    width: 100%;
+    
 }
 
 .ItemMessage_content_avatar img{

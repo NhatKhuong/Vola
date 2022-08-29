@@ -26,8 +26,7 @@ function FriendList() {
             message='Hello jjj'
             time={new Date()}
             info={false}
-        />
-        
+        />       
     </div>
   )
 }
