@@ -9,6 +9,7 @@ import { ImFilePicture } from "react-icons/im";
 import ReactTooltip from "react-tooltip";
 import { EmojiButton } from "@joeattardi/emoji-button";
 import {VscReactions} from "react-icons/vsc"
+import ItemMessage from "./ItemMessage";
 function ChatContent() {
     useEffect(() => {
         const picker = new EmojiButton();
@@ -63,7 +64,16 @@ function ChatContent() {
                     </div>
                 </div>
             </div>
-            <div className={style.chatContentWindow}></div>
+            <div className={style.chatContentWindow}>
+                < ItemMessage isMyMessage = {false}/>
+                < ItemMessage isMyMessage = {true}/>
+                < ItemMessage isMyMessage = {false}/>
+                < ItemMessage isMyMessage = {true}/>
+                < ItemMessage isMyMessage = {true}/>
+                < ItemMessage isMyMessage = {true}/>
+                < ItemMessage isMyMessage = {true}/>
+                < ItemMessage isMyMessage = {true}/>
+            </div>
             <div className={style.chatContentTool}>
                 <div
                     data-tip="hello world"
