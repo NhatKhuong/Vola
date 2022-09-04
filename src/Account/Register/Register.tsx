@@ -5,6 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import Input from "../Input/Input";
 import { isAllowSubmit } from "../Input/validate";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import authService from "../../services/auth.service";
 
 const cls = classNames.bind(style);
 
@@ -21,43 +24,43 @@ const Register = (): JSX.Element => {
     const handleRegister = async (e: FormEvent) => {
         e.preventDefault();
         if (!isAllowSubmit("form_register")) {
-            // toast.error("Vui lòng kiểm tra lại thông tin", {
-            //     position: "top-center",
-            //     autoClose: 3000,
-            //     hideProgressBar: false,
-            //     closeOnClick: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            // });
+            toast.error("Vui lòng kiểm tra lại thông tin", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             return false;
         }
 
         const formData = new FormData();
-        formData.append("username", username);
+        formData.append("userName", username);
         formData.append("password", password);
         formData.append("email", email);
         formData.append("fullName", fullName);
         if (avatar) formData.append("avatar", avatar as File, avatar?.name);
         try {
-            // await authService.register(formData);
+            await authService.register(formData);
             navigate("/login");
         } catch (error) {
-            // toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
-            //     position: "top-center",
-            //     autoClose: 3000,
-            //     hideProgressBar: false,
-            //     closeOnClick: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            // });
+            toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
     };
 
     return (
         <div className={cls("register_wrapper")}>
-            {/* <ToastContainer
+            <ToastContainer
                 position="top-center"
                 autoClose={5000}
                 hideProgressBar={false}
@@ -67,7 +70,7 @@ const Register = (): JSX.Element => {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-            /> */}
+            />
             <div className={cls("register")}>
                 <form action="" onSubmit={handleRegister} id="form_register">
                     <div className={cls("form_avtar")}>

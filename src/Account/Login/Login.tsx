@@ -5,13 +5,39 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Input from "../Input/Input";
 import { isAllowSubmit } from "../Input/validate";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import userAPI from "../../redux/user/userAPI";
 const cls = classNames.bind(style);
 
 const Login = (): JSX.Element => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const userState  = useAppSelector((state)=>state.user);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    useEffect(() => {
+        if(userState.is_login){
+            navigate("/");
+        } else {
+            if(userState.error){
+                (document.getElementById("message_login") as HTMLDivElement).innerHTML="Tài khoản hoặc mật khẩu sai";
+            }
+        }
+      
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userState])
+    
+
+    const handleLogin = (e: FormEvent) => {
+        e.preventDefault();
+        if (!isAllowSubmit("form_login")) {
+            return false;
+        }
+        dispatch(userAPI.login()({ userName:username, password }));
+    };
+
 
     return (
         <div className={cls("login_wrapper")}>
@@ -23,7 +49,7 @@ const Login = (): JSX.Element => {
                     </div>
                 </div>
                 <div id="message_login" className={cls("message_login")}></div>
-                <form action="" id="form_login">
+                <form action="" onSubmit={handleLogin} id="form_login">
                     <div className={cls("form_group")}>
                         <label htmlFor="">Tài khoản</label>
                         <Input
