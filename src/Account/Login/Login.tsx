@@ -7,12 +7,14 @@ import Input from "../Input/Input";
 import { isAllowSubmit } from "../Input/validate";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import userAPI from "../../redux/user/userAPI";
+import { loginWithGoogle } from "../../until/firebase/firebaseAuth";
+
 const cls = classNames.bind(style);
 
 const Login = (): JSX.Element => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const userState  = useAppSelector((state)=>state.user);
+    const userState  = useAppSelector((state:any)=>state.user);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -35,7 +37,11 @@ const Login = (): JSX.Element => {
         if (!isAllowSubmit("form_login")) {
             return false;
         }
-        dispatch(userAPI.login()({ userName:username, password }));
+        // dispatch(userAPI.login()({ userName:username, password }));
+    };
+    const handleLoginWithGoogle = () => {
+       loginWithGoogle()
+        // dispatch(userAPI.login()({ userName:username, password }));
     };
 
 
@@ -85,7 +91,7 @@ const Login = (): JSX.Element => {
                     <div>or</div>
                     <div></div>
                 </div>
-                <button className={cls("login_gg")}>
+                <button onClick={handleLoginWithGoogle} className={cls("login_gg")}>
                     <span></span> Login with Google
                 </button>
             </div>

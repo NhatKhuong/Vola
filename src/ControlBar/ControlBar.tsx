@@ -7,7 +7,7 @@ import { CgShoppingBag } from "react-icons/cg";
 import { useAppSelector } from "../redux/hook";
 
 const ControlBar = () => {
-    const userState = useAppSelector((state) => state.user);
+    const userState = useAppSelector((state:any) => state.user);
 
     return (
         <div className={style.controlbar}>
