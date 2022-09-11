@@ -12,7 +12,7 @@ import tokenService from "./services/token.service";
 import userAPI from "./redux/user/userAPI";
 
 function App() {
-    const userState = useAppSelector((state) => state.user);
+    const userState = useAppSelector((state:any) => state.user);
     const dispatch = useAppDispatch();
 
     useEffect(() => {

@@ -9,20 +9,20 @@ const axiosAuth = axios.create({
 });
 
 axiosAuth.interceptors.request.use(
-    (config) => {
+    (config:any) => {
         const access_token = tokenService.getAccessToken();
         (config.headers as AxiosRequestHeaders).Authorization =
             "Bearer " + access_token;
         return config;
     },
-    (error) => Promise.reject(error)
+    (error:any) => Promise.reject(error)
 );
 
 axiosAuth.interceptors.response.use(
-    (response) => {
+    (response:any) => {
         return response;
     },
-    async (error) => {
+    async (error:any) => {
         const config = error.config;
         // Access Token was expired
         if (error.response && error.response.status === 500 && !config._retry) {
@@ -53,11 +53,11 @@ axiosAuth.interceptors.response.use(
 
 const axiosNotAuth = axios.create();
 axiosNotAuth.interceptors.request.use(
-    (config) => {
+    (config:any) => {
         config.baseURL = process.env.REACT_APP_URL;
         return config;
     },
-    (error) => Promise.reject(error)
+    (error:any) => Promise.reject(error)
 );
 
 export { axiosAuth, axiosNotAuth };
