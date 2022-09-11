@@ -38,7 +38,6 @@ const Login = (): JSX.Element => {
         dispatch(userAPI.login()({ userName:username, password }));
     };
 
-
     return (
         <div className={cls("login_wrapper")}>
             <div className={cls("login")}>
