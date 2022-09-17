@@ -7,45 +7,81 @@ import Input from "../Input/Input";
 import { isAllowSubmit } from "../Input/validate";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import userAPI from "../../redux/user/userAPI";
-import { loginWithGoogle } from "../../until/firebase/firebaseAuth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+    loginWithEmailAndPassword,
+    loginWithGoogle,
+} from "../../until/firebase/firebaseAuth";
 
 const cls = classNames.bind(style);
 
 const Login = (): JSX.Element => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const userState  = useAppSelector((state:any)=>state.user);
+    const userState = useAppSelector((state: any) => state.user);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     useEffect(() => {
-        if(userState.is_login){
+        if (userState.is_login) {
             navigate("/");
         } else {
-            if(userState.error){
-                (document.getElementById("message_login") as HTMLDivElement).innerHTML="Tài khoản hoặc mật khẩu sai";
+            if (userState.error) {
+                (
+                    document.getElementById("message_login") as HTMLDivElement
+                ).innerHTML = "Tài khoản hoặc mật khẩu sai";
             }
         }
-      
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userState])
-    
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userState]);
 
     const handleLogin = (e: FormEvent) => {
         e.preventDefault();
         if (!isAllowSubmit("form_login")) {
             return false;
+        } else {
+            loginWithEmailAndPassword(username, password)
+                .then((user) => {
+                    navigate("/");
+                    console.log(user);
+                    
+                    
+                })
+                .catch((err) => {
+                    toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                });
         }
         // dispatch(userAPI.login()({ userName:username, password }));
     };
     const handleLoginWithGoogle = () => {
-       loginWithGoogle()
+        loginWithGoogle();
         // dispatch(userAPI.login()({ userName:username, password }));
     };
 
     return (
         <div className={cls("login_wrapper")}>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <div className={cls("login")}>
                 <div className={cls("login_title")}>
                     <div>Đăng nhập</div>
@@ -90,7 +126,10 @@ const Login = (): JSX.Element => {
                     <div>or</div>
                     <div></div>
                 </div>
-                <button onClick={handleLoginWithGoogle} className={cls("login_gg")}>
+                <button
+                    onClick={handleLoginWithGoogle}
+                    className={cls("login_gg")}
+                >
                     <span></span> Login with Google
                 </button>
             </div>

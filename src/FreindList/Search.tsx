@@ -54,7 +54,7 @@ function Search() {
                                     <div className={style.Modal_createGroup_head_close}>
                                         <IoMdClose onClick={closeModal}/>
                                     </div>
-                                </div>
+                                  </div>
 
                                 <div className={style.Modal_createGroup_name_group}>
                                     <div className={style.Modal_createGroup_name_group_iconBlock}>
