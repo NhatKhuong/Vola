@@ -7,7 +7,7 @@ import Input from "../Input/Input";
 import { isAllowSubmit } from "../Input/validate";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import authService from "../../services/auth.service";
+// import authService from "../../services/auth.service";
 import { singUpWithEmailAndPassword } from "../../until/firebase/firebaseAuth";
 
 const cls = classNames.bind(style);

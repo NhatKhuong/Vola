@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import userAPI from "./userAPI";
-import tokenService from "../../services/token.service";
+// import tokenService from "../../services/token.service";
 
 interface User {
     userName: string;
@@ -36,10 +36,11 @@ export const userSlice = createSlice({
         builder.addCase(
             userAPI.login().fulfilled,
             (state: StateType, action) => {
-                tokenService.setAccessToken(action.payload.access_token);
-                tokenService.setRefreshToken(action.payload.refresh_token);
+                // tokenService.setAccessToken(action.payload.access_token);
+                // tokenService.setRefreshToken(action.payload.refresh_token);
                 state.error = false;
                 state.is_login = true;
+                state.user = action.payload;
             }
         );
         builder.addCase(userAPI.login().rejected, (state) => {
@@ -50,7 +51,7 @@ export const userSlice = createSlice({
         builder.addCase(
             userAPI.getUserInfo().fulfilled,
             (state: StateType, action) => {
-                state.user = action.payload;
+                // state.user = action.payload;
                 state.error = false;
                 state.is_login = true;
             }

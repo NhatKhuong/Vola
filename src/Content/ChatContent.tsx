@@ -8,16 +8,19 @@ import { MdOutlineTableRows } from "react-icons/md";
 import { ImFilePicture } from "react-icons/im";
 import ReactTooltip from "react-tooltip";
 import { EmojiButton } from "@joeattardi/emoji-button";
-import {VscReactions} from "react-icons/vsc"
+import { VscReactions } from "react-icons/vsc";
 import ItemMessage from "./ItemMessage";
 import { inflate } from "zlib";
+import { useDispatch } from "react-redux";
+import { oppenModal } from "../redux/statusCommon/slice";
 
-interface Props{
-    showMenuChat:React.Dispatch<React.SetStateAction<boolean>>
+interface Props {
+    showMenuChat: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ChatContent(prop:Props) {
-    const [value, setValue] = useState("")
+function ChatContent(prop: Props) {
+    const dispatch = useDispatch();
+    const [value, setValue] = useState("");
 
     useEffect(() => {
         const picker = new EmojiButton();
@@ -25,7 +28,7 @@ function ChatContent(prop:Props) {
 
         picker.on("emoji", (selection) => {
             // handle the selected emoji here
-            setValue(pre=>pre+selection.emoji)
+            setValue((pre) => pre + selection.emoji);
         });
 
         (trigger as any).addEventListener("click", () =>
@@ -59,7 +62,9 @@ function ChatContent(prop:Props) {
                 </div>
                 <div className={style.chatContentHeader_right}>
                     <div className={style.chatContentHeader_right_item}>
-                        <AiOutlineUsergroupAdd />
+                        <AiOutlineUsergroupAdd
+                            onClick={() => dispatch(oppenModal())}
+                        />
                     </div>
                     <div className={style.chatContentHeader_right_item}>
                         <AiOutlineSearch />
@@ -67,20 +72,23 @@ function ChatContent(prop:Props) {
                     <div className={style.chatContentHeader_right_item}>
                         <BsCameraVideo />
                     </div>
-                    <div className={style.chatContentHeader_right_item} onClick={()=>prop.showMenuChat(pre=>!pre)}>
+                    <div
+                        className={style.chatContentHeader_right_item}
+                        onClick={() => prop.showMenuChat((pre) => !pre)}
+                    >
                         <MdOutlineTableRows />
                     </div>
                 </div>
             </div>
             <div className={style.chatContentWindow}>
-                < ItemMessage isMyMessage = {false}/>
-                < ItemMessage isMyMessage = {true}/>
-                < ItemMessage isMyMessage = {false}/>
-                < ItemMessage isMyMessage = {true}/>
-                < ItemMessage isMyMessage = {true}/>
-                < ItemMessage isMyMessage = {true}/>
-                < ItemMessage isMyMessage = {true}/>
-                < ItemMessage isMyMessage = {true}/>
+                <ItemMessage isMyMessage={false} />
+                <ItemMessage isMyMessage={true} />
+                <ItemMessage isMyMessage={false} />
+                <ItemMessage isMyMessage={true} />
+                <ItemMessage isMyMessage={true} />
+                <ItemMessage isMyMessage={true} />
+                <ItemMessage isMyMessage={true} />
+                <ItemMessage isMyMessage={true} />
             </div>
             <div className={style.chatContentTool}>
                 <div
@@ -105,13 +113,15 @@ function ChatContent(prop:Props) {
                         type="text"
                         placeholder="Nhập @, tin nhắn tới bạn của bạn"
                         value={value}
-                        onChange={(e)=>{setValue(e.target.value)}}
+                        onChange={(e) => {
+                            setValue(e.target.value);
+                        }}
                     />
                 </div>
                 <div className={style.chatContentInput_react}>
                     {/* <button id="emoji-trigger">Emoji</button> */}
                     <div className={style.action_default}>👍</div>
-                    <VscReactions id="emoji-trigger"/>
+                    <VscReactions id="emoji-trigger" />
                 </div>
             </div>
         </div>

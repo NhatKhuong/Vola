@@ -7,20 +7,14 @@ import { CgShoppingBag } from "react-icons/cg";
 import { useAppSelector } from "../redux/hook";
 
 const ControlBar = () => {
-    const userState = useAppSelector((state:any) => state.user);
+    const userState = useAppSelector((state: any) => state.user);
+    console.log(userState);
 
     return (
         <div className={style.controlbar}>
             <div className={style.control_top}>
                 <div className={style.control_top_item}>
-                    <img
-                        src={
-                            process.env.REACT_APP_URL +
-                            "/static/avatar/" +
-                            userState.user.avatar
-                        }
-                        alt=""
-                    />
+                    <img src={userState.user.avatar} alt="" />
                 </div>
                 <div className={style.control_top_item}>
                     <RiMessage3Fill></RiMessage3Fill>

@@ -15,7 +15,6 @@ import {
 } from "../../until/firebase/firebaseAuth";
 
 const cls = classNames.bind(style);
-
 const Login = (): JSX.Element => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -44,11 +43,13 @@ const Login = (): JSX.Element => {
             return false;
         } else {
             loginWithEmailAndPassword(username, password)
-                .then((user) => {
+                .then((user: any) => {
                     navigate("/");
+                    var accessToken = "Bear " + user.user.accessToken;
                     console.log(user);
-                    
-                    
+                    console.log(accessToken);
+
+                    dispatch(userAPI.login()(accessToken ));
                 })
                 .catch((err) => {
                     toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
@@ -62,11 +63,29 @@ const Login = (): JSX.Element => {
                     });
                 });
         }
-        // dispatch(userAPI.login()({ userName:username, password }));
     };
     const handleLoginWithGoogle = () => {
-        loginWithGoogle();
-        // dispatch(userAPI.login()({ userName:username, password }));
+        // loginWithGoogle();
+        loginWithGoogle()
+                .then((user: any) => {
+                    navigate("/");
+                    var accessToken = "Bear " + user.user.accessToken;
+                    console.log(user);
+                    console.log(accessToken);
+
+                    dispatch(userAPI.login()(accessToken));
+                })
+                .catch((err) => {
+                    toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                });
     };
 
     return (

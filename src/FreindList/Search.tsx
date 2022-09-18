@@ -11,6 +11,9 @@ import ReactModal from "react-modal";
 import MesageItem from "./MesageItem";
 import {HiOutlineCamera} from "react-icons/hi"
 import {FiSearch} from "react-icons/fi"
+import { useDispatch } from "react-redux";
+import { oppenModal } from "../redux/statusCommon/slice";
+import ModalCreateGroup from "../common/ModalCreateGroup";
 const customStyles = {
     content: {
         top: "50%",
@@ -25,14 +28,15 @@ const customStyles = {
 };
 
 function Search() {
-    const [modalIsOpen, setIsOpen] = useState(false);
-    function openModal() {
-        setIsOpen(true);
-    }
+    const dispatch = useDispatch();
+    // const [modalIsOpen, setIsOpen] = useState(false);
+    // function openModal() {
+    //     setIsOpen(true);
+    // }
 
-    function closeModal() {
-        setIsOpen(false);
-    }
+    // function closeModal() {
+    //     setIsOpen(false);
+    // }
 
     return (
         <div className={style.searchTag}>
@@ -46,8 +50,9 @@ function Search() {
                         <BiUserPlus />
                     </div>
                     <div className={style.search_icon_item}>
-                        <AiOutlineUsergroupAdd onClick={openModal}/>
-                        <ReactModal style={customStyles} isOpen={modalIsOpen} onRequestClose={closeModal}>
+                        <AiOutlineUsergroupAdd onClick={()=>dispatch(oppenModal())}/>
+                        <ModalCreateGroup isShare={true} />
+                        {/* <ReactModal style={customStyles} isOpen={modalIsOpen} onRequestClose={closeModal}>
                             <div className={style.Modal_createGroup}>
                                 <div className={style.Modal_createGroup_head}>
                                     <div className={style.Modal_createGroup_head_title}>Tạo nhóm</div>
@@ -122,7 +127,7 @@ function Search() {
                                     <button className={style.btn_modal_create}>Tạo nhóm</button>
                                 </div>
                             </div>
-                        </ReactModal>
+                        </ReactModal> */}
                     </div>
                 </div>
             </div>

@@ -8,19 +8,19 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./Account/Login/Login";
 import Register from "./Account/Register/Register";
 import { useAppDispatch, useAppSelector } from "./redux/hook";
-import tokenService from "./services/token.service";
+// import tokenService from "./services/token.service";
 import userAPI from "./redux/user/userAPI";
 
 function App() {
     const userState = useAppSelector((state:any) => state.user);
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        if (tokenService.getRefreshToken() && userState.user.userName === "") {
-            dispatch(userAPI.getUserInfo()());
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userState]);
+    // useEffect(() => {
+    //     if (tokenService.getRefreshToken() && userState.user.userName === "") {
+    //         dispatch(userAPI.getUserInfo()());
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [userState]);
 
     return (
         <div className="App">
