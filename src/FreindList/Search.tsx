@@ -4,13 +4,13 @@ import Form from "react-bootstrap/Form";
 import style from "./FreindList.module.css";
 import { IoSearchOutline } from "react-icons/io5";
 import { BiUserPlus } from "react-icons/bi";
-import { AiOutlineUsergroupAdd, } from "react-icons/ai";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { FiMoreHorizontal } from "react-icons/fi";
-import {IoMdClose} from "react-icons/io"
+import { IoMdClose } from "react-icons/io";
 import ReactModal from "react-modal";
 import MesageItem from "./MesageItem";
-import {HiOutlineCamera} from "react-icons/hi"
-import {FiSearch} from "react-icons/fi"
+import { HiOutlineCamera } from "react-icons/hi";
+import { FiSearch } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { oppenModal } from "../redux/statusCommon/slice";
 import ModalCreateGroup from "../common/ModalCreateGroup";
@@ -23,7 +23,7 @@ const customStyles = {
         marginRight: "-50%",
         transform: "translate(-50%, -50%)",
         width: "450px",
-        height: "95vh"
+        height: "95vh",
     },
 };
 
@@ -50,7 +50,9 @@ function Search() {
                         <BiUserPlus />
                     </div>
                     <div className={style.search_icon_item}>
-                        <AiOutlineUsergroupAdd onClick={()=>dispatch(oppenModal())}/>
+                        <AiOutlineUsergroupAdd
+                            onClick={() => dispatch(oppenModal())}
+                        />
                         <ModalCreateGroup isShare={true} />
                         {/* <ReactModal style={customStyles} isOpen={modalIsOpen} onRequestClose={closeModal}>
                             <div className={style.Modal_createGroup}>

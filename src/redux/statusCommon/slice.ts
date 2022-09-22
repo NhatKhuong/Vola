@@ -5,7 +5,7 @@ interface StatusCommon {
 }
 
 const initialState: StatusCommon = {
-        isOpenModal: false
+        isOpenModal: false,
 };
 
 export const StatusCommonSlice = createSlice({

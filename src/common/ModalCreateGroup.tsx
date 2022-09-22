@@ -28,7 +28,7 @@ const customStyles = {
 function ModalCreateGroup(prop:Prop) {
     const dispatch = useAppDispatch();
     const commonState = useAppSelector((state: any) => state.statusCommon);
-    console.log(commonState.isOpenModal);
+    // const commonState =  useAppSelector((state: any) => state.statusCommon);
     
     // const [modalIsOpen, setIsOpen] = useState(false);
 
