@@ -86,10 +86,10 @@ function ModalCreateGroup(prop:Prop) {
                             avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
                             name="Nhat Khuong"
                             message="Hello jjj"
-                            time={new Date()}
+                            time={new Date().toDateString()}
                             info={true}
                         />
-                        <MesageItem
+                        {/* <MesageItem
                             avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
                             name="Nhat Khuong"
                             message="Hello jjj"
@@ -122,8 +122,8 @@ function ModalCreateGroup(prop:Prop) {
                             name="Nhat Khuong"
                             message="Hello jjj"
                             time={new Date()}
-                            info={true}
-                        />
+                            info={true} */}
+                        {/* /> */}
                     </div>
                     <div className={style.Modal_footer}>
                         <button className={style.btn_modal_cancel}>Hủy</button>

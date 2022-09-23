@@ -1,34 +1,24 @@
-import React from 'react'
-import MesageItem from './MesageItem'
+import React from "react";
+import MesageItem from "./MesageItem";
+import { useAppSelector } from "../redux/hook";
+import { IRoom } from "../redux/user/slice";
 
 function FriendList() {
-  return (
-    <div>
-        <MesageItem 
-            avatar='https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg'
-            name='Nhat Khuong'
-            message='Hello jjj'
-            time={new Date()}
-            info={false}
-        />
+    const userState = useAppSelector((state: any) => state.user);
+    const listRoom = userState.rooms;
+    console.log(listRoom);
 
-<MesageItem 
-            avatar='https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg'
-            name='Nhat Khuong'
-            message='Hello jjj'
-            time={new Date()}
-            info={false}
-        />
-
-<MesageItem 
-            avatar='https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg'
-            name='Nhat Khuong'
-            message='Hello jjj'
-            time={new Date()}
-            info={false}
-        />       
-    </div>
-  )
+    return listRoom.map((e: IRoom) => {
+        return (
+            <MesageItem
+                avatar={e.avatar}
+                name={e.name}
+                message={e.message[0]?.content}
+                time={e.createdAt+""}
+                info={false}
+            />
+        );
+    });
 }
 
-export default FriendList
+export default FriendList;

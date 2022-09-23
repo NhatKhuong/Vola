@@ -2,15 +2,15 @@ import React from "react";
 import style from "./FreindList.module.css";
 import { FiMoreHorizontal } from "react-icons/fi";
 interface Props {
-    avatar: string;
-    name: string;
+    avatar?: string;
+    name?: string;
     message?: string;
-    time?: Date;
+    time?: string;
     info:boolean;
 }
 function MesageItem({ avatar, name, message, time,info }: Props) {
     return (
-        <div className={style.messageItem}>
+        <div className={style.messageItem} >
             <div className={style.messageInfo}>
                 <div className={style.messageInfo_avata}>
                     <img src={avatar} alt="" />
@@ -26,7 +26,7 @@ function MesageItem({ avatar, name, message, time,info }: Props) {
                 {info ? <input type={"checkbox"}></input> 
                 :
                 <div className="">        
-                    <div className={style.message_time_time}>{} Giờ</div>
+                    <div className={style.message_time_time}>{time} Giờ</div>
                     <div className={style.message_time_more}>
                         <FiMoreHorizontal />
                     </div>
