@@ -6,7 +6,11 @@ class UserAPI {
         return createAsyncThunk("user/login", async (data: any, thunkAPI) => {
             const {accessToken} = data;
             const result:any = await authService.login(data);
-            if(result.status === 200) return result.data
+            if(result.status === 200) {
+                const userResult =  result.data;
+                userResult.accessToken = data;
+                return userResult;
+            } 
             return thunkAPI.rejectWithValue("login_fail")
             
             // const { userName, password } = data;

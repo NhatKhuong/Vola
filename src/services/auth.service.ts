@@ -4,7 +4,6 @@ class AuthService {
 
     async login(accessToken: string) {
         try {
-            console.log(accessToken);
             
             console.log({ serverUrl: this.serverUrl });
             var user = await axios.get(`http://localhost:5000/api/users/profile`, {

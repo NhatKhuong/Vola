@@ -85,7 +85,7 @@ function ModalCreateGroup(prop:Prop) {
                         <MesageItem
                             avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
                             name="Nhat Khuong"
-                            message="Hello jjj"
+                            messages="Hello jjj"
                             time={new Date().toDateString()}
                             info={true}
                         />

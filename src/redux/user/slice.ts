@@ -7,6 +7,7 @@ interface User {
     avatar: string;
     fullName: string;
     email: string;
+    _id: string;
 }
 
 export interface IRoom {
@@ -14,7 +15,7 @@ export interface IRoom {
     _id?: string;
     name?: string;
     avatar?: string;
-    message: IMessage[];
+    messages: IMessage[];
     typeRoom: string;
     createdAt?: Date;
     updatedAt?: Date;
@@ -38,6 +39,7 @@ interface StateType {
     rooms: IRoom[];
     error: boolean;
     is_login: boolean;
+    accessToken: string;
 }
 
 const initialState = {
@@ -46,10 +48,12 @@ const initialState = {
         avatar: "",
         fullName: "",
         email: "",
+        _id: "",
     },
     rooms:[],
     error: false,
     is_login: false,
+    accessToken: "",
 } as StateType;
 
 export const userSlice = createSlice({
@@ -68,6 +72,7 @@ export const userSlice = createSlice({
                 state.is_login = true;
                 state.user = action.payload.user;
                 state.rooms = action.payload.rooms;
+                state.accessToken = action.payload.accessToken;
             }
         );
         builder.addCase(userAPI.login().rejected, (state) => {

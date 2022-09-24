@@ -1,77 +1,77 @@
-// import { createSlice } from "@reduxjs/toolkit";
-// import roomApi from "./roomApi";
-// // import tokenService from "../../services/token.service";
+import { createSlice } from "@reduxjs/toolkit";
+import roomAPI from "./roomAPI";
 
-// interface User {
-//     userName: string;
-//     avatar: string;
-//     fullName: string;
-//     email: string;
-// }
-  
-//   interface IMessage {
-//     _id?: string;
-//     user: User;
-//     content: string;
-//     type: string;
-//     createdAt: Date;
-//   }
-
-// interface StateType {
-//     iMessage: IMessage;
-// }
-
-// const initialState = {
-//     user: {
-//         userName: "",
-//         avatar: "",
-//         fullName: "",
-//         email: "",
-//     },
-//     rooms:[],
-//     error: false,
-//     is_login: false,
-// } as StateType;
-
-// export const userSlice = createSlice({
-//     name: "user",
-//     initialState,
-//     reducers: {
-//         //
-//     },
-//     extraReducers: (builder) => {
-//         builder.addCase(
-//             roomApi.getRoom().fulfilled,
-//             (state: StateType, action) => {
-//                 // tokenService.setAccessToken(action.payload.access_token);
-//                 // tokenService.setRefreshToken(action.payload.refresh_token);
-//                 state.error = false;
-//                 state.is_login = true;
-//                 state.user = action.payload.user;
-//                 state.rooms = action.payload.rooms;
-//             }
-//         );
-//         builder.addCase(userAPI.login().rejected, (state) => {
-//             state.error = true;
-//             state.is_login = false;
-//         });
-
-//         builder.addCase(
-//             userAPI.getUserInfo().fulfilled,
-//             (state: StateType, action) => {
-//                 // state.user = action.payload;
-//                 state.error = false;
-//                 state.is_login = true;
-//             }
-//         );
-//     },
-// });
-import React from 'react'
-
-function slice() {
-  return (
-    <div>slice</div>
-  )
+interface chatItem {
+    type: string;
+    _id: string;
+    user: User;
+    content: string;
+    createdAt: Date;
 }
 
-export default slice
+interface User {
+    _id: string;
+    avatar: string;
+    name: string;
+}
+
+interface fileItem {
+    type: string;
+    _id: string;
+    user: User;
+    content: string;
+    createdAt: Date;
+}
+
+interface picItem {
+    type: string;
+    _id: string;
+    user: User;
+    content: string;
+    createdAt: Date;
+}
+
+interface StateType {
+    lstChat?: chatItem[];
+    lstFile?: fileItem[];
+    lstPic?: picItem[];
+}
+
+const initialState = {
+    lstChat: [],
+    lstFile: [],
+    lstPic: [],
+} as StateType;
+
+export const roomSlice = createSlice({
+    name: "room",
+    initialState,
+    reducers: {
+        //
+    },
+    extraReducers: (builder) => {
+        builder.addCase(
+            roomAPI.getListChat().fulfilled,
+            (state: StateType, action) => {
+                state.lstChat = action.payload;
+            }
+        );
+        builder.addCase(roomAPI.getListChat().rejected, (state) => {});
+
+        builder.addCase(
+            roomAPI.getListFile().fulfilled,
+            (state: StateType, action) => {
+                state.lstFile = action.payload;
+            }
+        );
+        builder.addCase(roomAPI.getListFile().rejected, (state) => {});
+
+        builder.addCase(
+            roomAPI.getListPic().fulfilled,
+            (state: StateType, action) => {
+                state.lstPic = action.payload;
+            }
+        );
+        builder.addCase(roomAPI.getListPic().rejected, (state) => {});
+    },
+});

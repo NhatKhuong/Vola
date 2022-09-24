@@ -13,9 +13,11 @@ function FriendList() {
             <MesageItem
                 avatar={e.avatar}
                 name={e.name}
-                message={e.message[0]?.content}
+                messages={e.messages[0]?.content}
                 time={e.createdAt+""}
                 info={false}
+                _id = {e._id}
+                
             />
         );
     });

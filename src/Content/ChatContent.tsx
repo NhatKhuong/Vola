@@ -13,6 +13,7 @@ import ItemMessage from "./ItemMessage";
 import { inflate } from "zlib";
 import { useDispatch } from "react-redux";
 import { oppenModal } from "../redux/statusCommon/slice";
+import { useAppSelector, useAppDispatch } from "../redux/hook";
 
 interface Props {
     showMenuChat: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,6 +22,10 @@ interface Props {
 function ChatContent(prop: Props) {
     const dispatch = useDispatch();
     const [value, setValue] = useState("");
+    const roomState = useAppSelector((state:any)=>state.room);
+    const userState = useAppSelector((state:any)=>state.user);
+    console.log(roomState);
+    
 
     useEffect(() => {
         const picker = new EmojiButton();
@@ -41,12 +46,12 @@ function ChatContent(prop: Props) {
             <div className={style.chatContentHeader}>
                 <div className={style.chatContentHeader_left}>
                     <img
-                        src="https://i.pinimg.com/564x/7b/9e/5d/7b9e5d1749841f8fe18d9885eaa622b0.jpg"
+                        src={roomState.lstChat[0]?.user.avatar}
                         alt=""
                     />
                     <div className={style.chatContentHeader_info}>
                         <div className={style.chatContentHeader_info_name}>
-                            IUH Group
+                            {roomState.lstChat[0]?.user.name}
                         </div>
                         <div className={style.chatContentHeader_info_menber}>
                             <AiOutlineUser />
@@ -81,14 +86,28 @@ function ChatContent(prop: Props) {
                 </div>
             </div>
             <div className={style.chatContentWindow}>
-                <ItemMessage isMyMessage={false} />
+               {
+               roomState.lstChat.map((e:any)=>{
+                const isMyMessage = e.user._id === userState.user._id ? true : false;
+                    return (
+                        <ItemMessage 
+                            isMyMessage= {isMyMessage} 
+                            avatar={e.user.avatar}
+                            name={e.user.name}
+                            time={e.createdAt}
+                            message={e.content}
+                        />
+                    )
+                })
+            }
+                {/* <ItemMessage isMyMessage={false} />
                 <ItemMessage isMyMessage={true} />
                 <ItemMessage isMyMessage={false} />
                 <ItemMessage isMyMessage={true} />
                 <ItemMessage isMyMessage={true} />
                 <ItemMessage isMyMessage={true} />
                 <ItemMessage isMyMessage={true} />
-                <ItemMessage isMyMessage={true} />
+                <ItemMessage isMyMessage={true} /> */}
             </div>
             <div className={style.chatContentTool}>
                 <div
