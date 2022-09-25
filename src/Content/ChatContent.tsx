@@ -96,6 +96,7 @@ function ChatContent(prop: Props) {
                             name={e.user.name}
                             time={e.createdAt}
                             message={e.content}
+                            type={e.type}
                         />
                     )
                 })
