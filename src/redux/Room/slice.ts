@@ -47,7 +47,7 @@ export const roomSlice = createSlice({
     name: "room",
     initialState,
     reducers: {
-        //
+        
     },
     extraReducers: (builder) => {
         builder.addCase(
@@ -73,5 +73,13 @@ export const roomSlice = createSlice({
             }
         );
         builder.addCase(roomAPI.getListPic().rejected, (state) => {});
+
+        builder.addCase(
+            roomAPI.updateListChat().fulfilled,
+            (state: StateType, action) => {
+                state.lstChat?.push(action.payload)
+            }
+        );
+        builder.addCase(roomAPI.updateListChat().rejected, (state) => {});
     },
 });

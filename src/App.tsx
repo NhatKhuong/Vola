@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import ControlBar from "./ControlBar/ControlBar";
@@ -10,17 +10,70 @@ import Register from "./Account/Register/Register";
 import { useAppDispatch, useAppSelector } from "./redux/hook";
 // import tokenService from "./services/token.service";
 import userAPI from "./redux/user/userAPI";
+// import io from "socket.io-client";
+import io from 'socket.io-client';
+import roomAPI from "./redux/Room/roomAPI";
 
+
+const socket = io();
 function App() {
-    const userState = useAppSelector((state:any) => state.user);
+    const [isConnected, setIsConnected] = useState(socket.connected);
+    const [lastPong, setLastPong] = useState(null);
+    const userState = useAppSelector((state: any) => state.user);
     const dispatch = useAppDispatch();
+    // const token = userState.accessToken;
+    // console.log({ token });
 
-    // useEffect(() => {
-    //     if (tokenService.getRefreshToken() && userState.user.userName === "") {
-    //         dispatch(userAPI.getUserInfo()());
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [userState]);
+    // const socket = io("http://localhost:5000", {
+    //     query: {
+    //         token: token,
+    //     },
+    // });
+
+    // const [reciveMessage, setReciveMessage] = useState(null);
+    useEffect(() => {
+        // // socket.on("server-send-message", (data) => {
+        // //     dispatch(roomAPI.updateListChat()(data));
+        // // });
+        // socket.on('connect', () => {
+        // //   setIsConnected(true);
+        //     console.log("connect");
+            
+        // });
+    
+        // socket.on('disconnect', () => {
+        // //   setIsConnected(false);
+        //     console.log("disconnect");
+            
+        // });
+      
+        // return () => {
+        //   socket.off('connect');
+        //   socket.off('disconnect');
+        //   socket.off('pong');
+        // };
+        // socket.on('connect', () => {
+        //     setIsConnected(true);
+        //     console.log("connect");
+            
+        //   });
+      
+        //   socket.on('disconnect', () => {
+        //     setIsConnected(false);
+        //     console.log("disconnect");
+            
+        //   });
+      
+        //   socket.on('pong', () => {
+        //     // setLastPong(new Date().toString());
+        //   });
+      
+        //   return () => {
+        //     socket.off('connect');
+        //     socket.off('disconnect');
+        //     socket.off('pong');
+        //   };
+    }, []);
 
     return (
         <div className="App">

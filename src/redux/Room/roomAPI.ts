@@ -26,6 +26,18 @@ class RoomAPI{
             return thunkAPI.rejectWithValue("login_fail")
         });
     }
+    updateListChat(){
+        return createAsyncThunk("room/update-list-chat", async (data: any, thunkAPI) => {
+            console.log(data);
+            
+            // const {accessToken,_id} = data;
+            // const result:any = await businessService.getListChat(accessToken,_id);
+            // if(result.status === 200) return result.data
+            // return thunkAPI.rejectWithValue("login_fail")
+            return data;
+
+        });
+    }
 }
 
 export default new RoomAPI()
