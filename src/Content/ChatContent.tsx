@@ -14,6 +14,7 @@ import { inflate } from "zlib";
 import { useDispatch } from "react-redux";
 import { oppenModal } from "../redux/statusCommon/slice";
 import { useAppSelector, useAppDispatch } from "../redux/hook";
+import { sendMessageSocket } from "../App";
 
 interface Props {
     showMenuChat: React.Dispatch<React.SetStateAction<boolean>>;
@@ -40,6 +41,10 @@ function ChatContent(prop: Props) {
             picker.togglePicker(trigger as any)
         );
     }, []);
+
+    // sendMessageSocket
+
+
 
     return (
         <div className={style.chatContent}>
@@ -135,6 +140,15 @@ function ChatContent(prop: Props) {
                         value={value}
                         onChange={(e) => {
                             setValue(e.target.value);
+                        }}
+                        onKeyUp={(e)=>{
+                            console.log("chat=====================================");
+                            if(e.key==="Enter"){
+                                console.log(value);
+                                
+                                sendMessageSocket(roomState._id,value,"text",userState.accessToken)
+                                console.log("nhan enter");                               
+                            }                         
                         }}
                     />
                 </div>

@@ -35,12 +35,16 @@ interface StateType {
     lstChat?: chatItem[];
     lstFile?: fileItem[];
     lstPic?: picItem[];
+    _id?: string;
+    messageSent?: string;
 }
 
 const initialState = {
     lstChat: [],
     lstFile: [],
     lstPic: [],
+    _id: "",
+    messageSent:"",
 } as StateType;
 
 export const roomSlice = createSlice({
@@ -77,9 +81,27 @@ export const roomSlice = createSlice({
         builder.addCase(
             roomAPI.updateListChat().fulfilled,
             (state: StateType, action) => {
-                state.lstChat?.push(action.payload)
+                console.log(action.payload);
+                
+                state.lstChat?.push(action.payload.massage)
             }
         );
         builder.addCase(roomAPI.updateListChat().rejected, (state) => {});
-    },
+
+        builder.addCase(
+            roomAPI.saveRoomId().fulfilled,
+            (state: StateType, action) => {
+                state._id = action.payload
+            }
+        );
+        builder.addCase(roomAPI.saveRoomId().rejected, (state) => {});
+
+        // builder.addCase(
+        //     roomAPI.saveSentMessageContainer().fulfilled,
+        //     (state: StateType, action) => {
+        //         state.messageSent = action.payload
+        //     }
+        // );
+        // builder.addCase(roomAPI.saveSentMessageContainer().rejected, (state) => {});
+    }
 });
