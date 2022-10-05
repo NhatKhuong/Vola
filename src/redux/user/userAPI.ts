@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "../../services/auth.service";
-import { useAppSelector, useAppDispatch } from "../hook";
 
 class UserAPI {
         login() {
