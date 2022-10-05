@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "../../services/auth.service";
+import { useAppSelector, useAppDispatch } from "../hook";
 
 class UserAPI {
         login() {
@@ -32,6 +33,22 @@ class UserAPI {
                 // return thunkAPI.rejectWithValue("get_info_fail");
             }
         );
+    }
+
+    updateListChatForUserNoOnScreen(){
+        return createAsyncThunk("room/update-list-chat-for-userNoOnScreen", async (data: any, thunkAPI) => {
+            console.log(data);
+            // const rooms = useAppSelector((state: any) => state.user).rooms;
+            // const roomId = useAppSelector((state: any) => state.room)._id;
+            // console.log(rooms);
+            // console.log(roomId);
+            // const {accessToken,_id} = data;
+            // const result:any = await businessService.getListChat(accessToken,_id);
+            // if(result.status === 200) return result.data
+            // return thunkAPI.rejectWithValue("login_fail")
+            return data;
+
+        });
     }
 }
 

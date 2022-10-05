@@ -46,7 +46,6 @@ const Login = (): JSX.Element => {
                 .then((user: any) => {
                     navigate("/");
                     var accessToken = "Bear " + user.user.accessToken;
-                    console.log(user);
                     dispatch(userAPI.login()(accessToken ));
                 })
                 .catch((err) => {

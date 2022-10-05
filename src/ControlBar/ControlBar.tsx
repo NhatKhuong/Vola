@@ -8,8 +8,6 @@ import { useAppSelector } from "../redux/hook";
 
 const ControlBar = () => {
     const userState = useAppSelector((state: any) => state.user);
-    console.log(userState);
-
     return (
         <div className={style.controlbar}>
             <div className={style.control_top}>

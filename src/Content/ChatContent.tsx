@@ -24,10 +24,7 @@ function ChatContent(prop: Props) {
     const dispatch = useDispatch();
     const [value, setValue] = useState("");
     const roomState = useAppSelector((state:any)=>state.room);
-    const userState = useAppSelector((state:any)=>state.user);
-    console.log(roomState);
-    
-
+    const userState = useAppSelector((state:any)=>state.user);    
     useEffect(() => {
         const picker = new EmojiButton();
         const trigger = document.querySelector("#emoji-trigger");
@@ -92,6 +89,7 @@ function ChatContent(prop: Props) {
             </div>
             <div className={style.chatContentWindow}>
                {
+                
                roomState.lstChat.map((e:any)=>{
                 const isMyMessage = e.user._id === userState.user._id ? true : false;
                     return (
