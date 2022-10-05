@@ -17,10 +17,10 @@ import { useSocket } from "./common/configSocket";
 
 let socket: Socket;
 export const sendMessageSocket = (
-    roomId: any,
-    content: any,
-    type: any,
-    token: any
+  roomId: any,
+  content: any,
+  type: any,
+  token: any
 ) => {
     socket.emit("client-send-message", { token, roomId, content, type });
 };
@@ -61,7 +61,7 @@ function App() {
         console.log("====ngaoi===",roomId);
 
         if(roomId.current === data.roomId){
-            dispatch(roomAPI.updateListChat()({data,roomId,rooms}));
+            dispatch(roomAPI.updateListChat()(data));
         } else{
           console.log("khac");
           

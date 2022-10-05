@@ -83,7 +83,7 @@ export const roomSlice = createSlice({
             (state: StateType, action) => {
                 console.log(action.payload);
                 
-                state.lstChat?.push(action.payload.data.message)
+                state.lstChat?.push(action.payload.message)
             }
         );
         builder.addCase(roomAPI.updateListChat().rejected, (state) => {});
