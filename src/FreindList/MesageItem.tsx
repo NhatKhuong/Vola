@@ -1,36 +1,64 @@
 import React from "react";
 import style from "./FreindList.module.css";
 import { FiMoreHorizontal } from "react-icons/fi";
+// import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import roomAPI from "../redux/Room/roomAPI";
 interface Props {
-    avatar: string;
-    name: string;
-    message?: string;
-    time?: Date;
-    info:boolean;
+    avatar?: string;
+    name?: string;
+    messages?: string;
+    time?: string;
+    info: boolean;
+    _id?: string;
 }
-function MesageItem({ avatar, name, message, time,info }: Props) {
+function MesageItem({ avatar, name, messages, time, info, _id }: Props) {
+    const dispatch = useAppDispatch();
+    const roomState = useAppSelector((state: any) => state.room);
+    const userState = useAppSelector((state: any) => state.user);
+    const accessToken = userState.accessToken;
+    const showRoom = () => {
+        dispatch(roomAPI.getListChat()({ accessToken, _id }));
+        dispatch(roomAPI.saveRoomId()(_id))
+        // dispatch(roomAPI.getListFile()())
+        // dispatch(roomAPI.getListPic()())
+    };
+
     return (
-        <div className={style.messageItem}>
+        <div className={style.messageItem} onClick={showRoom}>
             <div className={style.messageInfo}>
                 <div className={style.messageInfo_avata}>
                     <img src={avatar} alt="" />
                 </div>
                 <div className={style.messageInfo_description}>
-                    <div className={style.messageInfo_description_name} style={info ? {height:"100%",lineHeight:"40px"}: {}}>
+                    <div
+                        className={style.messageInfo_description_name}
+                        style={
+                            info ? { height: "100%", lineHeight: "40px" } : {}
+                        }
+                    >
                         {name}
-                    </div> 
-                    {(!info) && <div className={style.messageInfo_description_inner}>{message}</div>}  
+                    </div>
+                    {!info && (
+                        <div className={style.messageInfo_description_inner}>
+                            {messages}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className={style.message_time}>
-                {info ? <input type={"checkbox"}></input> 
-                :
-                <div className="">        
-                    <div className={style.message_time_time}>{} Giờ</div>
-                    <div className={style.message_time_more}>
-                        <FiMoreHorizontal />
+                {info ? (
+                    <input type={"checkbox"}></input>
+                ) : (
+                    <div className="">
+                        <div className={style.message_time_time}>
+                            {time} Giờ
+                        </div>
+                        <div className={style.message_time_more}>
+                            <FiMoreHorizontal />
+                        </div>
                     </div>
-                </div>}
+                )}
             </div>
         </div>
     );

@@ -7,15 +7,18 @@ import Input from "../Input/Input";
 import { isAllowSubmit } from "../Input/validate";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import authService from "../../services/auth.service";
+// import authService from "../../services/auth.service";
+import { singUpWithEmailAndPassword } from "../../until/firebase/firebaseAuth";
 
 const cls = classNames.bind(style);
 
 const Register = (): JSX.Element => {
     const [showPassword, setShowPassword] = useState("password");
+    const [showcomfpassword, setShowcomfpassword] = useState("password");
     const [avatar, setAvatar] = useState<File | null>(null);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [comfpassword, setComfpassword] = useState("");
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
 
@@ -36,26 +39,27 @@ const Register = (): JSX.Element => {
             return false;
         }
 
-        const formData = new FormData();
-        formData.append("userName", username);
-        formData.append("password", password);
-        formData.append("email", email);
-        formData.append("fullName", fullName);
-        if (avatar) formData.append("avatar", avatar as File, avatar?.name);
-        try {
-            await authService.register(formData);
-            navigate("/login");
-        } catch (error) {
-            toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
+        // const formData = new FormData();
+        // formData.append("userName", username);
+        // formData.append("password", password);
+        // formData.append("email", email);
+        // formData.append("fullName", fullName);
+        // if (avatar) formData.append("avatar", avatar as File, avatar?.name);
+        singUpWithEmailAndPassword(email, password)
+            .then((user) => {
+                navigate("/login");
+            })
+            .catch((error: any) => {
+                toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             });
-        }
     };
 
     return (
@@ -97,7 +101,7 @@ const Register = (): JSX.Element => {
                             }}
                         />
                     </div>
-                    <div className={cls("form_group")}>
+                    {/* <div className={cls("form_group")}>
                         <label htmlFor="">Tài khoản</label>
                         <Input
                             type="text"
@@ -108,6 +112,17 @@ const Register = (): JSX.Element => {
                             onChange={(e: any) => {
                                 setUsername(e.target.value);
                             }}
+                        />
+                    </div> */}
+                    <div className={cls("form_group")}>
+                        <label htmlFor="">Email</label>
+                        <Input
+                            type="text"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            id="email"
+                            rule="required|email"
                         />
                     </div>
                     <div className={cls("form_password")}>
@@ -135,6 +150,33 @@ const Register = (): JSX.Element => {
                             )}
                         </div>
                     </div>
+                    <div className={cls("form_password")}>
+                        <label htmlFor="">Xác nhận mật khẩu</label>
+                        <div>
+                            <Input
+                                type={showcomfpassword}
+                                name="comfpassword"
+                                value={comfpassword}
+                                onChange={(e: any) =>
+                                    setComfpassword(e.target.value)
+                                }
+                                rule="required"
+                                id="comfpassword"
+                            />
+
+                            {showcomfpassword === "password" ? (
+                                <AiFillEye
+                                    onClick={() => setShowcomfpassword("text")}
+                                />
+                            ) : (
+                                <AiFillEyeInvisible
+                                    onClick={() =>
+                                        setShowcomfpassword("password")
+                                    }
+                                />
+                            )}
+                        </div>
+                    </div>
                     <div className={cls("form_group")}>
                         <label htmlFor="">Họ tên</label>
                         <Input
@@ -144,17 +186,6 @@ const Register = (): JSX.Element => {
                             onChange={(e) => setFullName(e.target.value)}
                             id="fullName"
                             rule="required"
-                        />
-                    </div>
-                    <div className={cls("form_group")}>
-                        <label htmlFor="">Email</label>
-                        <Input
-                            type="text"
-                            name="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            id="email"
-                            rule="required|email"
                         />
                     </div>
                     <button type="submit">Đăng ký</button>

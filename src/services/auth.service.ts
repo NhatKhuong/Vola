@@ -1,50 +1,17 @@
-import { axiosNotAuth, axiosAuth } from "../services/axiosConfig";
-import tokenService from "./token.service";
-
+import axios from "axios";
 class AuthService {
-    login(userName: string, password: string) {
-        return axiosNotAuth({
-            url: "/user/login",
-            method: "post",
-            data: {
-                userName,
-                password,
-            },
-        });
-    }
-    getUserInfo() {
-        return axiosAuth({
-            url: "/user/get-user-info/",
-            method: "get",
-        });
-    }
-    register(data: FormData) {
-        return axiosNotAuth({
-            url: "/user/register/",
-            method: "post",
-            data,
-        });
-    }
-    getRetPasswordToken(email: string) {
-        // send mail
-        return axiosNotAuth({
-            url: "/user/send-mail-password/",
-            method: "post",
-            data: {
-                email,
-            },
-        });
-    }
-    handleResetPassword(data: {
-        toke: string;
-        uidb64: string;
-        password: string;
-    }) {
-        return axiosNotAuth({
-            url: "/user/reset-password/",
-            method: "post",
-            data: { ...data },
-        });
+    serverUrl = process.env.SERVER_APP_URL || "http:localhost:5000/api";
+
+    async login(accessToken: string) {
+        try {
+            
+            var user = await axios.get(`http://localhost:5000/api/users/profile`, {
+                headers: { authorization: accessToken as string },
+            });
+            return user;
+        } catch (e) {
+            
+        }
     }
 }
 

@@ -1,6 +1,8 @@
 import React from "react";
 import style from './ItemFileLink.module.css'
 import {RiShareForwardLine} from "react-icons/ri"
+import { useDispatch } from "react-redux";
+import { oppenModal } from "../redux/statusCommon/slice";
 
 interface Props{
   avatar:string,
@@ -11,6 +13,7 @@ interface Props{
 }
 
 function ItemFileLink(props:Props) {
+  const dispatch = useDispatch();
     return (
         <div>
             <div className={style.file}>
@@ -30,7 +33,7 @@ function ItemFileLink(props:Props) {
               </div>
               <div className={style.time_block}>
                 <div className={style.share_icon}>
-                  <RiShareForwardLine />
+                  <RiShareForwardLine onClick={()=>dispatch(oppenModal())}/>
                 </div>
                 <div className={style.date}>{props.time?.toDateString()}</div>
               </div>

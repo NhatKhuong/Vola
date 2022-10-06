@@ -179,6 +179,7 @@ iframe {
   background-position: center;
   background-size: cover;
   background-image: url('https://static.vecteezy.com/system/resources/previews/001/987/747/original/abstract-white-and-blue-gradient-triangles-overlapping-background-free-vector.jpg');
+
 }
 
 .wrap-login100 {
@@ -187,6 +188,7 @@ iframe {
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
+
 }
 
 /*------------------------------------------------------------------
@@ -216,6 +218,7 @@ iframe {
 .message_login {
   color: red;
   font-size: 13px;
+  position: relative;
 }
 
 /*------------------------------------------------------------------

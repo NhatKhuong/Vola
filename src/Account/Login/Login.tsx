@@ -1,7 +1,6 @@
 import { useState, FormEvent, useEffect,} from "react";
 import style from "./Login.module.scss";
 
-import "./images/icons/favicon.ico";
 import "./vendor/bootstrap/css/bootstrap.min.css";
 import "./fonts/font-awesome-4.7.0/css/font-awesome.min.css";
 import "./fonts/iconic/css/material-design-iconic-font.min.css";
@@ -168,7 +167,8 @@ const Login = (): JSX.Element => {
         <div className="limiter">
 		<div className="container-login100">
 			<div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-				<form className="login100-form validate-form" onSubmit={handleLogin} id="form_login">
+           
+				<form className="login100-form validate-form" action="" onSubmit={handleLogin} id="form_login">
 					<span className="login100-form-title p-b-49">
 						Zalo
 					</span>
@@ -177,7 +177,7 @@ const Login = (): JSX.Element => {
                         Đăng nhập tài khoản Zalo
                         để kết nối với ứng dụng Zalo Web
 					</span>
-                    <div id="message_login" className={cls("message_login")}></div>
+                    
 					<div className="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
 						<span className="label-input100">Username</span>
 						<Input
@@ -204,6 +204,7 @@ const Login = (): JSX.Element => {
 					</div>
 					
 					<div className="text-right p-t-8 p-b-31" >
+                    <div id="message_login" className="message_login"></div>
                         <Link
                         to="/forgot-password"
                         className={cls("forgot_password")}
@@ -242,13 +243,9 @@ const Login = (): JSX.Element => {
 					</div>
 
 					<div className="flex-col-c p-t-155">
-						<span className="txt1 p-b-17">
-							Or Sign Up Using
-						</span>
-
 						<div>
-                     <Link to="/register">Sign Up</Link>
-                    </div>
+                            <Link to="/register">Sign Up</Link>
+                        </div>
 					</div>
 				</form>
 			</div>

@@ -4,13 +4,16 @@ import Form from "react-bootstrap/Form";
 import style from "./FreindList.module.css";
 import { IoSearchOutline } from "react-icons/io5";
 import { BiUserPlus } from "react-icons/bi";
-import { AiOutlineUsergroupAdd, } from "react-icons/ai";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { FiMoreHorizontal } from "react-icons/fi";
-import {IoMdClose} from "react-icons/io"
+import { IoMdClose } from "react-icons/io";
 import ReactModal from "react-modal";
 import MesageItem from "./MesageItem";
-import {HiOutlineCamera} from "react-icons/hi"
-import {FiSearch} from "react-icons/fi"
+import { HiOutlineCamera } from "react-icons/hi";
+import { FiSearch } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { oppenModal } from "../redux/statusCommon/slice";
+import ModalCreateGroup from "../common/ModalCreateGroup";
 const customStyles = {
     content: {
         top: "50%",
@@ -20,19 +23,20 @@ const customStyles = {
         marginRight: "-50%",
         transform: "translate(-50%, -50%)",
         width: "450px",
-        height: "95vh"
+        height: "95vh",
     },
 };
 
 function Search() {
-    const [modalIsOpen, setIsOpen] = useState(false);
-    function openModal() {
-        setIsOpen(true);
-    }
+    const dispatch = useDispatch();
+    // const [modalIsOpen, setIsOpen] = useState(false);
+    // function openModal() {
+    //     setIsOpen(true);
+    // }
 
-    function closeModal() {
-        setIsOpen(false);
-    }
+    // function closeModal() {
+    //     setIsOpen(false);
+    // }
 
     return (
         <div className={style.searchTag}>
@@ -46,15 +50,18 @@ function Search() {
                         <BiUserPlus />
                     </div>
                     <div className={style.search_icon_item}>
-                        <AiOutlineUsergroupAdd onClick={openModal}/>
-                        <ReactModal style={customStyles} isOpen={modalIsOpen} onRequestClose={closeModal}>
+                        <AiOutlineUsergroupAdd
+                            onClick={() => dispatch(oppenModal())}
+                        />
+                        <ModalCreateGroup isShare={true} />
+                        {/* <ReactModal style={customStyles} isOpen={modalIsOpen} onRequestClose={closeModal}>
                             <div className={style.Modal_createGroup}>
                                 <div className={style.Modal_createGroup_head}>
                                     <div className={style.Modal_createGroup_head_title}>Tạo nhóm</div>
                                     <div className={style.Modal_createGroup_head_close}>
                                         <IoMdClose onClick={closeModal}/>
                                     </div>
-                                </div>
+                                  </div>
 
                                 <div className={style.Modal_createGroup_name_group}>
                                     <div className={style.Modal_createGroup_name_group_iconBlock}>
@@ -122,7 +129,7 @@ function Search() {
                                     <button className={style.btn_modal_create}>Tạo nhóm</button>
                                 </div>
                             </div>
-                        </ReactModal>
+                        </ReactModal> */}
                     </div>
                 </div>
             </div>
