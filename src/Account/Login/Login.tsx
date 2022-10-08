@@ -43,10 +43,10 @@ const Login = (): JSX.Element => {
             return false;
         } else {
             loginWithEmailAndPassword(username, password)
-                .then((user: any) => {
+                .then((result: any) => {
                     navigate("/");
-                    var accessToken = "Bear " + user.user.accessToken;
-                    dispatch(userAPI.login()(accessToken ));
+                    var accessToken = "Bearer " + result.user.accessToken;
+                    dispatch(userAPI.getUserInfo()(accessToken ));
                 })
                 .catch((err) => {
                     toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
@@ -70,7 +70,7 @@ const Login = (): JSX.Element => {
                     console.log(user);
                     console.log(accessToken);
 
-                    dispatch(userAPI.login()(accessToken));
+                    dispatch(userAPI.getUserInfo()(accessToken));
                 })
                 .catch((err) => {
                     toast.error("Có lỗi xảy ra vui lòng thử lại sau", {

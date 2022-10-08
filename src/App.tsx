@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef  } from "react";
+import { useEffect, useState, useRef } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import ControlBar from "./ControlBar/ControlBar";
@@ -14,76 +14,95 @@ import userAPI from "./redux/user/userAPI";
 import io, { Socket } from "socket.io-client";
 import roomAPI from "./redux/Room/roomAPI";
 import { useSocket } from "./common/configSocket";
+import tokenService from "./services/token.service";
 
-let socket: Socket;
-export const sendMessageSocket = (
-  roomId: any,
-  content: any,
-  type: any,
-  token: any
-) => {
-    socket.emit("client-send-message", { token, roomId, content, type });
-};
 function App() {
     const userState = useAppSelector((state: any) => state.user);
     const roomState = useAppSelector((state: any) => state.room);
+    const [socket, setSocket] = useState<Socket | null>(null);
+    console.log(socket);
+
     const rooms = userState.rooms;
-    // const [roomId, setRoomId] = useState(roomState._id)
+    console.log(rooms);
+    
     const dispatch = useAppDispatch();
-    const token = userState.accessToken;
-    console.log({ token });
-    // const roomId = roomState._id;
-    // console.log(roomId);
-    // console.log("1");
-    // console.log(roomState);
+    // const token = userState.accessToken;
+    const token = tokenService.getAccessToken();
     const roomId = useRef(roomState._id);
     console.log(roomId);
-    useEffect(() => {    roomId.current = roomState._id; });
+    useEffect(() => {
+        roomId.current = roomState._id;
+    });
+    const message = useRef(roomState.messageSent);
+    useEffect(() => {
+        message.current = roomState.messageSent;
+    });
+    console.log(message);
+    useEffect(() => {
+      if(userState.is_login){
+        dispatch(userAPI.getUserInfo()(tokenService.getAccessToken()))
+
+      }
+    
+    }, [])
     
 
     useEffect(() => {
-      console.log("2");
-      
-        const socket = io("http://localhost:5000", {
-          query: {
-            token: token,
-          },
+      if(socket !== null){
+        socket.disconnect();
+      }
+        const newSocket = io("http://localhost:5000", {
+            query: {
+                token: tokenService.getAccessToken(),
+            },
         });
-        socket?.on("server-send-message", function (data) {
-          console.log(data.roomId);
-          // console.log("=======",roomId);
-          console.log("====trong=====================================",roomId);
-          console.log(roomState);
-          
-          if(roomState._id === data.roomId){
-              
-        }
-        console.log("====ngaoi===",roomId);
+        setSocket(newSocket)
+        // socket.emit("client-send-message", { token, roomId:roomId.current, content:message, type:"text"});
+        newSocket?.on("server-send-message", function (data: any) {
+            console.log(data.roomId);
+            // console.log("=======",roomId);
+            console.log(
+                "====trong=====================================",
+                roomId
+            );
+            console.log(roomState);
 
-        if(roomId.current === data.roomId){
-            dispatch(roomAPI.updateListChat()(data));
-        } else{
-          console.log("khac");
-          
-            dispatch(userAPI.updateListChatForUserNoOnScreen()({data,roomId:roomId.current,rooms}))
-          }
+            if (roomState._id === data.roomId) {
+            }
+            console.log("====ngaoi===", roomId);
+
+            if (roomId.current === data.roomId) {
+                dispatch(roomAPI.updateListChat()(data));
+            } else {
+                console.log("khac");
+
+                dispatch(
+                    userAPI.updateListChatForUserNoOnScreen()({
+                        data,
+                        roomId: roomId.current,
+                        rooms,
+                    })
+                );
+            }
         });
-        socket?.on("connect", () => {
-          //   setIsConnected(true);
-          console.log("connecting");
+        newSocket?.on("connect", () => {
+            //   setIsConnected(true);
+            console.log("connecting");
+            setSocket(newSocket);
         });
-        socket?.on("disconnect", () => {
-          //   setIsConnected(false);
-          console.log("disconnect");
+        newSocket?.on("disconnect", () => {
+            //   setIsConnected(false);
+            console.log("disconnect");
         });
         return () => {
-          socket?.off("connect");
-          socket?.off("disconnect");
-          socket?.off("server-send-message");
+            socket?.off("connect");
+            socket?.off("disconnect");
+            socket?.off("server-send-message");
         };
-      }, [token]);
+    }, [token,userState]);
 
-      console.log(roomState);
+    console.log(roomState);
+    console.log(socket);
 
     return (
         <div className="App">
@@ -94,7 +113,7 @@ function App() {
                         <>
                             <ControlBar />
                             <FriendTag />
-                            <Content />
+                            <Content socket={socket} />
                         </>
                     }
                 />

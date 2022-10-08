@@ -56,12 +56,8 @@ class RoomAPI {
             
         });
     }
-  
-
-  saveSentMessageContainer() {
-    return createAsyncThunk(
-      "room/save-room-id",
-      async (data: any, thunkAPI) => {
+  updateSentMessage() {
+    return createAsyncThunk("room/update-send-message",async (data: any, thunkAPI) => {
         console.log(data);
         return data;
       }

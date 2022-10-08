@@ -99,12 +99,12 @@ export const roomSlice = createSlice({
         );
         builder.addCase(roomAPI.saveRoomId().rejected, (state) => {});
 
-        // builder.addCase(
-        //     roomAPI.saveSentMessageContainer().fulfilled,
-        //     (state: StateType, action) => {
-        //         state.messageSent = action.payload
-        //     }
-        // );
-        // builder.addCase(roomAPI.saveSentMessageContainer().rejected, (state) => {});
+        builder.addCase(
+            roomAPI.updateSentMessage().fulfilled,
+            (state: StateType, action) => {
+                state.messageSent = action.payload
+            }
+        );
+        builder.addCase(roomAPI.updateSentMessage().rejected, (state) => {});
     }
 });
