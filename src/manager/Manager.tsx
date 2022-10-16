@@ -4,14 +4,19 @@ import Search from '../FreindList/Search'
 import {AiOutlineUserAdd} from "react-icons/ai"
 import RequestAddFriendItem from './RequestAddFriendItem'
 import GroupItem from './GroupItem'
+import ModalSearch from '../common/ModalSearch'
+import { useAppDispatch, useAppSelector } from '../redux/hook';
+import { oppenModalSearch,closeModalsearch } from "../redux/statusCommon/slice";
+import ModalInfo from '../common/ModalInfo'
 
 function Manager() {
+  const dispatch = useAppDispatch();
   const [isRequestAddFriend, setisRequestAddFriend] = useState(true);
   return (
     <div className={style.container}>
       <div className={style.left}>
         <Search />
-        <div className={style.addFriendByPhhoneNumber}>
+        <div className={style.addFriendByPhhoneNumber} onClick={()=>{dispatch(oppenModalSearch())}}>
           <AiOutlineUserAdd />
           <div style={{fontSize:"14px", marginLeft:"10px"}}>Thêm bạn bằng số điện thoại</div>
         </div>
@@ -71,6 +76,8 @@ function Manager() {
         </div>)
         }
       </div>
+      <ModalSearch />
+      <ModalInfo />
     </div>
   )
 }
