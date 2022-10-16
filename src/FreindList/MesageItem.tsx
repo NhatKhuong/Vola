@@ -45,6 +45,7 @@ function MesageItem({ avatar, name, messages, time, info, _id }: Props) {
                         </div>
                     )}
                 </div>
+
             </div>
             <div className={style.message_time}>
                 {info ? (
@@ -52,10 +53,10 @@ function MesageItem({ avatar, name, messages, time, info, _id }: Props) {
                 ) : (
                     <div className="">
                         <div className={style.message_time_time}>
-                            {time} Giờ
+                            {time}
                         </div>
                         <div className={style.message_time_more}>
-                            <FiMoreHorizontal />
+                            {/* <FiMoreHorizontal /> */}
                         </div>
                     </div>
                 )}

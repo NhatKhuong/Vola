@@ -61,7 +61,12 @@ export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        //
+        logout: (state) => {
+            // state = initialState;
+            // state.is_login = false;
+            // state.accessToken = "";
+            return { ...initialState, is_login: false, accessToken: "" };
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(
@@ -73,7 +78,7 @@ export const userSlice = createSlice({
                 state.is_login = true;
                 state.user = action.payload.user;
                 state.rooms = action.payload.rooms;
-                state.accessToken = action.payload.accessToken;                
+                state.accessToken = action.payload.accessToken;
             }
         );
         builder.addCase(userAPI.getUserInfo().rejected, (state) => {
@@ -88,22 +93,23 @@ export const userSlice = createSlice({
                 console.log(state.rooms[0].messages[0].content);
                 console.log(action.payload.data.message.content);
                 console.log(action.payload.rooms);
-                
+
                 // const rooms = useAppSelector((state: any) => state.user).rooms;
                 // const roomId = useAppSelector((state: any) => state.room)._id;
                 // console.log(rooms);
                 // console.log(roomId);
-                for (var i = 0; i <action.payload.rooms.length; i++) {
+                for (var i = 0; i < action.payload.rooms.length; i++) {
                     console.log(action.payload.rooms[i]._id);
                     console.log(action.payload.roomId);
                     console.log("4");
-                    
-                    
-                    
-                    if (action.payload.rooms[i]._id == action.payload.data.roomId) {
+
+                    if (
+                        action.payload.rooms[i]._id ==
+                        action.payload.data.roomId
+                    ) {
                         console.log(state.rooms[i].messages[0].content);
                         console.log(action.payload.data.message.content);
-                        
+
                         state.rooms[i].messages[0].content =
                             action.payload.data.message.content;
                     }
@@ -116,3 +122,5 @@ export const userSlice = createSlice({
         );
     },
 });
+
+export const { logout } = userSlice.actions;

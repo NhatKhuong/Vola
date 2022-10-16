@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "./Content.module.css";
 import { AiOutlineUser } from "react-icons/ai";
-import { AiOutlineUsergroupAdd } from "react-icons/ai";
+import { AiOutlineUsergroupAdd,AiOutlinePicture } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsCameraVideo } from "react-icons/bs";
 import { MdOutlineTableRows } from "react-icons/md";
@@ -16,6 +16,7 @@ import { oppenModal } from "../redux/statusCommon/slice";
 import { useAppSelector, useAppDispatch } from "../redux/hook";
 import roomAPI from "../redux/Room/roomAPI";
 import io, { Socket } from "socket.io-client";
+import {IoDocumentAttachOutline} from "react-icons/io5"
 
 interface Props {
     showMenuChat: React.Dispatch<React.SetStateAction<boolean>>;
@@ -58,6 +59,21 @@ function ChatContent(prop: Props) {
         );
     }, []);
 
+    const call = () => {
+        const roomID = roomState._id;
+
+        window.open(
+            "/voice-chat/" +
+                roomID +
+                "/" +
+                userState.user._id +
+                "/" +
+                roomState._id,
+            "_blank",
+            "location=yes,height=520,width=450,scrollbars=yes,status=yes"
+        );
+    };
+
     // sendMessageSocket
 
     return (
@@ -91,7 +107,7 @@ function ChatContent(prop: Props) {
                         <AiOutlineSearch />
                     </div>
                     <div className={style.chatContentHeader_right_item}>
-                        <BsCameraVideo />
+                        <BsCameraVideo onClick={call}/>
                     </div>
                     <div
                         className={style.chatContentHeader_right_item}
@@ -131,21 +147,16 @@ function ChatContent(prop: Props) {
                     data-tip="hello world"
                     className={style.chatContentTool_item}
                 >
-                    <ImFilePicture />
+                    <AiOutlinePicture />
                 </div>
                 <div className={style.chatContentTool_item}>
-                    <ImFilePicture />
+                    <IoDocumentAttachOutline />
                 </div>
-                <div className={style.chatContentTool_item}>
-                    <ImFilePicture />
-                </div>
-                <div className={style.chatContentTool_item}>
-                    <ImFilePicture />
-                </div>
+               
             </div>
             <div className={style.chatContentInput}>
                 <div className={style.chatContentInput_text}>
-                    <input
+                    <input style={{fontSize:"14px"}}
                         type="text"
                         placeholder="Nhập @, tin nhắn tới bạn của bạn"
                         value={value}

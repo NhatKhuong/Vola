@@ -43,7 +43,7 @@ function Search() {
             <div className={style.search}>
                 <div className={style.search_block}>
                     <IoSearchOutline />
-                    <input type="text" placeholder="Tìm kiếm" />
+                    <input style={{width:"100px", fontSize:"14px"}} type="text" placeholder="Tìm kiếm" />
                 </div>
                 <div className={style.search_icon}>
                     <div className={style.search_icon_item}>
@@ -153,7 +153,7 @@ function Search() {
                     </div>
                 </div>
             </div>
-            <hr />
+            <hr style={{margin:0}} />
         </div>
     );
 }
