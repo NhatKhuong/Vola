@@ -1,6 +1,7 @@
+
 import { createSlice } from "@reduxjs/toolkit";
 import userAPI from "./userAPI";
-// import tokenService from "../../services/token.service";
+import tokenService from "../../services/token.service";
 import { useAppSelector, useAppDispatch } from "../hook";
 
 interface User {
@@ -11,7 +12,12 @@ interface User {
     _id: string;
 }
 
+export type Email ={
+    email: string
+    password?: string
+  }
 export interface IRoom {
+    target: any;
     users: IUserRoom[];
     _id?: string;
     name?: string;
@@ -53,22 +59,27 @@ const initialState = {
     },
     rooms: [],
     error: false,
-    is_login: false,
-    accessToken: "",
+    is_login: tokenService.getAccessToken() !== null,
+    accessToken: tokenService.getAccessToken() || "",
 } as StateType;
 
 export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        //
+        logout: (state) => {
+            // state = initialState;
+            // state.is_login = false;
+            // state.accessToken = "";
+            return { ...initialState, is_login: false, accessToken: "" };
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(
-            userAPI.login().fulfilled,
+            userAPI.getUserInfo().fulfilled,
             (state: StateType, action) => {
-                // tokenService.setAccessToken(action.payload.access_token);
-                // tokenService.setRefreshToken(action.payload.refresh_token);
+                tokenService.setAccessToken(action.payload.accessToken);
+                // tokenService.setRefreshToken(action.payload.accessToken);
                 state.error = false;
                 state.is_login = true;
                 state.user = action.payload.user;
@@ -76,19 +87,10 @@ export const userSlice = createSlice({
                 state.accessToken = action.payload.accessToken;
             }
         );
-        builder.addCase(userAPI.login().rejected, (state) => {
+        builder.addCase(userAPI.getUserInfo().rejected, (state) => {
             state.error = true;
             state.is_login = false;
         });
-
-        builder.addCase(
-            userAPI.getUserInfo().fulfilled,
-            (state: StateType, action) => {
-                // state.user = action.payload;
-                state.error = false;
-                state.is_login = true;
-            }
-        );
 
         builder.addCase(
             userAPI.updateListChatForUserNoOnScreen().fulfilled,
@@ -97,23 +99,23 @@ export const userSlice = createSlice({
                 console.log(state.rooms[0].messages[0].content);
                 console.log(action.payload.data.message.content);
                 console.log(action.payload.rooms);
-                
+
                 // const rooms = useAppSelector((state: any) => state.user).rooms;
                 // const roomId = useAppSelector((state: any) => state.room)._id;
                 // console.log(rooms);
                 // console.log(roomId);
-                for (var i = 0; i <action.payload.rooms.length; i++) {
+                for (var i = 0; i < action.payload.rooms.length; i++) {
                     console.log(action.payload.rooms[i]._id);
                     console.log(action.payload.roomId);
                     console.log("4");
-                    
-                    
-                    
-                    if (action.payload.rooms[i]._id == action.payload.data.roomId) {
+
+                    if (
+                        action.payload.rooms[i]._id ==
+                        action.payload.data.roomId
+                    ) {
                         console.log(state.rooms[i].messages[0].content);
                         console.log(action.payload.data.message.content);
-                        
-                        
+
                         state.rooms[i].messages[0].content =
                             action.payload.data.message.content;
                     }
@@ -126,3 +128,12 @@ export const userSlice = createSlice({
         );
     },
 });
+
+export const { logout } = userSlice.actions;
+
+export const getUserByEmail=(Text: string)=> {
+    return{
+        type: 'user/getUserByEmail',
+        payload: Text
+    }
+}

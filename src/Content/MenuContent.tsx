@@ -14,7 +14,7 @@ function MenuContent() {
     return (
         <div className={style.menuContent}>
             <div className={style.menuContent_header}>
-                <h3>Thông tin hội thoại</h3>
+                <h5 style={{textAlign:"center", alignItems:"center", width:"100%", height:"100%",lineHeight:"70px"}}>Thông tin hội thoại</h5>
             </div>
             <div className={style.menuContent_body}>
                 <div className={style.menuContent_header_info}>

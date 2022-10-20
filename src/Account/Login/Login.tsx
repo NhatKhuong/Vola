@@ -1,5 +1,20 @@
-import { useState, FormEvent, useEffect,} from "react";
+import { useState, FormEvent, useEffect } from "react";
 import style from "./Login.module.scss";
+import classNames from "classnames/bind";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Input from "../Input/Input";
+import { isAllowSubmit } from "../Input/validate";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import userAPI from "../../redux/user/userAPI";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import tokenService from "../../services/token.service";
+
+import {
+    loginWithEmailAndPassword,
+    loginWithGoogle,
+} from "../../until/firebase/firebaseAuth";
 
 import "./vendor/bootstrap/css/bootstrap.min.css";
 import "./fonts/font-awesome-4.7.0/css/font-awesome.min.css";
@@ -11,20 +26,6 @@ import "./vendor/select2/select2.min.css";
 import "./vendor/daterangepicker/daterangepicker.css";
 import "./css/main.css";
 import "./css/util.css";
-
-import classNames from "classnames/bind";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import Input from "../Input/Input";
-import { isAllowSubmit } from "../Input/validate";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import userAPI from "../../redux/user/userAPI";
-import { toast} from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import {
-    loginWithEmailAndPassword,
-    loginWithGoogle,
-} from "../../until/firebase/firebaseAuth";
 
 const cls = classNames.bind(style);
 const Login = (): JSX.Element => {
@@ -55,11 +56,10 @@ const Login = (): JSX.Element => {
             return false;
         } else {
             loginWithEmailAndPassword(username, password)
-                .then((user: any) => {
+                .then((result: any) => {
+                    var accessToken = "Bearer " + result.user.accessToken;
+                    dispatch(userAPI.getUserInfo()(accessToken ));
                     navigate("/");
-                    var accessToken = "Bear " + user.user.accessToken;
-                    console.log(user);
-                    dispatch(userAPI.login()(accessToken ));
                 })
                 .catch((err) => {
                     toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
@@ -83,7 +83,7 @@ const Login = (): JSX.Element => {
                     console.log(user);
                     console.log(accessToken);
 
-                    dispatch(userAPI.login()(accessToken));
+                    dispatch(userAPI.getUserInfo()(accessToken));
                 })
                 .catch((err) => {
                     toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
@@ -102,7 +102,7 @@ const Login = (): JSX.Element => {
         // <div className={cls("login_wrapper")}>
         //     <ToastContainer
         //         position="top-center"
-        //         autoClose={5000}
+        //         autoClose={5001}
         //         hideProgressBar={false}
         //         newestOnTop={false}
         //         closeOnClick
@@ -114,12 +114,15 @@ const Login = (): JSX.Element => {
         //     <div className={cls("login")}>
         //         <div className={cls("login_title")}>
         //             <div>Đăng nhập</div>
+        //             <div>
+        //                 <Link to="/register">Đăng ký</Link>
+        //             </div>
         //         </div>
         //         <div id="message_login" className={cls("message_login")}></div>
         //         <form action="" onSubmit={handleLogin} id="form_login">
         //             <div className={cls("form_group")}>
         //                 <label htmlFor="">Tài khoản</label>
-        //                 <Input 
+        //                 <Input
         //                     type="text"
         //                     name="username"
         //                     value={username}
@@ -158,12 +161,8 @@ const Login = (): JSX.Element => {
         //         >
         //             <span></span> Login with Google
         //         </button>
-        //         <div>
-        //             <Link to="/register">Đăng ký</Link>
-        //         </div>
         //     </div>
         // </div>
-
         <div className="limiter">
 		<div className="container-login100">
 			<div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
@@ -188,7 +187,7 @@ const Login = (): JSX.Element => {
                             rule="required"
                             id="username"             
                         />
-						<span className="focus-input100" data-symbol="&#xf206;"></span>
+						{/* <span className="focus-input100" data-symbol="&#xf206;"></span> */}
 					</div>
 
 					<div className="wrap-input100 validate-input" data-validate="Password is required">
@@ -200,7 +199,7 @@ const Login = (): JSX.Element => {
                             rule="required"
                             id="password" 
                             />
-						<span className="focus-input100" data-symbol="&#xf190;"></span>
+						{/* <span className="focus-input100" data-symbol="&#xf190;"></span> */}
 					</div>
 					
 					<div className="text-right p-t-8 p-b-31" >
@@ -251,6 +250,7 @@ const Login = (): JSX.Element => {
 			</div>
 		</div>
 	</div>
+    
     );
 };
 

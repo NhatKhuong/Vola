@@ -8,8 +8,7 @@ function FriendTag() {
   return (
     <div className={style.friednTag}>
         <Search />
-        <FriendList />
-        
+        <FriendList />   
     </div>
   )
 }

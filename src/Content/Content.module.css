@@ -76,6 +76,10 @@
     height: 75vh;
     background-color: rgb(238, 232, 232);
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
 }
 
 .chatContentTool {

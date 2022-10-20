@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import style from "./FreindList.module.css";
@@ -11,9 +11,16 @@ import ReactModal from "react-modal";
 import MesageItem from "./MesageItem";
 import { HiOutlineCamera } from "react-icons/hi";
 import { FiSearch } from "react-icons/fi";
-import { useDispatch } from "react-redux";
-import { oppenModal } from "../redux/statusCommon/slice";
+import { oppenModal,oppenModalSearch,closeModalsearch } from "../redux/statusCommon/slice";
 import ModalCreateGroup from "../common/ModalCreateGroup";
+import ModalSearch from '../common/ModalSearch'
+
+import { useDispatch, useSelector } from "react-redux";
+import searchUserRequest from "../redux/user/userAPI";
+import { Event } from "react-toastify/dist/core";
+import { getUserByEmail } from "../redux/user/slice";
+import { IRoom } from "../redux/user/slice";
+
 const customStyles = {
     content: {
         top: "50%",
@@ -29,25 +36,25 @@ const customStyles = {
 
 function Search() {
     const dispatch = useDispatch();
-    // const [modalIsOpen, setIsOpen] = useState(false);
-    // function openModal() {
-    //     setIsOpen(true);
-    // }
+    
+    const [searchText,setSearchText]=useState('');
 
-    // function closeModal() {
-    //     setIsOpen(false);
-    // }
+    const handleSearchTextChange=(e:React.ChangeEvent<HTMLInputElement>) => {
+        setSearchText(e.target.value);
+        dispatch(getUserByEmail(e.target.value));
+    }
 
     return (
         <div className={style.searchTag}>
             <div className={style.search}>
                 <div className={style.search_block}>
-                    <IoSearchOutline />
-                    <input type="text" placeholder="Tìm kiếm" />
+                    <IoSearchOutline/>
+                    <input style={{width:"100px", fontSize:"14px"}} type="text" placeholder="Tìm kiếm" value={searchText} onChange={handleSearchTextChange}/>
                 </div>
                 <div className={style.search_icon}>
                     <div className={style.search_icon_item}>
-                        <BiUserPlus />
+                        <BiUserPlus onClick={()=>{dispatch(oppenModalSearch())}}/>
+                        <ModalSearch />
                     </div>
                     <div className={style.search_icon_item}>
                         <AiOutlineUsergroupAdd
@@ -153,7 +160,7 @@ function Search() {
                     </div>
                 </div>
             </div>
-            <hr />
+            <hr style={{margin:0}} />
         </div>
     );
 }

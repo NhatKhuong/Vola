@@ -31,7 +31,7 @@
         loadingClass          :   'animsition-loading',
         loadingInner          :   '', // e.g '<img src="loading.svg" />'
         timeout               :   false,
-        timeoutCountdown      :   5000,
+        timeoutCountdown      :   5001,
         onLoadEvent           :   true,
         browser               : [ 'animation-duration', '-webkit-animation-duration'],
         // "browser" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.

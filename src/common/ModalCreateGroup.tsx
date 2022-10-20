@@ -89,41 +89,78 @@ function ModalCreateGroup(prop:Prop) {
                             time={new Date().toDateString()}
                             info={true}
                         />
-                        {/* <MesageItem
+                        <MesageItem
                             avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
                             name="Nhat Khuong"
-                            message="Hello jjj"
-                            time={new Date()}
+                            messages="Hello jjj"
+                            time={new Date().toDateString()}
                             info={true}
                         />
                         <MesageItem
                             avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
                             name="Nhat Khuong"
-                            message="Hello jjj"
-                            time={new Date()}
+                            messages="Hello jjj"
+                            time={new Date().toDateString()}
                             info={true}
                         />
                         <MesageItem
                             avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
                             name="Nhat Khuong"
-                            message="Hello jjj"
-                            time={new Date()}
+                            messages="Hello jjj"
+                            time={new Date().toDateString()}
                             info={true}
                         />
                         <MesageItem
                             avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
                             name="Nhat Khuong"
-                            message="Hello jjj"
-                            time={new Date()}
+                            messages="Hello jjj"
+                            time={new Date().toDateString()}
                             info={true}
                         />
                         <MesageItem
                             avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
                             name="Nhat Khuong"
-                            message="Hello jjj"
-                            time={new Date()}
-                            info={true} */}
-                        {/* /> */}
+                            messages="Hello jjj"
+                            time={new Date().toDateString()}
+                            info={true}
+                        />
+                          <MesageItem
+                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
+                            name="Nhat Khuong"
+                            messages="Hello jjj"
+                            time={new Date().toDateString()}
+                            info={true}
+                        />
+                          <MesageItem
+                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
+                            name="Nhat Khuong"
+                            messages="Hello jjj"
+                            time={new Date().toDateString()}
+                            info={true}
+                        />
+                          <MesageItem
+                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
+                            name="Nhat Khuong"
+                            messages="Hello jjj"
+                            time={new Date().toDateString()}
+                            info={true}
+                        />
+                          <MesageItem
+                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
+                            name="Nhat Khuong"
+                            messages="Hello jjj"
+                            time={new Date().toDateString()}
+                            info={true}
+                        />
+                          <MesageItem
+                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
+                            name="Nhat Khuong"
+                            messages="Hello jjj"
+                            time={new Date().toDateString()}
+                            info={true}
+                        />
+                        
+                       
                     </div>
                     <div className={style.Modal_footer}>
                         <button className={style.btn_modal_cancel}>Hủy</button>

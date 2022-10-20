@@ -26,7 +26,7 @@ class RoomAPI {
   }
   getListPic() {
     return createAsyncThunk(
-      "romm/get-list-pic",
+      "room/get-list-pic",
       async (data: any, thunkAPI) => {
         const { accessToken } = data;
         const result: any = await businessService.getListPic(data);
@@ -56,12 +56,8 @@ class RoomAPI {
             
         });
     }
-  
-
-  saveSentMessageContainer() {
-    return createAsyncThunk(
-      "room/save-room-id",
-      async (data: any, thunkAPI) => {
+  updateSentMessage() {
+    return createAsyncThunk("room/update-send-message",async (data: any, thunkAPI) => {
         console.log(data);
         return data;
       }

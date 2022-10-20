@@ -3,7 +3,7 @@ import ChatContent from "./ChatContent";
 import style from "./Content.module.css";
 import MenuContent from "./MenuContent";
 
-const Content = () => {
+function Content(socket:any){
     const [menu2, setMenu2] = useState(true);
     return (
         <div className={style.content}>
@@ -15,7 +15,7 @@ const Content = () => {
                 >
                     abc
                 </button> */}
-                <ChatContent showMenuChat={setMenu2}/>
+                <ChatContent socket={socket} showMenuChat={setMenu2}/>
             </div>
             {menu2 && <div className={style.con2}><MenuContent /></div>}
         </div>
