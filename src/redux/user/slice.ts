@@ -35,12 +35,18 @@ interface IMessage {
     createdAt: Date;
 }
 
+interface ItemRequest{
+    _id:string,
+    user:User
+}
+
 interface StateType {
     user: User;
     rooms: IRoom[];
     error: boolean;
     is_login: boolean;
     accessToken: string;
+    listRequest?:ItemRequest[];
 }
 
 const initialState = {
@@ -55,6 +61,7 @@ const initialState = {
     error: false,
     is_login: tokenService.getAccessToken() !== null,
     accessToken: tokenService.getAccessToken() || "",
+    listRequest:[]
 } as StateType;
 
 export const userSlice = createSlice({
@@ -72,6 +79,8 @@ export const userSlice = createSlice({
         builder.addCase(
             userAPI.getUserInfo().fulfilled,
             (state: StateType, action) => {
+                console.log(action.payload);
+                
                 tokenService.setAccessToken(action.payload.accessToken);
                 // tokenService.setRefreshToken(action.payload.accessToken);
                 state.error = false;
@@ -79,6 +88,10 @@ export const userSlice = createSlice({
                 state.user = action.payload.user;
                 state.rooms = action.payload.rooms;
                 state.accessToken = action.payload.accessToken;
+                if(action.payload.user.friendInvites){
+                    state.listRequest = action.payload.user.friendInvites
+                }
+                
             }
         );
         builder.addCase(userAPI.getUserInfo().rejected, (state) => {
@@ -118,6 +131,19 @@ export const userSlice = createSlice({
         );
         builder.addCase(
             userAPI.updateListChatForUserNoOnScreen().rejected,
+            (state) => {}
+        );
+
+        builder.addCase(
+            userAPI.updateListRoomUI().fulfilled,
+            (state: StateType, action) => {
+                console.log(action.payload);
+                const newArray = [action.payload].concat(state.rooms) 
+                state.rooms = newArray;
+            }
+        );
+        builder.addCase(
+            userAPI.updateListRoomUI().rejected,
             (state) => {}
         );
     },

@@ -49,6 +49,8 @@ function App() {
     const dispatch = useAppDispatch();
     // const token = userState.accessToken;
     const token = tokenService.getAccessToken();
+    console.log(token);
+    
     const roomId = useRef(roomState._id);
     console.log(roomId);
     useEffect(() => {

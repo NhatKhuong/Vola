@@ -11,8 +11,9 @@ interface Props {
     time?: string;
     info: boolean;
     _id?: string;
+    addUser? :any
 }
-function MesageItem({ avatar, name, messages, time, info, _id }: Props) {
+function MesageItem({ avatar, name, messages, time, info, _id, addUser }: Props) {
     const dispatch = useAppDispatch();
     const roomState = useAppSelector((state: any) => state.room);
     const userState = useAppSelector((state: any) => state.user);
@@ -23,6 +24,10 @@ function MesageItem({ avatar, name, messages, time, info, _id }: Props) {
         // dispatch(roomAPI.getListFile()())
         // dispatch(roomAPI.getListPic()())
     };
+
+    const onChangeCheckBox= () => {
+        addUser(_id)
+    }
 
     return (
         <div className={style.messageItem} onClick={showRoom}>
@@ -49,7 +54,7 @@ function MesageItem({ avatar, name, messages, time, info, _id }: Props) {
             </div>
             <div className={style.message_time}>
                 {info ? (
-                    <input type={"checkbox"}></input>
+                    <input type={"checkbox"} onChange={()=>addUser(_id)}></input>
                 ) : (
                     <div className="">
                         <div className={style.message_time_time}>

@@ -7,6 +7,10 @@ import MesageItem from "../FreindList/MesageItem";
 import style from "./ModalCreateGroup.module.css";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { closeModal } from "../redux/statusCommon/slice";
+import {useEffect} from "react";
+import axios from "axios";
+import userAPI from "../redux/user/userAPI";
+
 
 interface Prop{
     isShare:boolean
@@ -25,12 +29,74 @@ const customStyles = {
     },
 };
 
+let listUserId: String[]= []
+
+let name: String;
+
+const addUser=(userId: String) =>{
+    
+    const isExist = listUserId.findIndex(e=>e==userId) !=-1
+    if(isExist) {
+        // remove
+        listUserId =  listUserId.filter(e=>e!=userId)
+    }  else{
+
+        listUserId.push(userId)
+    }
+    console.log({listUserId, userId, isExist})
+}
+
 function ModalCreateGroup(prop:Prop) {
     const dispatch = useAppDispatch();
     const commonState = useAppSelector((state: any) => state.statusCommon);
     // const commonState =  useAppSelector((state: any) => state.statusCommon);
     
     // const [modalIsOpen, setIsOpen] = useState(false);
+
+    const [friends, setfriends] = useState([]);
+    const userState = useAppSelector((state: any) => state.user);
+    const token = userState.accessToken;
+
+    useEffect(()=>{
+        axios.get(`http://localhost:5000/api/users/friends`, {
+                headers: { authorization: token as string },
+            }).then((r:any)=>{
+                console.log(r)
+                setfriends(r.data)
+            }).catch((err)=>{
+                console.log(err)
+            })
+    }, [token])
+
+    const onKeyUpValue=(event:any) => {
+        //console.log(event.target.value)
+        name= event.target.value
+        console.log({name})
+    }
+
+    const createGroup= () => {
+        if (listUserId.length<=1) {
+            alert("Tạo nhóm phải 2 người trở lên")
+            return
+        } 
+        if(!name) {
+            alert("Nhập tên nhóm")
+            return
+        }
+        axios.post(`http://localhost:5000/api/rooms`,{
+            userIds:listUserId,
+            name:name
+            }, {
+                headers: { authorization: token as string },
+            }).then((r:any)=>{
+                console.log(r)
+                dispatch(closeModal())
+                dispatch(userAPI.updateListRoomUI()(r.data))
+                
+            }).catch((err)=>{
+                console.log(err)
+        })
+    }
 
     return (
         <div>
@@ -62,7 +128,7 @@ function ModalCreateGroup(prop:Prop) {
                                 style.Modal_createGroup_name_group_name_group
                             }
                         >
-                            <input type="text" placeholder="Nhập tên nhóm..." />
+                            <input type="text" placeholder="Nhập tên nhóm..." onKeyUp={onKeyUpValue} />
                         </div>
                     </div>
                     <div className={style.add_group_title}>
@@ -82,83 +148,21 @@ function ModalCreateGroup(prop:Prop) {
                         Trò chuyện gần đây
                     </div>
                     <div className={style.listMember}>
-                        <MesageItem
-                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
-                            name="Nhat Khuong"
-                            messages="Hello jjj"
-                            time={new Date().toDateString()}
-                            info={true}
-                        />
-                        <MesageItem
-                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
-                            name="Nhat Khuong"
-                            messages="Hello jjj"
-                            time={new Date().toDateString()}
-                            info={true}
-                        />
-                        <MesageItem
-                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
-                            name="Nhat Khuong"
-                            messages="Hello jjj"
-                            time={new Date().toDateString()}
-                            info={true}
-                        />
-                        <MesageItem
-                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
-                            name="Nhat Khuong"
-                            messages="Hello jjj"
-                            time={new Date().toDateString()}
-                            info={true}
-                        />
-                        <MesageItem
-                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
-                            name="Nhat Khuong"
-                            messages="Hello jjj"
-                            time={new Date().toDateString()}
-                            info={true}
-                        />
-                        <MesageItem
-                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
-                            name="Nhat Khuong"
-                            messages="Hello jjj"
-                            time={new Date().toDateString()}
-                            info={true}
-                        />
-                          <MesageItem
-                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
-                            name="Nhat Khuong"
-                            messages="Hello jjj"
-                            time={new Date().toDateString()}
-                            info={true}
-                        />
-                          <MesageItem
-                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
-                            name="Nhat Khuong"
-                            messages="Hello jjj"
-                            time={new Date().toDateString()}
-                            info={true}
-                        />
-                          <MesageItem
-                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
-                            name="Nhat Khuong"
-                            messages="Hello jjj"
-                            time={new Date().toDateString()}
-                            info={true}
-                        />
-                          <MesageItem
-                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
-                            name="Nhat Khuong"
-                            messages="Hello jjj"
-                            time={new Date().toDateString()}
-                            info={true}
-                        />
-                          <MesageItem
-                            avatar="https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
-                            name="Nhat Khuong"
-                            messages="Hello jjj"
-                            time={new Date().toDateString()}
-                            info={true}
-                        />
+                        {
+                            friends?.map((friend:any)=>{
+                                return (
+                                    <MesageItem
+                                    _id = {friend.userId._id}
+                                    avatar={friend.userId.avatar|| "https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"}                                    
+                                    name={friend.userId.email} 
+                                    messages="Hello jjj"
+                                    time={new Date().toDateString()}
+                                    info={true}
+                                    addUser= {addUser}
+                                    />
+                                )
+                            })
+                        }
                         
                        
                     </div>
@@ -172,7 +176,7 @@ function ModalCreateGroup(prop:Prop) {
                                 Chia sẻ
                             </button>
                             :
-                            <button className={style.btn_modal_create}>
+                            <button className={style.btn_modal_create} onClick={()=>createGroup()}>
                                 Tạo nhóm
                             </button>
                         }

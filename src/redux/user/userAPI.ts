@@ -35,6 +35,21 @@ class UserAPI {
 
         });
     }
+    updateListRoomUI(){
+        return createAsyncThunk("room/update-list-room", async (data: any, thunkAPI) => {
+            console.log(data);
+            // const rooms = useAppSelector((state: any) => state.user).rooms;
+            // const roomId = useAppSelector((state: any) => state.room)._id;
+            // console.log(rooms);
+            // console.log(roomId);
+            // const {accessToken,_id} = data;
+            // const result:any = await businessService.getListChat(accessToken,_id);
+            // if(result.status === 200) return result.data
+            // return thunkAPI.rejectWithValue("login_fail")
+            return data;
+
+        });
+    }
 }
 
 export default new UserAPI();
