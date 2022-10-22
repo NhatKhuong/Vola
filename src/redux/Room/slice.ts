@@ -37,6 +37,8 @@ interface StateType {
     lstPic?: picItem[];
     _id?: string;
     messageSent?: string;
+    name:string
+    avatar?:string
 }
 
 const initialState = {
@@ -45,19 +47,26 @@ const initialState = {
     lstPic: [],
     _id: "",
     messageSent:"",
+    name:"",
+    avatar:""
 } as StateType;
 
 export const roomSlice = createSlice({
     name: "room",
     initialState,
     reducers: {
-        
+        clear: (state) => {
+            state = initialState;
+            // state.is_login = false;
+            // state.accessToken = "";
+            // return { ...initialState, is_login: false, accessToken: ""};
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(
             roomAPI.getListChat().fulfilled,
             (state: StateType, action) => {
-                state.lstChat = action.payload;
+                state.lstChat = action.payload;                
             }
         );
         builder.addCase(roomAPI.getListChat().rejected, (state) => {});
@@ -91,7 +100,9 @@ export const roomSlice = createSlice({
         builder.addCase(
             roomAPI.saveRoomId().fulfilled,
             (state: StateType, action) => {
-                state._id = action.payload
+                state._id = action.payload._id
+                state.name = action.payload.name
+                state.avatar = action.payload.avatar
                 console.log(action.payload);
                 
                 
@@ -108,3 +119,5 @@ export const roomSlice = createSlice({
         builder.addCase(roomAPI.updateSentMessage().rejected, (state) => {});
     }
 });
+
+export const { clear } = roomSlice.actions;

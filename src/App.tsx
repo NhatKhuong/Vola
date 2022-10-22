@@ -18,7 +18,7 @@ import tokenService from "./services/token.service";
 // import Peer from "simple-peer";
 import Peer from "simple-peer";
 import WindowChat from "./ChatVideo/WindowChat";
-import Manager from "./manager/Manager"
+import Manager from "./manager/Manager";
 
 function App() {
     // Call video
@@ -50,7 +50,7 @@ function App() {
     // const token = userState.accessToken;
     const token = tokenService.getAccessToken();
     console.log(token);
-    
+
     const roomId = useRef(roomState._id);
     console.log(roomId);
     useEffect(() => {
@@ -116,8 +116,10 @@ function App() {
         newSocket?.on("connect", () => {
             //   setIsConnected(true);
             console.log("connecting");
+            newSocket.emit("start", { token: tokenService.getAccessToken() });
             setSocket(newSocket);
         });
+        newSocket.emit("start", { token: tokenService.getAccessToken() });
         newSocket?.on("disconnect", () => {
             //   setIsConnected(false);
             console.log("disconnect");
@@ -224,7 +226,7 @@ function App() {
                             </>
                         }
                     />
-                     <Route
+                    <Route
                         path="/manager"
                         element={
                             <>

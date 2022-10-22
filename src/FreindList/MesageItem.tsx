@@ -20,7 +20,7 @@ function MesageItem({ avatar, name, messages, time, info, _id, addUser }: Props)
     const accessToken = userState.accessToken;
     const showRoom = () => {
         dispatch(roomAPI.getListChat()({ accessToken, _id }));
-        dispatch(roomAPI.saveRoomId()(_id))
+        dispatch(roomAPI.saveRoomId()({_id,name,avatar}))
         // dispatch(roomAPI.getListFile()())
         // dispatch(roomAPI.getListPic()())
     };

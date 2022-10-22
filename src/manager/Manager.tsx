@@ -12,6 +12,7 @@ import axios from 'axios'
 import tokenService from '../services/token.service'
 
 function Manager() {
+  const userState = useAppSelector((state: any) => state.user);
   const token = tokenService.getAccessToken();
   function handelAddFriend(id:any){
     axios.post(`http://localhost:5000/api/users/invites`,{
@@ -20,11 +21,23 @@ function Manager() {
             headers: { authorization: token as string },
         }).then((r:any)=>{
             console.log("done");
+            createRoom(id)
+            
+        }).catch((err)=>{
+            console.log(err)
+    })
+
+    function createRoom(id:any){
+      axios.get(`http://localhost:5000/api/rooms/users/${id}`, {
+            headers: { authorization: token as string },
+        }).then((r:any)=>{
+            console.log("done create room");
             
             
         }).catch((err)=>{
             console.log(err)
     })
+    }
 }
   const stateUser = useAppSelector((state: any) => state.user);
   let listRequest = stateUser.listRequest || [];

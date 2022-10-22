@@ -80,10 +80,10 @@ function ChatContent(prop: Props) {
         <div className={style.chatContent}>
             <div className={style.chatContentHeader}>
                 <div className={style.chatContentHeader_left}>
-                    <img src={roomState.lstChat[0]?.user.avatar} alt="" />
+                    <img src={roomState.avatar} alt="" />
                     <div className={style.chatContentHeader_info}>
                         <div className={style.chatContentHeader_info_name}>
-                            {roomState.lstChat[0]?.user.name}
+                            {roomState.name}
                         </div>
                         <div className={style.chatContentHeader_info_menber}>
                             <AiOutlineUser />
@@ -133,14 +133,6 @@ function ChatContent(prop: Props) {
                         />
                     );
                 })}
-                {/* <ItemMessage isMyMessage={false} />
-                <ItemMessage isMyMessage={true} />
-                <ItemMessage isMyMessage={false} />
-                <ItemMessage isMyMessage={true} />
-                <ItemMessage isMyMessage={true} />
-                <ItemMessage isMyMessage={true} />
-                <ItemMessage isMyMessage={true} />
-                <ItemMessage isMyMessage={true} /> */}
             </div>
             <div className={style.chatContentTool}>
                 <div

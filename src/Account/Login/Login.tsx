@@ -26,6 +26,8 @@ import "./vendor/select2/select2.min.css";
 import "./vendor/daterangepicker/daterangepicker.css";
 import "./css/main.css";
 import "./css/util.css";
+import roomAPI from "../../redux/Room/roomAPI";
+import { clear } from "../../redux/Room/slice";
 
 const cls = classNames.bind(style);
 const Login = (): JSX.Element => {
@@ -59,6 +61,7 @@ const Login = (): JSX.Element => {
                 .then((result: any) => {
                     var accessToken = "Bearer " + result.user.accessToken;
                     dispatch(userAPI.getUserInfo()(accessToken ));
+                    dispatch(clear())
                     navigate("/");
                 })
                 .catch((err) => {
@@ -99,83 +102,15 @@ const Login = (): JSX.Element => {
     };
 
     return (
-        // <div className={cls("login_wrapper")}>
-        //     <ToastContainer
-        //         position="top-center"
-        //         autoClose={5000}
-        //         hideProgressBar={false}
-        //         newestOnTop={false}
-        //         closeOnClick
-        //         rtl={false}
-        //         pauseOnFocusLoss
-        //         draggable
-        //         pauseOnHover
-        //     />
-        //     <div className={cls("login")}>
-        //         <div className={cls("login_title")}>
-        //             <div>Đăng nhập</div>
-        //             <div>
-        //                 <Link to="/register">Đăng ký</Link>
-        //             </div>
-        //         </div>
-        //         <div id="message_login" className={cls("message_login")}></div>
-        //         <form action="" onSubmit={handleLogin} id="form_login">
-        //             <div className={cls("form_group")}>
-        //                 <label htmlFor="">Tài khoản</label>
-        //                 <Input
-        //                     type="text"
-        //                     name="username"
-        //                     value={username}
-        //                     onChange={(e) => setUsername(e.target.value)}
-        //                     rule="required"
-        //                     id="username"
-        //                 />
-        //             </div>
-        //             <div className={cls("form_group")}>
-        //                 <label htmlFor="">Mật khẩu</label>
-        //                 <Input
-        //                     type="password"
-        //                     name="password"
-        //                     value={password}
-        //                     onChange={(e) => setPassword(e.target.value)}
-        //                     rule="required"
-        //                     id="password"
-        //                 />
-        //             </div>
-        //             <Link
-        //                 to="/forgot-password"
-        //                 className={cls("forgot_password")}
-        //             >
-        //                 Quên mật khẩu
-        //             </Link>
-        //             <button type="submit">Đăng nhập</button>
-        //         </form>
-        //         <div className={cls("login_or")}>
-        //             <div></div>
-        //             <div>or</div>
-        //             <div></div>
-        //         </div>
-        //         <button
-        //             onClick={handleLoginWithGoogle}
-        //             className={cls("login_gg")}
-        //         >
-        //             <span></span> Login with Google
-        //         </button>
-        //     </div>
-        // </div>
         <div className="limiter">
 		<div className="container-login100">
-			<div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+			<div className="wrap-login100 p-l-30 p-r-30 p-t-35 p-b-30" style={{width:"400px",height:"95vh"}}>
            
 				<form className="login100-form validate-form" action="" onSubmit={handleLogin} id="form_login">
-					<span className="login100-form-title p-b-49">
+					<span className="login100-form-title p-b-50">
 						Zalo
 					</span>
-                    <span className="login100-title p-b-49">
-						
-                        Đăng nhập tài khoản Zalo
-                        để kết nối với ứng dụng Zalo Web
-					</span>
+                    
                     
 					<div className="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
 						<span className="label-input100">Username</span>
@@ -221,7 +156,7 @@ const Login = (): JSX.Element => {
 						</div>
 					</div>
 
-					<div className="txt1 text-center p-t-54 p-b-20">
+					<div className="txt1 text-center p-t-20 p-b-20">
 						<span>
 							Or Sign Up Using
 						</span>
@@ -241,7 +176,7 @@ const Login = (): JSX.Element => {
 						</a>
 					</div>
 
-					<div className="flex-col-c p-t-155">
+					<div className="flex-col-c p-t-30">
 						<div>
                             <Link to="/register">Sign Up</Link>
                         </div>

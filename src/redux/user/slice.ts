@@ -72,7 +72,7 @@ export const userSlice = createSlice({
             // state = initialState;
             // state.is_login = false;
             // state.accessToken = "";
-            return { ...initialState, is_login: false, accessToken: "" };
+            return { ...initialState, is_login: false, accessToken: ""};
         },
     },
     extraReducers: (builder) => {
