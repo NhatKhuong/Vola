@@ -55,6 +55,10 @@ const Register = (): JSX.Element => {
     
         singUpWithEmailAndPassword(email, password)
             .then((user:any) => {
+                console.log(user);
+                
+                // user.user.sendEmailVerification();
+                // alert("Vui long check email")
                 updateProfile(user.user.auth.currentUser, {
                     
                     displayName: `${fullName}`,photoURL: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"

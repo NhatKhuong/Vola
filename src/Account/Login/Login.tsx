@@ -59,6 +59,21 @@ const Login = (): JSX.Element => {
         } else {
             loginWithEmailAndPassword(username, password)
                 .then((result: any) => {
+                    // if(!result.user.emailVerified){
+                    //     // toast.error("Email chưa được xác thực", {
+                    //     //     position: "top-center",
+                    //     //     autoClose: 3000,
+                    //     //     hideProgressBar: false,
+                    //     //     closeOnClick: true,
+                    //     //     pauseOnHover: true,
+                    //     //     draggable: true,
+                    //     //     progress: undefined,
+                    //     // });
+                    //     alert("Email chưa được xác thực");
+                    //     return;
+                    // }
+                    console.log({result});
+                    
                     var accessToken = "Bearer " + result.user.accessToken;
                     dispatch(userAPI.getUserInfo()(accessToken ));
                     dispatch(clear())
