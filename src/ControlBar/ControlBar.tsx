@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import userAPI from "../redux/user/userAPI";
 import { logout } from "../redux/user/slice";
+import { newSocket } from "../App";
 
 
 const ControlBar = () => {
@@ -19,6 +20,7 @@ const ControlBar = () => {
         tokenService.remove();
         dispatch(logout())
         navigate("/login");
+        // newSocket.disconnect();
 
     }
     const userState = useAppSelector((state: any) => state.user);

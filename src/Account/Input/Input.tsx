@@ -30,11 +30,8 @@ const Input = ({
     const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
         validate(e.target);
     };
-    console.log(style);
-    
 
     return (
-
         <div className={cls("input") + " " + className} id={id}>
             <div
                 className={cls("error_message")}

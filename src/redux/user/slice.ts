@@ -4,11 +4,11 @@ import tokenService from "../../services/token.service";
 import { useAppSelector, useAppDispatch } from "../hook";
 
 interface User {
-    userName: string;
-    avatar: string;
-    fullName: string;
-    email: string;
-    _id: string;
+    userName?: string;
+    avatar?: string;
+    fullName?: string;
+    email?: string;
+    _id?: string;
 }
 
 export interface IRoom {
@@ -35,9 +35,9 @@ interface IMessage {
     createdAt: Date;
 }
 
-interface ItemRequest{
-    _id:string,
-    user:User
+interface ItemRequest {
+    _id?: string;
+    user: User;
 }
 
 interface StateType {
@@ -46,7 +46,7 @@ interface StateType {
     error: boolean;
     is_login: boolean;
     accessToken: string;
-    listRequest?:ItemRequest[];
+    listRequest?: ItemRequest[];
 }
 
 const initialState = {
@@ -61,7 +61,7 @@ const initialState = {
     error: false,
     is_login: tokenService.getAccessToken() !== null,
     accessToken: tokenService.getAccessToken() || "",
-    listRequest:[]
+    listRequest: [],
 } as StateType;
 
 export const userSlice = createSlice({
@@ -72,15 +72,13 @@ export const userSlice = createSlice({
             // state = initialState;
             // state.is_login = false;
             // state.accessToken = "";
-            return { ...initialState, is_login: false, accessToken: ""};
+            return { ...initialState, is_login: false, accessToken: "" };
         },
     },
     extraReducers: (builder) => {
         builder.addCase(
             userAPI.getUserInfo().fulfilled,
             (state: StateType, action) => {
-                console.log(action.payload);
-                
                 tokenService.setAccessToken(action.payload.accessToken);
                 // tokenService.setRefreshToken(action.payload.accessToken);
                 state.error = false;
@@ -88,10 +86,17 @@ export const userSlice = createSlice({
                 state.user = action.payload.user;
                 state.rooms = action.payload.rooms;
                 state.accessToken = action.payload.accessToken;
-                if(action.payload.user.friendInvites){
-                    state.listRequest = action.payload.user.friendInvites
+                if (action.payload.user.friendInvites) {
+                    state.listRequest = action.payload.user.friendInvites.map(
+                        (e: any) => {
+                            const element: ItemRequest = {
+                                _id: e._id,
+                                user: e.userId,
+                            };
+                            return element;
+                        }
+                    );
                 }
-                
             }
         );
         builder.addCase(userAPI.getUserInfo().rejected, (state) => {
@@ -102,27 +107,11 @@ export const userSlice = createSlice({
         builder.addCase(
             userAPI.updateListChatForUserNoOnScreen().fulfilled,
             (state: StateType, action) => {
-                console.log(action.payload);
-                console.log(state.rooms[0].messages[0].content);
-                console.log(action.payload.data.message.content);
-                console.log(action.payload.rooms);
-
-                // const rooms = useAppSelector((state: any) => state.user).rooms;
-                // const roomId = useAppSelector((state: any) => state.room)._id;
-                // console.log(rooms);
-                // console.log(roomId);
-                for (var i = 0; i < action.payload.rooms.length; i++) {
-                    console.log(action.payload.rooms[i]._id);
-                    console.log(action.payload.roomId);
-                    console.log("4");
-
-                    if (
-                        action.payload.rooms[i]._id ==
-                        action.payload.data.roomId
-                    ) {
-                        console.log(state.rooms[i].messages[0].content);
-                        console.log(action.payload.data.message.content);
-
+                console.log({ RoomID: action.payload });
+                console.log({ RoomID: action.payload.roomId });
+                for (var i = 0; i < state.rooms.length; i++) {
+                    console.log(state.rooms[i]._id);
+                    if (action.payload.roomId === state.rooms[i]._id) {
                         state.rooms[i].messages[0].content =
                             action.payload.data.message.content;
                     }
@@ -137,13 +126,44 @@ export const userSlice = createSlice({
         builder.addCase(
             userAPI.updateListRoomUI().fulfilled,
             (state: StateType, action) => {
-                console.log(action.payload);
-                const newArray = [action.payload].concat(state.rooms) 
+                const newArray = [action.payload].concat(state.rooms);
                 state.rooms = newArray;
             }
         );
+        builder.addCase(userAPI.updateListRoomUI().rejected, (state) => {});
+
         builder.addCase(
-            userAPI.updateListRoomUI().rejected,
+            userAPI.updateListRequestAddFriend().fulfilled,
+            (state: StateType, action) => {
+                const result = {
+                    _id: "",
+                    user: {
+                        userName: "",
+                        avatar: action.payload.avatar as string,
+                        fullName: "",
+                        email: action.payload.email as string,
+                        _id: action.payload._id,
+                    },
+                };
+                state.listRequest?.push(result);
+            }
+        );
+        builder.addCase(
+            userAPI.updateListRequestAddFriend().rejected,
+            (state) => {}
+        );
+
+        builder.addCase(
+            userAPI.deleteRequestAddFriend().fulfilled,
+            (state: StateType, action) => {
+                var restult = state.listRequest?.filter(function (e) {
+                    return e.user._id !== action.payload;
+                });
+                state.listRequest = restult;
+            }
+        );
+        builder.addCase(
+            userAPI.deleteRequestAddFriend().rejected,
             (state) => {}
         );
     },

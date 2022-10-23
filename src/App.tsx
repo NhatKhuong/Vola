@@ -13,12 +13,13 @@ import userAPI from "./redux/user/userAPI";
 // import io from "socket.io-client";
 import io, { Socket } from "socket.io-client";
 import roomAPI from "./redux/Room/roomAPI";
-import { useSocket } from "./common/configSocket";
 import tokenService from "./services/token.service";
 // import Peer from "simple-peer";
 import Peer from "simple-peer";
 import WindowChat from "./ChatVideo/WindowChat";
 import Manager from "./manager/Manager";
+
+export let newSocket = io("http://localhost:5000");
 
 function App() {
     // Call video
@@ -40,19 +41,14 @@ function App() {
     const userState = useAppSelector((state: any) => state.user);
     const roomState = useAppSelector((state: any) => state.room);
     const [socket, setSocket] = useState<Socket | null>(null);
-    console.log(socket);
-    console.log(userState);
 
     const rooms = userState.rooms;
-    console.log(rooms);
 
     const dispatch = useAppDispatch();
     // const token = userState.accessToken;
     const token = tokenService.getAccessToken();
-    console.log(token);
 
     const roomId = useRef(roomState._id);
-    console.log(roomId);
     useEffect(() => {
         roomId.current = roomState._id;
     });
@@ -60,7 +56,6 @@ function App() {
     useEffect(() => {
         message.current = roomState.messageSent;
     });
-    console.log(message);
     useEffect(() => {
         if (userState.is_login) {
             dispatch(userAPI.getUserInfo()(tokenService.getAccessToken()));
@@ -68,61 +63,38 @@ function App() {
     }, []);
 
     useEffect(() => {
-        if (socket !== null) {
-            socket.disconnect();
-        }
-        // if (token) {
-        const newSocket = io("http://localhost:5000", {
-            query: {
-                token: tokenService.getAccessToken(),
-            },
-        });
-        setSocket(newSocket);
-        // socket.emit("client-send-message", { token, roomId:roomId.current, content:message, type:"text"});
+        console.log(
+            "usereffech ------------------------------------------------------ "
+        );
+        newSocket.disconnect();
+        newSocket = io("http://localhost:5000");
         newSocket?.on("server-send-message", function (data: any) {
-            console.log(data.roomId);
-            // console.log("=======",roomId);
-            console.log(
-                "====trong=====================================",
-                roomId
-            );
-            console.log(roomState);
-
-            if (roomState._id === data.roomId) {
-            }
-            console.log("====ngaoi===", roomId);
-
             if (roomId.current === data.roomId) {
                 dispatch(roomAPI.updateListChat()(data));
-                dispatch(
-                    userAPI.updateListChatForUserNoOnScreen()({
-                        data,
-                        roomId: roomId.current,
-                        rooms,
-                    })
-                );
-            } else {
-                console.log("khac");
-
-                dispatch(
-                    userAPI.updateListChatForUserNoOnScreen()({
-                        data,
-                        roomId: roomId.current,
-                        rooms,
-                    })
-                );
             }
+            dispatch(
+                userAPI.updateListChatForUserNoOnScreen()({
+                    data,
+                    roomId: data.roomId,
+                    rooms,
+                })
+            );
         });
         newSocket?.on("connect", () => {
-            //   setIsConnected(true);
             console.log("connecting");
-            newSocket.emit("start", { token: tokenService.getAccessToken() });
-            setSocket(newSocket);
+            newSocket.emit("start", { token: token });
         });
-        newSocket.emit("start", { token: tokenService.getAccessToken() });
         newSocket?.on("disconnect", () => {
-            //   setIsConnected(false);
             console.log("disconnect");
+        });
+
+        // socket request add friend
+
+        newSocket.on("send-friend-invite", function (data: any) {
+            console.log(data);
+            dispatch(
+                userAPI.updateListRequestAddFriend()(data.friendInvite.user)
+            );
         });
 
         // call video
@@ -148,15 +120,12 @@ function App() {
         // call video
 
         return () => {
-            socket?.off("connect");
-            socket?.off("disconnect");
-            socket?.off("server-send-message");
+            newSocket?.off("connect");
+            newSocket?.off("disconnect");
+            newSocket?.off("server-send-message");
         };
         // }
-    }, [token, userState]);
-
-    console.log(roomState);
-    console.log(socket);
+    }, [token]);
 
     // const callUser = (id) => {
     // 	const peer = new Peer({
@@ -207,7 +176,6 @@ function App() {
     // 	setCallEnded(true)
     // 	connectionRef.current.destroy()
     // }
-
     return (
         <div className="App">
             <Routes>
@@ -222,7 +190,7 @@ function App() {
                             <>
                                 <ControlBar />
                                 <FriendTag />
-                                <Content socket={socket} />
+                                <Content />
                             </>
                         }
                     />

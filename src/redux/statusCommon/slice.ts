@@ -2,41 +2,47 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface StatusCommon {
     isOpenModal: boolean;
-    isOpenModalSearch:boolean;
-    isOpenModalInfo:boolean;
+    isOpenModalSearch: boolean;
+    isOpenModalInfo: boolean;
 }
 
 const initialState: StatusCommon = {
-        isOpenModal: false,
-        isOpenModalSearch: false,
-        isOpenModalInfo: false
+    isOpenModal: false,
+    isOpenModalSearch: false,
+    isOpenModalInfo: false,
 };
 
 export const StatusCommonSlice = createSlice({
     name: "statusCommon",
     initialState,
     reducers: {
-        oppenModal:(state)=>{
+        oppenModal: (state) => {
             state.isOpenModal = true;
         },
-        closeModal:(state)=>{
+        closeModal: (state) => {
             state.isOpenModal = false;
         },
-        oppenModalSearch:(state)=>{
+        oppenModalSearch: (state) => {
             state.isOpenModalSearch = true;
         },
-        closeModalsearch:(state)=>{
+        closeModalsearch: (state) => {
             state.isOpenModalSearch = false;
         },
-        oppenModalInfo:(state)=>{
+        oppenModalInfo: (state) => {
             state.isOpenModalInfo = true;
         },
-        closeModalInfo:(state)=>{
+        closeModalInfo: (state) => {
             state.isOpenModalInfo = false;
-        }
+            console.log(state.isOpenModalInfo);
+        },
     },
 });
 
-export const {oppenModal,closeModal,oppenModalSearch,closeModalsearch,oppenModalInfo,closeModalInfo} = StatusCommonSlice.actions
-
-
+export const {
+    oppenModal,
+    closeModal,
+    oppenModalSearch,
+    closeModalsearch,
+    oppenModalInfo,
+    closeModalInfo,
+} = StatusCommonSlice.actions;

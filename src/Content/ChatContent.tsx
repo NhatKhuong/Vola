@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "./Content.module.css";
 import { AiOutlineUser } from "react-icons/ai";
-import { AiOutlineUsergroupAdd,AiOutlinePicture } from "react-icons/ai";
+import { AiOutlineUsergroupAdd, AiOutlinePicture } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsCameraVideo } from "react-icons/bs";
 import { MdOutlineTableRows } from "react-icons/md";
@@ -16,7 +16,8 @@ import { oppenModal } from "../redux/statusCommon/slice";
 import { useAppSelector, useAppDispatch } from "../redux/hook";
 import roomAPI from "../redux/Room/roomAPI";
 import io, { Socket } from "socket.io-client";
-import {IoDocumentAttachOutline} from "react-icons/io5"
+import { IoDocumentAttachOutline } from "react-icons/io5";
+import { newSocket } from "../App";
 
 interface Props {
     showMenuChat: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,11 +29,6 @@ function ChatContent(prop: Props) {
     const [value, setValue] = useState("");
     const roomState = useAppSelector((state: any) => state.room);
     const userState = useAppSelector((state: any) => state.user);
-    const newSocket = io("http://localhost:5000", {
-        query: {
-            // token: useState.accessToken,
-        },
-    });
 
     const sendMessageSocket = () => {
         console.log("sendMessage");
@@ -61,7 +57,6 @@ function ChatContent(prop: Props) {
 
     const call = () => {
         const roomID = roomState._id;
-
         window.open(
             "/voice-chat/" +
                 roomID +
@@ -107,7 +102,7 @@ function ChatContent(prop: Props) {
                         <AiOutlineSearch />
                     </div>
                     <div className={style.chatContentHeader_right_item}>
-                        <BsCameraVideo onClick={call}/>
+                        <BsCameraVideo onClick={call} />
                     </div>
                     <div
                         className={style.chatContentHeader_right_item}
@@ -119,7 +114,6 @@ function ChatContent(prop: Props) {
             </div>
             <div className={style.chatContentWindow}>
                 {roomState.lstChat.map((e: any) => {
-                    console.log(e);
                     const isMyMessage =
                         e.user._id === userState.user._id ? true : false;
                     return (
@@ -144,11 +138,11 @@ function ChatContent(prop: Props) {
                 <div className={style.chatContentTool_item}>
                     <IoDocumentAttachOutline />
                 </div>
-               
             </div>
             <div className={style.chatContentInput}>
                 <div className={style.chatContentInput_text}>
-                    <input style={{fontSize:"14px"}}
+                    <input
+                        style={{ fontSize: "14px" }}
                         type="text"
                         placeholder="Nhập @, tin nhắn tới bạn của bạn"
                         value={value}
@@ -160,13 +154,10 @@ function ChatContent(prop: Props) {
                                 "chat====================================="
                             );
                             if (e.key === "Enter") {
-                                console.log(value);
-
                                 sendMessageSocket();
 
                                 dispatch(roomAPI.updateSentMessage()(value));
-                                console.log("nhan enter");
-                                setValue("")
+                                setValue("");
                             }
                         }}
                     />

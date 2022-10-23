@@ -59,24 +59,15 @@ const Login = (): JSX.Element => {
         } else {
             loginWithEmailAndPassword(username, password)
                 .then((result: any) => {
-                    // if(!result.user.emailVerified){
-                    //     // toast.error("Email chưa được xác thực", {
-                    //     //     position: "top-center",
-                    //     //     autoClose: 3000,
-                    //     //     hideProgressBar: false,
-                    //     //     closeOnClick: true,
-                    //     //     pauseOnHover: true,
-                    //     //     draggable: true,
-                    //     //     progress: undefined,
-                    //     // });
+                    // if (!result.user.emailVerified) {
                     //     alert("Email chưa được xác thực");
                     //     return;
                     // }
-                    console.log({result});
-                    
+                    // console.log({ result });
+
                     var accessToken = "Bearer " + result.user.accessToken;
-                    dispatch(userAPI.getUserInfo()(accessToken ));
-                    dispatch(clear())
+                    dispatch(userAPI.getUserInfo()(accessToken));
+                    dispatch(clear());
                     navigate("/");
                 })
                 .catch((err) => {
@@ -95,112 +86,123 @@ const Login = (): JSX.Element => {
     const handleLoginWithGoogle = () => {
         // loginWithGoogle();
         loginWithGoogle()
-                .then((user: any) => {
-                    navigate("/");
-                    var accessToken = "Bear " + user.user.accessToken;
-                    console.log(user);
-                    console.log(accessToken);
-
-                    dispatch(userAPI.getUserInfo()(accessToken));
-                })
-                .catch((err) => {
-                    toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
-                        position: "top-center",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
+            .then((user: any) => {
+                navigate("/");
+                var accessToken = "Bear " + user.user.accessToken;
+                dispatch(userAPI.getUserInfo()(accessToken));
+            })
+            .catch((err) => {
+                toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
                 });
+            });
     };
 
     return (
         <div className="limiter">
-		<div className="container-login100">
-			<div className="wrap-login100 p-l-30 p-r-30 p-t-35 p-b-30" style={{width:"400px",height:"95vh"}}>
-           
-				<form className="login100-form validate-form" action="" onSubmit={handleLogin} id="form_login">
-					<span className="login100-form-title p-b-50">
-						Zalo
-					</span>
-                    
-                    
-					<div className="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
-						<span className="label-input100">Username</span>
-						<Input
-                            type="text"
-                            name="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            rule="required"
-                            id="username"             
-                        />
-						{/* <span className="focus-input100" data-symbol="&#xf206;"></span> */}
-					</div>
+            <div className="container-login100">
+                <div
+                    className="wrap-login100 p-l-30 p-r-30 p-t-35 p-b-30"
+                    style={{ width: "400px", height: "95vh" }}
+                >
+                    <form
+                        className="login100-form validate-form"
+                        action=""
+                        onSubmit={handleLogin}
+                        id="form_login"
+                    >
+                        <span className="login100-form-title p-b-50">Zalo</span>
 
-					<div className="wrap-input100 validate-input" data-validate="Password is required">
-						<span className="label-input100">Password</span>
-						<Input type="password"
-                            name="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            rule="required"
-                            id="password" 
-                            />
-						{/* <span className="focus-input100" data-symbol="&#xf190;"></span> */}
-					</div>
-					
-					<div className="text-right p-t-8 p-b-31" >
-                    <div id="message_login" className="message_login"></div>
-                        <Link
-                        to="/forgot-password"
-                        className={cls("forgot_password")}
+                        <div
+                            className="wrap-input100 validate-input m-b-23"
+                            data-validate="Username is reauired"
                         >
-                        Forgot password?
-                        </Link>
-					</div>
-					
-					<div className="container-login100-form-btn">
-						<div className="wrap-login100-form-btn">
-							<div className="login100-form-bgbtn"></div>
-							<button className="login100-form-btn">
-								Login
-							</button>
-						</div>
-					</div>
-
-					<div className="txt1 text-center p-t-20 p-b-20">
-						<span>
-							Or Sign Up Using
-						</span>
-					</div>
-
-					<div className="flex-c-m">
-						<a href="#top" className="login100-social-item bg1">
-							<i className="fa fa-facebook"></i>
-						</a>
-
-						<a href="#top" className="login100-social-item bg2">
-							<i className="fa fa-twitter"></i>
-						</a>
-
-						<a href="#top" className="login100-social-item bg3">
-							<i className="fa fa-google" onClick={handleLoginWithGoogle}></i>
-						</a>
-					</div>
-
-					<div className="flex-col-c p-t-30">
-						<div>
-                            <Link to="/register">Sign Up</Link>
+                            <span className="label-input100">Username</span>
+                            <Input
+                                type="text"
+                                name="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                rule="required"
+                                id="username"
+                            />
+                            {/* <span className="focus-input100" data-symbol="&#xf206;"></span> */}
                         </div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-    
+
+                        <div
+                            className="wrap-input100 validate-input"
+                            data-validate="Password is required"
+                        >
+                            <span className="label-input100">Password</span>
+                            <Input
+                                type="password"
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                rule="required"
+                                id="password"
+                            />
+                            {/* <span className="focus-input100" data-symbol="&#xf190;"></span> */}
+                        </div>
+
+                        <div className="text-right p-t-8 p-b-31">
+                            <div
+                                id="message_login"
+                                className="message_login"
+                            ></div>
+                            <Link
+                                to="/forgot-password"
+                                className={cls("forgot_password")}
+                            >
+                                Forgot password?
+                            </Link>
+                        </div>
+
+                        <div className="container-login100-form-btn">
+                            <div className="wrap-login100-form-btn">
+                                <div className="login100-form-bgbtn"></div>
+                                <button className="login100-form-btn">
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="txt1 text-center p-t-20 p-b-20">
+                            <span>Or Sign Up Using</span>
+                        </div>
+
+                        <div className="flex-c-m">
+                            <a href="#top" className="login100-social-item bg1">
+                                <i className="fa fa-facebook"></i>
+                            </a>
+
+                            <a href="#top" className="login100-social-item bg2">
+                                <i className="fa fa-twitter"></i>
+                            </a>
+
+                            <a href="#top" className="login100-social-item bg3">
+                                <i
+                                    className="fa fa-google"
+                                    onClick={handleLoginWithGoogle}
+                                ></i>
+                            </a>
+                        </div>
+
+                        <div className="flex-col-c p-t-30">
+                            <div>
+                                <Link to="/register">Sign Up</Link>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     );
 };
 

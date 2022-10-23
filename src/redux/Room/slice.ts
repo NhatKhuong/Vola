@@ -37,8 +37,8 @@ interface StateType {
     lstPic?: picItem[];
     _id?: string;
     messageSent?: string;
-    name:string
-    avatar?:string
+    name: string;
+    avatar?: string;
 }
 
 const initialState = {
@@ -46,9 +46,9 @@ const initialState = {
     lstFile: [],
     lstPic: [],
     _id: "",
-    messageSent:"",
-    name:"",
-    avatar:""
+    messageSent: "",
+    name: "",
+    avatar: "",
 } as StateType;
 
 export const roomSlice = createSlice({
@@ -66,7 +66,7 @@ export const roomSlice = createSlice({
         builder.addCase(
             roomAPI.getListChat().fulfilled,
             (state: StateType, action) => {
-                state.lstChat = action.payload;                
+                state.lstChat = action.payload;
             }
         );
         builder.addCase(roomAPI.getListChat().rejected, (state) => {});
@@ -90,9 +90,7 @@ export const roomSlice = createSlice({
         builder.addCase(
             roomAPI.updateListChat().fulfilled,
             (state: StateType, action) => {
-                console.log(action.payload);
-                
-                state.lstChat?.push(action.payload.message)
+                state.lstChat?.push(action.payload.message);
             }
         );
         builder.addCase(roomAPI.updateListChat().rejected, (state) => {});
@@ -100,12 +98,9 @@ export const roomSlice = createSlice({
         builder.addCase(
             roomAPI.saveRoomId().fulfilled,
             (state: StateType, action) => {
-                state._id = action.payload._id
-                state.name = action.payload.name
-                state.avatar = action.payload.avatar
-                console.log(action.payload);
-                
-                
+                state._id = action.payload._id;
+                state.name = action.payload.name;
+                state.avatar = action.payload.avatar;
             }
         );
         builder.addCase(roomAPI.saveRoomId().rejected, (state) => {});
@@ -113,11 +108,11 @@ export const roomSlice = createSlice({
         builder.addCase(
             roomAPI.updateSentMessage().fulfilled,
             (state: StateType, action) => {
-                state.messageSent = action.payload
+                state.messageSent = action.payload;
             }
         );
         builder.addCase(roomAPI.updateSentMessage().rejected, (state) => {});
-    }
+    },
 });
 
 export const { clear } = roomSlice.actions;
