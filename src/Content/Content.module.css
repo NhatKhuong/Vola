@@ -264,5 +264,16 @@
 }
 
 
-
-
+.preview {
+    position: relative;
+    width: 100px;
+    max-height: 100px;
+    overflow: hidden;
+}
+.preview .preview_delete{
+    position: absolute;
+    right: 0;
+}
+.preview img{
+    width: 100%;
+}
