@@ -58,10 +58,10 @@ const Login = (): JSX.Element => {
     } else {
       loginWithEmailAndPassword(username, password)
         .then((result: any) => {
-          if (!result.user.emailVerified) {
-            alert("Email chưa được xác thực vui lòng kiểm tra hộp thư của bạn");
-            return;
-          }
+          // if (!result.user.emailVerified) {
+          //   alert("Email chưa được xác thực vui lòng kiểm tra hộp thư của bạn");
+          //   return;
+          // }
 
           var accessToken = "Bearer " + result.user.accessToken;
           dispatch(userAPI.getUserInfo()(accessToken));

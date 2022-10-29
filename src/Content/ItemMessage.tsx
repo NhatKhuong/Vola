@@ -1,7 +1,7 @@
 import { type } from "os";
 import React from "react";
 import style from "./ItemMessage.module.css";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
 interface Props {
     isMyMessage: boolean;
     name: string;
@@ -12,7 +12,6 @@ interface Props {
 }
 function ItemMessage(props: Props) {
     const ComponentMessage = () => {
-        
         if (props.type === "file") {
             var nameFile = props.message.split("/").at(-1);
             var typeName = nameFile?.split(".")[1];
@@ -27,14 +26,37 @@ function ItemMessage(props: Props) {
                 urlPic =
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/.xlsx_icon.svg/2048px-.xlsx_icon.svg.png";
             }
-            return <>
-                <div className={style.ItemMessage_content_mesage_message}>{nameFile}</div>
-                <img style={{width:"30px", height:"30px"}} src={urlPic} alt="" />
-            </>;
+            return (
+                <>
+                    <div className={style.ItemMessage_content_mesage_message}>
+                        {nameFile}
+                    </div>
+                    <img
+                        style={{ width: "30px", height: "30px" }}
+                        src={urlPic}
+                        alt=""
+                    />
+                </>
+            );
         } else if (props.type === "image") {
-            return <img style={{width:"300px", height:"400px", objectFit:"contain"}} src={props.message} alt="" />;
-        } else return <div className={style.ItemMessage_content_mesage_message}>{props.message}</div>;
-            // } else return <div></div>;
+            return (
+                <LazyLoadImage
+                    style={{
+                        width: "300px",
+                        height: "400px",
+                        objectFit: "contain",
+                    }}
+                    src={props.message}
+                    alt=""
+                />
+            );
+        } else
+            return (
+                <div className={style.ItemMessage_content_mesage_message}>
+                    {props.message}
+                </div>
+            );
+        // } else return <div></div>;
     };
 
     return (
