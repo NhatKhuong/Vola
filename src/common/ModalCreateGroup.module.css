@@ -133,3 +133,8 @@
 .btn_modal_create:hover{
     opacity: 0.8;
 }
+
+.UpdateAvatart:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}

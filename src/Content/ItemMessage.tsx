@@ -1,5 +1,3 @@
-import { type } from "os";
-import React from "react";
 import style from "./ItemMessage.module.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 interface Props {
@@ -15,7 +13,7 @@ function ItemMessage(props: Props) {
         if (props.type === "file") {
             var nameFile = props.message.split("/").at(-1);
             var typeName = nameFile?.split(".")[1];
-            var urlPic;
+            var urlPic: any;
             if (typeName === "pdf") {
                 urlPic =
                     "https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ";
@@ -31,7 +29,14 @@ function ItemMessage(props: Props) {
                     <div className={style.ItemMessage_content_mesage_message}>
                         {nameFile}
                     </div>
-                    <img
+                    <img className={style.ItemMessage_content_mesage_message_img}
+                        onClick={() => {
+                            window.open(
+                                props.message,
+                                "_blank",
+                                "noopener,noreferrer"
+                            );
+                        }}
                         style={{ width: "30px", height: "30px" }}
                         src={urlPic}
                         alt=""
@@ -40,14 +45,15 @@ function ItemMessage(props: Props) {
             );
         } else if (props.type === "image") {
             return (
-                <LazyLoadImage
+                <img
                     style={{
                         width: "300px",
-                        height: "400px",
                         objectFit: "contain",
+                        maxHeight: "400px",
                     }}
+                    loading="lazy"
                     src={props.message}
-                    alt=""
+                    alt="Loading...."
                 />
             );
         } else

@@ -166,6 +166,23 @@ export const userSlice = createSlice({
             userAPI.deleteRequestAddFriend().rejected,
             (state) => {}
         );
+        builder.addCase(
+            userAPI.updateRoomByIdUI().fulfilled,
+            (state: StateType, action) => {
+               for(var i=0;i<state.rooms.length;i++){
+                if(state.rooms[i]._id === action.payload._id){
+                    state.rooms[i]._id = action.payload._id;
+                    state.rooms[i].name = action.payload.name;
+                    state.rooms[i].avatar = action.payload.avatar;
+                }
+               }
+            }
+        );
+        builder.addCase(
+            userAPI.updateRoomByIdUI().rejected,
+            (state) => {}
+        );
+        
     },
 });
 

@@ -44,7 +44,15 @@ class UserAPI {
     }
     deleteRequestAddFriend() {
         return createAsyncThunk(
-            "room/detete-list-request-add-friend",
+            "room/delete-request-add-friend",
+            async (data: any, thunkAPI) => {
+                return data;
+            }
+        );
+    }
+    updateRoomByIdUI() {
+        return createAsyncThunk(
+            "room/update-room-by-id",
             async (data: any, thunkAPI) => {
                 return data;
             }

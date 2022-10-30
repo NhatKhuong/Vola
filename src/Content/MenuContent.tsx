@@ -9,8 +9,17 @@ import ExpandComponent from "../common/ExpandComponent";
 import ItemFileLink from "./ItemFileLink";
 import {RiDeleteBin6Line} from "react-icons/ri"
 import {CgDanger} from "react-icons/cg"
+import { oppenModalAddMember, oppenModalUpdateRoomInfo } from "../redux/statusCommon/slice";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import ModalAddMember from "../common/ModalAddMember";
+import ModalUpdateRoomInfo from "../common/ModalUpdateRoomInfo";
 
 function MenuContent() {
+    const dispatch = useAppDispatch();
+    const handleClick = ()=>{
+        dispatch(oppenModalAddMember())
+    }
+    const roomState = useAppSelector((state:any)=>state.room);
     return (
         <div className={style.menuContent}>
             <div className={style.menuContent_header}>
@@ -19,12 +28,12 @@ function MenuContent() {
             <div className={style.menuContent_body}>
                 <div className={style.menuContent_header_info}>
                     <img
-                        src="https://anhdephd.vn/wp-content/uploads/2022/04/hinh-nen-gai-xinh.jpg"
+                        src={roomState.avatar}
                         alt=""
                     />
                     <div className={style.name}>
-                        Khương
-                        <AiFillEdit />
+                        {roomState.name}
+                        <AiFillEdit onClick={()=>dispatch(oppenModalUpdateRoomInfo())} />
                     </div>
                     <div className={style.menuContent_header_info_listAction}>
                         <div
@@ -60,13 +69,13 @@ function MenuContent() {
                                 style.menuContent_header_info_listAction_item
                             }
                         >
-                            <AiOutlineUsergroupAdd />
+                            <AiOutlineUsergroupAdd onClick={()=>handleClick()}/>
                             <p
                                 className={
                                     style.menuContent_header_info_listAction_item_name
                                 }
                             >
-                                Tạo nhóm trò chuyện
+                                Thêm thành viên
                             </p>
                         </div>
                     </div>
@@ -183,6 +192,8 @@ function MenuContent() {
                 <div className={style.menuContent_link}></div>
                 <div className={style.menuContent_setting}></div>
             </div>
+            <ModalAddMember />
+            <ModalUpdateRoomInfo />
         </div>
     );
 }

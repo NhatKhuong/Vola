@@ -4,12 +4,16 @@ interface StatusCommon {
     isOpenModal: boolean;
     isOpenModalSearch: boolean;
     isOpenModalInfo: boolean;
+    isOpenModalAddMember:boolean;
+    isOpenModalUpdateRoomInfo:boolean;
 }
 
 const initialState: StatusCommon = {
     isOpenModal: false,
     isOpenModalSearch: false,
     isOpenModalInfo: false,
+    isOpenModalAddMember:false,
+    isOpenModalUpdateRoomInfo:false
 };
 
 export const StatusCommonSlice = createSlice({
@@ -35,6 +39,20 @@ export const StatusCommonSlice = createSlice({
             state.isOpenModalInfo = false;
             console.log(state.isOpenModalInfo);
         },
+        oppenModalAddMember: (state) => {
+            state.isOpenModalAddMember = true;
+        },
+        closeModalAddMember: (state) => {
+            state.isOpenModalAddMember = false;
+            console.log(state.isOpenModalInfo);
+        },
+        oppenModalUpdateRoomInfo: (state) => {
+            state.isOpenModalUpdateRoomInfo = true;
+        },
+        closeModalUpdateRoomInfo: (state) => {
+            state.isOpenModalUpdateRoomInfo = false;
+            console.log(state.isOpenModalInfo);
+        },
     },
 });
 
@@ -45,4 +63,8 @@ export const {
     closeModalsearch,
     oppenModalInfo,
     closeModalInfo,
+    oppenModalAddMember,
+    closeModalAddMember,
+    oppenModalUpdateRoomInfo,
+    closeModalUpdateRoomInfo,
 } = StatusCommonSlice.actions;

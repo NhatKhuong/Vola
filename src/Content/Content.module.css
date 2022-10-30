@@ -76,10 +76,6 @@
     height: 75vh;
     background-color: rgb(238, 232, 232);
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-
 }
 
 .chatContentTool {
@@ -174,7 +170,7 @@
     margin-left: 10px;
 }
 
-.menuContent_header_info .name > svg:hover{
+.menuContent_header_info .name > svg:hover {
     cursor: pointer;
     opacity: 0.8;
 }
@@ -197,7 +193,7 @@
     cursor: pointer;
 }
 
-.menuContent_header_info_listAction_item:hover{
+.menuContent_header_info_listAction_item:hover {
     opacity: 0.8;
 }
 
@@ -234,12 +230,12 @@
     font-weight: 600;
 }
 
-.files{
+.files {
     max-height: 30vh;
     overflow-y: auto;
 }
 
-.funtion_item{
+.funtion_item {
     display: flex;
     align-items: center;
     padding: 10px;
@@ -247,22 +243,20 @@
     border-bottom: 1px solid #ccc;
 }
 
-.funtion_item:hover{
+.funtion_item:hover {
     cursor: pointer;
     background-color: rgb(241, 234, 234);
 }
 
-.funtion_item_icon{
+.funtion_item_icon {
     align-items: center;
     display: flex;
-
 }
 
-.funtion_item_name{
+.funtion_item_name {
     margin-left: 10px;
     font-size: 14px;
 }
-
 
 .preview {
     position: relative;
@@ -270,10 +264,10 @@
     max-height: 100px;
     overflow: hidden;
 }
-.preview .preview_delete{
+.preview .preview_delete {
     position: absolute;
     right: 0;
 }
-.preview img{
+.preview img {
     width: 100%;
 }
