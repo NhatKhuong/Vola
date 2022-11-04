@@ -1,9 +1,9 @@
 import React from "react";
 import style from "./FreindList.module.css";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { AiOutlineUserDelete } from "react-icons/ai";
 // import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
-import roomAPI from "../redux/Room/roomAPI";
 interface Props {
   avatar?: string;
   name?: string;
@@ -11,34 +11,19 @@ interface Props {
   time?: string;
   info: boolean;
   _id?: string;
-  addUser?: any;
+  deleteUser?: any;
 }
-function MesageItem({
+function UserItem({
   avatar,
   name,
   messages,
   time,
   info,
   _id,
-  addUser,
+  deleteUser,
 }: Props) {
-  const dispatch = useAppDispatch();
-  const roomState = useAppSelector((state: any) => state.room);
-  const userState = useAppSelector((state: any) => state.user);
-  const accessToken = userState.accessToken;
-  const showRoom = () => {
-    dispatch(roomAPI.getListChat()({ accessToken, _id }));
-    dispatch(roomAPI.saveRoomId()({ _id, name, avatar }));
-    // dispatch(roomAPI.getListFile()())
-    // dispatch(roomAPI.getListPic()())
-  };
-
-  const onChangeCheckBox = () => {
-    addUser(_id);
-  };
-
   return (
-    <div className={style.messageItem} onClick={showRoom}>
+    <div className={style.messageItem}>
       <div className={style.messageInfo}>
         <div className={style.messageInfo_avata}>
           <img src={avatar} alt="" />
@@ -59,7 +44,7 @@ function MesageItem({
       </div>
       <div className={style.message_time}>
         {info ? (
-          <input type={"checkbox"} onChange={() => addUser(_id)}></input>
+          <AiOutlineUserDelete onClick={() => deleteUser(_id)} />
         ) : (
           <div className="">
             <div className={style.message_time_time}>{time}</div>
@@ -73,4 +58,4 @@ function MesageItem({
   );
 }
 
-export default MesageItem;
+export default UserItem;

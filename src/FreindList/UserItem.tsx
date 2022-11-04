@@ -3,7 +3,6 @@ import style from "./FreindList.module.css";
 import { FiMoreHorizontal } from "react-icons/fi";
 // import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
-import roomAPI from "../redux/Room/roomAPI";
 interface Props {
   avatar?: string;
   name?: string;
@@ -13,32 +12,9 @@ interface Props {
   _id?: string;
   addUser?: any;
 }
-function MesageItem({
-  avatar,
-  name,
-  messages,
-  time,
-  info,
-  _id,
-  addUser,
-}: Props) {
-  const dispatch = useAppDispatch();
-  const roomState = useAppSelector((state: any) => state.room);
-  const userState = useAppSelector((state: any) => state.user);
-  const accessToken = userState.accessToken;
-  const showRoom = () => {
-    dispatch(roomAPI.getListChat()({ accessToken, _id }));
-    dispatch(roomAPI.saveRoomId()({ _id, name, avatar }));
-    // dispatch(roomAPI.getListFile()())
-    // dispatch(roomAPI.getListPic()())
-  };
-
-  const onChangeCheckBox = () => {
-    addUser(_id);
-  };
-
+function UserItem({ avatar, name, messages, time, info, _id, addUser }: Props) {
   return (
-    <div className={style.messageItem} onClick={showRoom}>
+    <div className={style.messageItem}>
       <div className={style.messageInfo}>
         <div className={style.messageInfo_avata}>
           <img src={avatar} alt="" />
@@ -73,4 +49,4 @@ function MesageItem({
   );
 }
 
-export default MesageItem;
+export default UserItem;
