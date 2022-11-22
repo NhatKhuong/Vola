@@ -23,7 +23,7 @@ export const singUpWithEmailAndPassword = async (
 ) => {
   const result = await createUserWithEmailAndPassword(auth, email, password);
   var actionCodeSettings = {
-    url: "https://localhost:5000",
+    url: "https://frozen-caverns-53350.herokuapp.com",
     handleCodeInApp: true,
   };
   await sendEmailVerification(result.user, actionCodeSettings);

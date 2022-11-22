@@ -20,7 +20,7 @@ import { IoDocumentAttachOutline } from "react-icons/io5";
 import { newSocket } from "../App";
 import axios from "axios";
 import tokenService from "../services/token.service";
-const urlUploadFile = "http://localhost:5000/api/storages/upload";
+const urlUploadFile = "https://frozen-caverns-53350.herokuapp.com/api/storages/upload";
 
 interface Props {
     showMenuChat: React.Dispatch<React.SetStateAction<boolean>>;
@@ -103,6 +103,8 @@ function ChatContent(prop: Props) {
     // files
     function handleUpload(event: any) {
         setFile(event.target.files[0]);
+        
+        
     }
     const clickUploadFile = () => {
         (fileInput.current as any).value = null;
@@ -110,6 +112,7 @@ function ChatContent(prop: Props) {
     };
     // select file
     useEffect(() => {
+        console.log(file);
         if (!file) {
             setPreview(undefined);
             return;
@@ -142,7 +145,7 @@ function ChatContent(prop: Props) {
                                     style.chatContentHeader_info_number_member
                                 }
                             >
-                                71 Thành viên
+                                3 Thành viên
                             </div>
                         </div>
                     </div>

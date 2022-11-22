@@ -22,7 +22,7 @@ function Manager() {
         console.log("---------========" + id);
         axios
             .post(
-                `http://localhost:5000/api/users/invites`,
+                `https://frozen-caverns-53350.herokuapp.com/api/users/invites`,
                 {
                     userId: id,
                 },
@@ -39,7 +39,7 @@ function Manager() {
         dispatch(userAPI.deleteRequestAddFriend()(id));
 
         axios
-            .get(`http://localhost:5000/api/rooms/users/${id}`, {
+            .get(`https://frozen-caverns-53350.herokuapp.com/api/rooms/users/${id}`, {
                 headers: { authorization: token as string },
             })
             .then((r: any) => {
@@ -55,7 +55,7 @@ function Manager() {
     function handlAvoid(id: any) {
         console.log("---------========" + id);
         axios
-            .delete(`http://localhost:5000/api/users/invites`, {
+            .delete(`https://frozen-caverns-53350.herokuapp.com/api/users/invites`, {
                 data: { userId: id },
                 headers: { authorization: token as string },
             })
@@ -70,7 +70,7 @@ function Manager() {
     function handelAddFriend(id: any) {
         axios
             .post(
-                `http://localhost:5000/api/users/invites`,
+                `https://frozen-caverns-53350.herokuapp.com/api/users/invites`,
                 {
                     user: id,
                 },
@@ -87,7 +87,7 @@ function Manager() {
 
         function createRoom(id: any) {
             axios
-                .get(`http://localhost:5000/api/rooms/users/${id}`, {
+                .get(`https://frozen-caverns-53350.herokuapp.com/api/rooms/users/${id}`, {
                     headers: { authorization: token as string },
                 })
                 .then((r: any) => {

@@ -42,7 +42,7 @@ function ModalManageMember() {
   const myRoom = listRooms.find((room: any) => String(room._id) == roomId);
   const deleteUser = (userId: String) => {
     axios
-      .delete(`http://localhost:5000/api/rooms/${roomId}/users/${userId}`, {
+      .delete(`https://frozen-caverns-53350.herokuapp.com/api/rooms/${roomId}/users/${userId}`, {
         headers: { authorization: token as string },
       })
       .then(({ data }: any) => {
@@ -55,7 +55,7 @@ function ModalManageMember() {
   useEffect(() => {
     if (roomId)
       axios
-        .get(`http://localhost:5000/api/rooms/${roomId}`, {
+        .get(`https://frozen-caverns-53350.herokuapp.com/api/rooms/${roomId}`, {
           headers: { authorization: token as string },
         })
         .then(({ data }: any) => {
@@ -67,7 +67,7 @@ function ModalManageMember() {
         .catch((err) => {
           console.log(err);
         });
-  }, [roomId]);
+  }, [commonState.isOpenModalManageMember]);
 
   return (
     <div>

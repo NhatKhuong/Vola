@@ -19,7 +19,7 @@ import Peer from "simple-peer";
 import WindowChat from "./ChatVideo/WindowChat";
 import Manager from "./manager/Manager";
 
-export let newSocket = io("http://localhost:5000");
+export let newSocket = io("https://frozen-caverns-53350.herokuapp.com");
 
 function App() {
     // Call video
@@ -67,7 +67,7 @@ function App() {
             "usereffech ------------------------------------------------------ "
         );
         newSocket.disconnect();
-        newSocket = io("http://localhost:5000");
+        newSocket = io("https://frozen-caverns-53350.herokuapp.com");
         newSocket?.on("server-send-message", function (data: any) {
             if (roomId.current === data.roomId) {
                 dispatch(roomAPI.updateListChat()(data));

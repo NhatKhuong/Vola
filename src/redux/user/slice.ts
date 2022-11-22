@@ -181,8 +181,21 @@ export const userSlice = createSlice({
         builder.addCase(
             userAPI.updateRoomByIdUI().rejected,
             (state) => {}
-        );
+        ); 
         
+        builder.addCase(
+            userAPI.deleteRoomByIdUI().fulfilled,
+            (state: StateType, action) => {
+                var restult = state.rooms?.filter(function (e) {
+                    return e._id !== action.payload;
+                });
+                state.rooms = restult;
+            }
+        );
+        builder.addCase(
+            userAPI.deleteRoomByIdUI().rejected,
+            (state) => {}
+        );    
     },
 });
 

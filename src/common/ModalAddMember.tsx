@@ -54,24 +54,27 @@ function ModalAddMember() {
   const roomState = useAppSelector((state: any) => state.room);
   const roomId = String(roomState._id);
   const myRoom = listRooms.find((room: any) => String(room._id) == roomId);
+  console.log(roomId);
+  
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/users/friends`, {
+      .get(`https://frozen-caverns-53350.herokuapp.com/api/rooms/${roomId}/user-vailable-add-room`, {
         headers: { authorization: token as string },
       })
       .then((r: any) => {
-        const listFiendAvalible = r.data.filter((friend: any) => {
-          return !myRoom?.users.find((user: any) => {
-            console.log(String(user._id), "--", String(friend.userId._id));
-            return String(user._id) == String(friend.userId._id);
-          });
-        });
-        setfriends(listFiendAvalible);
+        // const listFiendAvalible = r.data.filter((friend: any) => {
+        //   return !myRoom?.users.find((user: any) => {
+        //     return String(user._id) == String(friend.userId._id);
+        //   });
+        // });
+        console.log(r);
+        
+        setfriends(r.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [roomId]);
+  }, [commonState.isOpenModalAddMember]);
 
   const addMemberGroup = () => {
     if (listUserId.length == 0) {
@@ -80,7 +83,7 @@ function ModalAddMember() {
     }
     axios
       .put(
-        `http://localhost:5000/api/rooms/${roomId}/users`,
+        `https://frozen-caverns-53350.herokuapp.com/api/rooms/${roomId}/users`,
         {
           userIds: listUserId,
         },
@@ -91,7 +94,9 @@ function ModalAddMember() {
       .then((r: any) => {
         dispatch(closeModalAddMember());
         setfriends([]);
-        dispatch(userAPI.updateListRoomUI()(r.data));
+        console.log(r.data);
+        
+        // dispatch(userAPI.updateListRoomUI()(r.data));
       })
       .catch((err) => {
         console.log(err);

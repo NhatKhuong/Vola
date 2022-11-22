@@ -58,6 +58,15 @@ class UserAPI {
             }
         );
     }
+
+    deleteRoomByIdUI() {
+        return createAsyncThunk(
+            "room/delete-room-by-id",
+            async (data: any, thunkAPI) => {
+                return data;
+            }
+        );
+    }
 }
 
 export default new UserAPI();

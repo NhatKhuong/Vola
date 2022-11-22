@@ -37,8 +37,10 @@ function MenuContent() {
   };
 
   const deleteGroupHandleClick = () => {
+    var roomId = roomState._id;
+    dispatch(userAPI.deleteRoomByIdUI()(roomId))
     axios
-      .delete(`http://localhost:5000/api/rooms/${roomState._id}`, {
+      .delete(`https://frozen-caverns-53350.herokuapp.com/api/rooms/${roomId}`, {
         headers: { authorization: token as string },
       })
       .then(() => {

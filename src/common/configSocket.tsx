@@ -20,7 +20,7 @@ const SocketProvider: FunctionComponent<{ children: ReactNode }> = ({
     const accessToken = useAppSelector((state: any) => state.user).accessToken;
     useEffect(() => {
         try {
-            const socketConnection = io("http://localhost:5000", {
+            const socketConnection = io("https://frozen-caverns-53350.herokuapp.com", {
                 query: {
                     token: accessToken,
                 },

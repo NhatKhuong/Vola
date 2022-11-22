@@ -74,7 +74,7 @@ function ModalUpdateRoomInfo() {
     try {
       const data = { name: name };
       var room: any = await axios.patch(
-        `http://localhost:5000/api/rooms/${roomId}/name`,
+        `https://frozen-caverns-53350.herokuapp.com/api/rooms/${roomId}/name`,
         data,
         {
           headers: { authorization: token as string },
@@ -87,7 +87,7 @@ function ModalUpdateRoomInfo() {
         setFile(undefined); // set empty
 
         axios
-          .patch(`http://localhost:5000/api/rooms/${roomId}/avatar`, formData, {
+          .patch(`https://frozen-caverns-53350.herokuapp.com/api/rooms/${roomId}/avatar`, formData, {
             headers: {
               authorization: token!,
               "Content-type": "multipart/form-data",
