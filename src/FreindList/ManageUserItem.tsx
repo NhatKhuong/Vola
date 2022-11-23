@@ -22,6 +22,14 @@ function UserItem({
   _id,
   deleteUser,
 }: Props) {
+
+    const roomState = useAppSelector((state: any) => state.room);
+    const userState = useAppSelector((state: any) => state.user);
+    console.log(roomState.owner);
+    console.log(userState.user._id);
+    
+    
+
   return (
     <div className={style.messageItem}>
       <div className={style.messageInfo}>
@@ -42,17 +50,30 @@ function UserItem({
           )}
         </div>
       </div>
+      
       <div className={style.message_time}>
-        {info ? (
+        {/* {(!info && (roomState.owner === userState.user._id)) ? (
           <AiOutlineUserDelete onClick={() => deleteUser(_id)} />
         ) : (
           <div className="">
             <div className={style.message_time_time}>{time}</div>
             <div className={style.message_time_more}>
-              {/* <FiMoreHorizontal /> */}
             </div>
           </div>
-        )}
+        )} */}
+
+        {
+          info ? 
+          
+            (roomState.owner === userState.user._id) ? (<AiOutlineUserDelete onClick={() => deleteUser(_id)} />) : "" 
+            // "dfdf"
+          
+          :""
+          // (<div className="">
+          //   <div className={style.message_time_time}>{time}</div>
+          //   <div className={style.message_time_more}></div>
+          // </div>)
+        }
       </div>
     </div>
   );

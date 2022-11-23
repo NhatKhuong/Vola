@@ -14,6 +14,7 @@ import tokenService from "../../services/token.service";
 import {
   loginWithEmailAndPassword,
   loginWithGoogle,
+  sendRequestForgotPassword,
 } from "../../until/firebase/firebaseAuth";
 
 import "./vendor/bootstrap/css/bootstrap.min.css";
@@ -28,9 +29,10 @@ import "./css/main.css";
 import "./css/util.css";
 import roomAPI from "../../redux/Room/roomAPI";
 import { clear } from "../../redux/Room/slice";
+import { Navigation } from "swiper";
 
 const cls = classNames.bind(style);
-const Login = (): JSX.Element => {
+const ForgotPassword = (): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const userState = useAppSelector((state: any) => state.user);
@@ -51,25 +53,30 @@ const Login = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userState]);
 
-  const handleLogin = (e: FormEvent) => {
-    e.preventDefault();
-    if (!isAllowSubmit("form_login")) {
-      return false;
-    } else {
-      loginWithEmailAndPassword(username, password)
-        .then((result: any) => {
-          if (!result.user.emailVerified) {
-            alert("Email chưa được xác thực vui lòng kiểm tra hộp thư của bạn");
-            return;
-          }
+  const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-          var accessToken = "Bearer " + result.user.accessToken;
-          dispatch(userAPI.getUserInfo()(accessToken));
-          dispatch(clear());
-          navigate("/");
-        })
-        .catch((err) => {
-          toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
+  const hanldPressLinkResert = (e: FormEvent)=>{
+    console.log(username);
+    e.preventDefault();
+    if(username === ""){
+      // alert("Email không được rỗng")
+      toast.error("Vui lòng nhập email", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    else if(regexEmail.test(username)){
+        sendRequestForgotPassword(username).then(()=>{
+          alert("Link thây đổi mật khẩu đã được gửi về email của bạn")
+          // alert("Link thây đổi mật khẩu đã được gửi về email của bạn")
+          navigate("/login");
+        }).catch((err)=>{
+          toast.error("Đã xẩy ra lỗi", {
             position: "top-center",
             autoClose: 3000,
             hideProgressBar: false,
@@ -78,29 +85,74 @@ const Login = (): JSX.Element => {
             draggable: true,
             progress: undefined,
           });
+          // alert("Đã xẩy ra lỗi")
         });
     }
-  };
-  const handleLoginWithGoogle = () => {
-    // loginWithGoogle();
-    loginWithGoogle()
-      .then((user: any) => {
-        navigate("/");
-        var accessToken = "Bear " + user.user.accessToken;
-        dispatch(userAPI.getUserInfo()(accessToken));
-      })
-      .catch((err) => {
-        toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+    else{
+      toast.error("Đã xẩy ra lổi, vui lòng kiểm tra lại", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true, 
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
-  };
+      // alert("Đã xẩy ra lỗi")
+    }
+   
+}
+
+  // const handleLogin = (e: FormEvent) => {
+  //   e.preventDefault();
+  //   if (!isAllowSubmit("form_login")) {
+  //     return false;
+  //   } else {
+  //     loginWithEmailAndPassword(username, password)
+  //       .then((result: any) => {
+  //         // if (!result.user.emailVerified) {
+  //         //   alert("Email chưa được xác thực vui lòng kiểm tra hộp thư của bạn");
+  //         //   return;
+  //         // }
+
+  //         var accessToken = "Bearer " + result.user.accessToken;
+  //         dispatch(userAPI.getUserInfo()(accessToken));
+  //         dispatch(clear());
+  //         navigate("/");
+  //       })
+  //       .catch((err) => {
+  //         toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
+  //           position: "top-center",
+  //           autoClose: 3000,
+  //           hideProgressBar: false,
+  //           closeOnClick: true,
+  //           pauseOnHover: true,
+  //           draggable: true,
+  //           progress: undefined,
+  //         });
+  //       });
+  //   }
+  // };
+  // const handleLoginWithGoogle = () => {
+  //   // loginWithGoogle();
+  //   loginWithGoogle()
+  //     .then((user: any) => {
+  //       navigate("/");
+  //       var accessToken = "Bear " + user.user.accessToken;
+  //       dispatch(userAPI.getUserInfo()(accessToken));
+  //     })
+  //     .catch((err) => {
+  //       toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
+  //         position: "top-center",
+  //         autoClose: 3000,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //         progress: undefined,
+  //       });
+  //     });
+  // };
 
   return (
     <div className="limiter">
@@ -123,7 +175,7 @@ const Login = (): JSX.Element => {
           <form
             className="login100-form validate-form"
             action=""
-            onSubmit={handleLogin}
+            onSubmit={hanldPressLinkResert}
             id="form_login"
           >
             <span className="login100-form-title p-b-50">Zalo</span>
@@ -132,7 +184,7 @@ const Login = (): JSX.Element => {
               className="wrap-input100 validate-input m-b-23"
               data-validate="Username is reauired"
             >
-              <span className="label-input100">Username</span>
+              <span className="label-input100">Email</span>
               <Input
                 type="text"
                 name="username"
@@ -144,35 +196,13 @@ const Login = (): JSX.Element => {
               {/* <span className="focus-input100" data-symbol="&#xf206;"></span> */}
             </div>
 
-            <div
-              className="wrap-input100 validate-input"
-              data-validate="Password is required"
-            >
-              <span className="label-input100">Password</span>
-              <Input
-                type="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                rule="required"
-                id="password"
-              />
-              {/* <span className="focus-input100" data-symbol="&#xf190;"></span> */}
-            </div>
-
-            <div className="text-right p-t-8 p-b-31">
-              <div id="message_login" className="message_login"></div>
-              <Link to="/forgot-password" className={cls("forgot_password")}>
-                Forgot password?
-              </Link>
-            </div>
-
             <div className="container-login100-form-btn">
               <div className="wrap-login100-form-btn">
                 <div className="login100-form-bgbtn"></div>
-                <button className="login100-form-btn">Login</button>
+                <button className="login100-form-btn">CHANGE PASSWORD</button>
               </div>
             </div>
+
 
             <div className="txt1 text-center p-t-20 p-b-20">
               <span>Or Sign Up Using</span>
@@ -188,13 +218,16 @@ const Login = (): JSX.Element => {
               </a>
 
               <a href="#top" className="login100-social-item bg3">
-                <i className="fa fa-google" onClick={handleLoginWithGoogle}></i>
+                <i className="fa fa-google"></i>
               </a>
             </div>
 
             <div className="flex-col-c p-t-30">
               <div>
                 <Link to="/register">Sign Up</Link>
+              </div>
+              <div>
+                <Link to="/login">Login</Link>
               </div>
             </div>
           </form>
@@ -204,4 +237,4 @@ const Login = (): JSX.Element => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

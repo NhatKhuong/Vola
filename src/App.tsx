@@ -18,6 +18,7 @@ import tokenService from "./services/token.service";
 import Peer from "simple-peer";
 import WindowChat from "./ChatVideo/WindowChat";
 import Manager from "./manager/Manager";
+import ForgotPassword from "./Account/Login/ForgotPassword";
 
 export let newSocket = io("https://frozen-caverns-53350.herokuapp.com");
 
@@ -207,6 +208,7 @@ function App() {
                 </Route>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
             </Routes>
         </div>
     );

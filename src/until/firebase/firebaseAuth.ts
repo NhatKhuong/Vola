@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendEmailVerification,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { Exception } from "sass";
 import { app } from "../../config/firebase/firebaseConfig";
@@ -23,7 +24,7 @@ export const singUpWithEmailAndPassword = async (
 ) => {
   const result = await createUserWithEmailAndPassword(auth, email, password);
   var actionCodeSettings = {
-    url: "https://frozen-caverns-53350.herokuapp.com",
+    url: "localhost:3000",
     handleCodeInApp: true,
   };
   await sendEmailVerification(result.user, actionCodeSettings);
@@ -35,4 +36,10 @@ export const loginWithEmailAndPassword = async (
   password: string
 ) => {
   return await signInWithEmailAndPassword(auth, email, password);
+};
+
+export const sendRequestForgotPassword = async (
+  email: string,
+) => {
+  return await sendPasswordResetEmail(auth, email);
 };
