@@ -27,6 +27,8 @@ function MenuContent() {
   const token = userState.accessToken;
   const roomState = useAppSelector((state: any) => state.room);
   const listRooms = userState.rooms;
+  console.log(roomState);
+  
 
   const dispatch = useAppDispatch();
   const handleClick = () => {
@@ -79,10 +81,14 @@ function MenuContent() {
       <div className={style.menuContent_body}>
         <div className={style.menuContent_header_info}>
           <img src={roomState.avatar} alt="" />
-          <div className={style.name}>
+          {roomState.owner === userState.user._id
+          ? ( <div className={style.name}>
             {roomState.name}
             <AiFillEdit onClick={() => dispatch(oppenModalUpdateRoomInfo())} />
-          </div>
+          </div>)
+          :""
+          }
+         
           <div className={style.menuContent_header_info_listAction}>
             <div className={style.menuContent_header_info_listAction_item}>
               <IoMdNotificationsOutline />
@@ -96,24 +102,36 @@ function MenuContent() {
                 Thành viên
               </p>
             </div>
-            <div className={style.menuContent_header_info_listAction_item}>
+            {roomState.owner === userState.user._id
+              ? (<div className={style.menuContent_header_info_listAction_item}>
               <AiOutlineUsergroupAdd onClick={() => handleClick()} />
               <p className={style.menuContent_header_info_listAction_item_name}>
                 Thêm thành viên
               </p>
-            </div>
+            </div>)
+            : ""
+            }
+            {/* // <div className={style.menuContent_header_info_listAction_item}>
+            //   <AiOutlineUsergroupAdd onClick={() => handleClick()} />
+            //   <p className={style.menuContent_header_info_listAction_item_name}>
+            //     Thêm thành viên
+            //   </p>
+            // </div> */}
 
-            <div className={style.menuContent_header_info_listAction_item}>
-              <AiFillDelete
-                onClick={() => {
-                  var result = window.confirm("Xóa nhóm ?");
-                  if (result) deleteGroupHandleClick();
-                }}
-              />
-              <p className={style.menuContent_header_info_listAction_item_name}>
-                Xóa nhóm
-              </p>
-            </div>
+            {roomState.owner === userState.user._id
+              ? ( <div className={style.menuContent_header_info_listAction_item}>
+                <AiFillDelete
+                  onClick={() => {
+                    var result = window.confirm("Xóa nhóm ?");
+                    if (result) deleteGroupHandleClick();
+                  }}
+                />
+                <p className={style.menuContent_header_info_listAction_item_name}>
+                  Xóa nhóm
+                </p>
+              </div>)
+             : "" } 
+           
           </div>
         </div>
 

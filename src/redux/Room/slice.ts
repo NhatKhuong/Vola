@@ -39,6 +39,7 @@ interface StateType {
   messageSent?: string;
   name: string;
   avatar?: string;
+  owner?:string;
   lstMember: any;
 }
 
@@ -51,6 +52,7 @@ const initialState = {
   name: "",
   avatar: "",
   lstMember: [],
+  owner:"",
 } as StateType;
 
 export const roomSlice = createSlice({
@@ -104,6 +106,7 @@ export const roomSlice = createSlice({
         state.name = action.payload.name;
         state.avatar = action.payload.avatar;
         state.lstMember = action.payload.lstMember;
+        state.owner = action.payload.owner;
       }
     );
     builder.addCase(roomAPI.saveRoomId().rejected, (state) => {});

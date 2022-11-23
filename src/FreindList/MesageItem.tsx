@@ -12,6 +12,7 @@ interface Props {
   info: boolean;
   _id?: string;
   addUser?: any;
+  owner?:string;
 }
 function MesageItem({
   avatar,
@@ -21,6 +22,7 @@ function MesageItem({
   info,
   _id,
   addUser,
+  owner
 }: Props) {
   const dispatch = useAppDispatch();
   const roomState = useAppSelector((state: any) => state.room);
@@ -28,7 +30,7 @@ function MesageItem({
   const accessToken = userState.accessToken;
   const showRoom = () => {
     dispatch(roomAPI.getListChat()({ accessToken, _id }));
-    dispatch(roomAPI.saveRoomId()({ _id, name, avatar }));
+    dispatch(roomAPI.saveRoomId()({ _id, name, avatar,owner }));
     // dispatch(roomAPI.getListFile()())
     // dispatch(roomAPI.getListPic()())
   };

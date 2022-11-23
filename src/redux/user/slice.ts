@@ -20,6 +20,7 @@ export interface IRoom {
     typeRoom: string;
     createdAt?: Date;
     updatedAt?: Date;
+    owner?:string;
 }
 interface IUserRoom {
     _id: string;

@@ -7,6 +7,7 @@ interface Props {
     time?: Date;
     avatar: string;
     type?: string;
+    isOwner?:boolean;
 }
 function ItemMessage(props: Props) {
     const ComponentMessage = () => {
@@ -88,11 +89,17 @@ function ItemMessage(props: Props) {
                     </div>
                     <div className={style.ItemMessage_content_avatar}>
                         <img src={props.avatar} alt="" />
+                        {props.isOwner ? (
+                <img style={{height:"20px",width:"20px",objectFit:"cover"}} src="https://www.pngitem.com/pimgs/m/34-347182_key-emoji-cutouts-key-emoji-transparent-hd-png.png" alt="" />
+            ) : ""}
                     </div>
                 </div>
             ) : (
                 <div className={style.ItemMessage_content}>
                     <div className={style.ItemMessage_content_avatar}>
+                    {props.isOwner ? (
+                <img style={{height:"20px",width:"20px",objectFit:"cover"}} src="https://www.pngitem.com/pimgs/m/34-347182_key-emoji-cutouts-key-emoji-transparent-hd-png.png" alt="" />
+            ) : ""}
                         <img src={props.avatar} alt="" />
                     </div>
                     <div className={style.ItemMessage_content_mesage}>
@@ -111,6 +118,9 @@ function ItemMessage(props: Props) {
                     </div>
                 </div>
             )}
+            {/* {props.isOwner ? (
+                <img style={{height:"20px",width:"20px",objectFit:"cover"}} src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Key_Vector_Graphic.svg/1000px-Key_Vector_Graphic.svg.png" alt="" />
+            ) : ""} */}
         </div>
     );
 }

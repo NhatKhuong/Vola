@@ -37,6 +37,7 @@ function ChatContent(prop: Props) {
     const fileInput = useRef(null);
     const elementListChat = useRef(null);
     const [preview, setPreview] = useState<any>();
+    // const isOwner = roomState.owner === userState.user._id;
 
     const sendMessageSocket = () => {
         if (file) {
@@ -172,6 +173,7 @@ function ChatContent(prop: Props) {
             </div>
             <div className={style.chatContentWindow} ref={elementListChat}>
                 {roomState.lstChat.map((e: any) => {
+                    const isOwner =  e.user._id === roomState.owner ? true : false;
                     const isMyMessage =
                         e.user._id === userState.user._id ? true : false;
                     return (
@@ -182,6 +184,7 @@ function ChatContent(prop: Props) {
                             time={e.createdAt}
                             message={e.content}
                             type={e.type}
+                            isOwner={isOwner}
                         />
                     );
                 })}
