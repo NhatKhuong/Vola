@@ -1,19 +1,19 @@
-.friednTag{
+.friednTag {
     display: flex;
     flex-direction: column;
     padding: 30px 0 10px 10px;
 }
 
-.search{
-    display:  flex;
+.search {
+    display: flex;
 }
 
-.search_icon{
+.search_icon {
     display: flex;
     align-items: center;
 }
 
-.search_icon_item{
+.search_icon_item {
     margin: 0 5px;
     display: flex;
     border-radius: 50%;
@@ -24,14 +24,13 @@
 .search_icon_item:hover {
     background-color: #e8eaef;
     cursor: pointer;
-
 }
 
-.search_icon_item svg{
+.search_icon_item svg {
     margin: auto;
     font-size: 18px;
 }
-.search_block{
+.search_block {
     background-color: #e8eaef;
     width: 200px;
     height: 30px;
@@ -41,173 +40,168 @@
     padding-left: 5px;
 }
 
-.search_block input{
+.search_block input {
     outline: none;
     border: none;
     background-color: #e8eaef;
-
 }
-.tab{
+.tab {
     margin: 10px 0;
     display: flex;
 }
 
-.searchTab{
+.searchTab {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
 }
 
-.tab_item{
+.tab_item {
     padding: 0 5px;
     border-bottom: 2px solid #fff;
     font-weight: 500;
     color: #72808e;
 }
 
-.tab_item:hover{
+.tab_item:hover {
     color: #0068ff;
     border-bottom: 2px solid #0068ff;
     cursor: pointer;
 }
 
-.filter{
+.filter {
     display: flex;
     align-items: center;
 }
 
-.filter_dropList select{
+.filter_dropList select {
     border: none;
     outline: none;
     width: 95px;
     padding: 5px;
     border-radius: 10px;
-
 }
 
-.filter_dropList select:hover{
+.filter_dropList select:hover {
     background-color: #e8eaef;
     cursor: pointer;
-
 }
 
-.filter_more{
+.filter_more {
     display: flex;
     margin-left: 5px;
     border-radius: 50%;
     width: 30px;
     height: 30px;
-    
 }
 
-.filter_more:hover{
+.filter_more:hover {
     background-color: #e8eaef;
     cursor: pointer;
 }
 
-.filter_more svg{
+.filter_more svg {
     margin: auto;
-
 }
 
-.messageItem{
+.messageItem {
     display: flex;
     /* border: 1px solid; */
     justify-content: space-between;
-    padding:5px 10px;
-
+    padding: 5px 10px;
 }
 
-.messageInfo{
+.messageInfo {
     display: flex;
 }
 
-.messageInfo_avata{
+.messageInfo_avata {
     width: 50px;
     height: 50px;
     border-radius: 50%;
 }
 
-.messageInfo_avata img{
+.messageInfo_avata img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
 }
 
-.messageInfo_description{
+.messageInfo_description {
     display: flex;
     flex-direction: column;
-    
 }
 
-.messageInfo_description_name{
+.messageInfo_description_name {
     font-size: 14px;
 }
 
-.messageInfo_description_inner{
+.messageInfo_description_inner {
     font-size: 12px;
     color: #72808e;
-
+    max-width: 120px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-.message_time{
+.message_time {
     padding-top: 10px;
 }
 
-.message_time_time{
+.message_time_time {
     font-size: 10px;
     color: #72808e;
 }
 
-.message_time_more{
+.message_time_more {
     margin-top: 10px;
 }
 
-.messageItem:hover{
+.messageItem:hover {
     background-color: #e7e7e7;
     cursor: pointer;
 }
 
 /* Modal */
 
-.Modal_createGroup_head{
+.Modal_createGroup_head {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
 }
 
-.Modal_createGroup_head_close{
+.Modal_createGroup_head_close {
     width: 25px;
     height: 25px;
     display: flex;
 }
 
-.Modal_createGroup_head_close svg{
+.Modal_createGroup_head_close svg {
     margin: auto;
 }
 
-.Modal_createGroup_head_close:hover{
+.Modal_createGroup_head_close:hover {
     border: 1px solid #ccc;
     cursor: pointer;
 }
 
-.Modal_createGroup_name_group_iconBlock:hover{
+.Modal_createGroup_name_group_iconBlock:hover {
     opacity: 0.8;
     cursor: pointer;
 }
 
-
-.Modal_createGroup_head_title{
+.Modal_createGroup_head_title {
     font-weight: 600;
 }
 
-.Modal_createGroup_name_group{
+.Modal_createGroup_name_group {
     display: flex;
     margin-top: 20px;
 }
 
-.Modal_createGroup_name_group_iconBlock{
+.Modal_createGroup_name_group_iconBlock {
     border: 1px solid #ccc;
     width: 30px;
     height: 30px;
@@ -215,13 +209,13 @@
     border-radius: 50%;
 }
 
-.Modal_createGroup_name_group_iconBlock svg{
+.Modal_createGroup_name_group_iconBlock svg {
     margin: auto;
     color: rgb(90, 85, 85);
     font-size: 16px;
-}  
+}
 
-.Modal_createGroup_name_group_name_group{
+.Modal_createGroup_name_group_name_group {
     flex: 1;
     border: 1px solid #ccc;
     border-left: none;
@@ -229,63 +223,62 @@
     height: 30px;
 }
 
-.Modal_createGroup_name_group_name_group input{
+.Modal_createGroup_name_group_name_group input {
     width: 100%;
     outline: none;
     border: none;
     padding-left: 10px;
 }
 
-.add_group_title, .add_group_title_chat_late{
+.add_group_title,
+.add_group_title_chat_late {
     margin-top: 15px;
     font-size: 13px;
     font-weight: 600;
 }
 
-.search_menber_block{
+.search_menber_block {
     display: flex;
     margin: 10px 0px;
     border: 1px solid #ccc;
     padding: 5px 7px;
     border-radius: 14px;
-    margin-bottom: 20px;
-
+    margin-bottom: 5px;
 }
 
-.search_menber_block input{
+.search_menber_block input {
     border: none;
     outline: none;
     width: 100%;
 }
 
-.search_menber_icon svg{
+.search_menber_icon svg {
     color: rgb(90, 85, 85);
     margin-right: 3px;
 }
 
-.listMember{
+.listMember {
     margin-top: 10px;
     height: 300px;
     overflow-y: auto;
 }
 
-.Modal_footer{
+.Modal_footer {
     border-top: 1px solid #ccc;
     padding-top: 20px;
     float: right;
 }
 
-.Modal_footer .btn_modal_cancel{
+.Modal_footer .btn_modal_cancel {
     width: 60px;
     height: 30px;
     border: none;
     border-radius: 7px;
     cursor: pointer;
     font-weight: 600;
-
 }
 
-.Modal_footer .btn_modal_create{
+.Modal_footer .btn_modal_create {
     margin-left: 20px;
     width: 80px;
     height: 30px;
@@ -295,15 +288,12 @@
     color: #fff;
     background-color: #0091ff;
     font-weight: 600;
-    
 }
 
-.btn_modal_cancel:hover{
+.btn_modal_cancel:hover {
     background-color: rgb(234, 221, 221);
 }
 
-.btn_modal_create:hover{
+.btn_modal_create:hover {
     opacity: 0.8;
 }
-
-

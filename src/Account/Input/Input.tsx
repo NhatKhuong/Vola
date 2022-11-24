@@ -25,6 +25,7 @@ const Input = ({
     value,
     onChange,
     placeholder,
+    style,
 }: Props): JSX.Element => {
     const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
         validate(e.target);
@@ -46,6 +47,7 @@ const Input = ({
                     onBlur={(e) => handleBlur(e)}
                     data-rule={rule}
                     placeholder={placeholder}
+                    style={style}
                 />
             }
         </div>
