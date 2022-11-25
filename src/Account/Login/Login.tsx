@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import userAPI from "../../redux/user/userAPI";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import tokenService from "../../services/token.service";
 
 import {
   loginWithEmailAndPassword,
@@ -58,10 +57,10 @@ const Login = (): JSX.Element => {
     } else {
       loginWithEmailAndPassword(username, password)
         .then((result: any) => {
-          if (!result.user.emailVerified) {
-            alert("Email chưa được xác thực vui lòng kiểm tra hộp thư của bạn");
-            return;
-          }
+          // if (!result.user.emailVerified) {
+          //   alert("Email chưa được xác thực vui lòng kiểm tra hộp thư của bạn");
+          //   return;
+          // }
 
           var accessToken = "Bearer " + result.user.accessToken;
           dispatch(userAPI.getUserInfo()(accessToken));
@@ -104,7 +103,7 @@ const Login = (): JSX.Element => {
 
   return (
     <div className="limiter">
-       <ToastContainer
+      <ToastContainer
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
