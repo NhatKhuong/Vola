@@ -20,8 +20,13 @@ class RoomAPI {
         return createAsyncThunk(
             "romm/get-list-file",
             async (data: any, thunkAPI) => {
-                const { accessToken } = data;
-                const result: any = await businessService.getListFile(data);
+                const { accessToken, _id } = data;
+                const result: any = await businessService.getListFile(
+                    accessToken,
+                    _id
+                );
+                console.log(result);
+                
                 if (result.status === 200) return result.data;
                 return thunkAPI.rejectWithValue("login_fail");
             }
@@ -31,8 +36,13 @@ class RoomAPI {
         return createAsyncThunk(
             "romm/get-list-pic",
             async (data: any, thunkAPI) => {
-                const { accessToken } = data;
-                const result: any = await businessService.getListPic(data);
+                const { accessToken, _id } = data;
+                const result: any = await businessService.getListChat(
+                    accessToken,
+                    _id
+                );
+                console.log(result);
+                
                 if (result.status === 200) return result.data;
                 return thunkAPI.rejectWithValue("login_fail");
             }

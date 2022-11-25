@@ -31,8 +31,8 @@ function MesageItem({
   const showRoom = () => {
     dispatch(roomAPI.getListChat()({ accessToken, _id }));
     dispatch(roomAPI.saveRoomId()({ _id, name, avatar,owner }));
-    // dispatch(roomAPI.getListFile()())
-    // dispatch(roomAPI.getListPic()())
+    dispatch(roomAPI.getListFile()({accessToken, _id}))
+    dispatch(roomAPI.getListPic()({accessToken, _id}))
   };
 
   const onChangeCheckBox = () => {

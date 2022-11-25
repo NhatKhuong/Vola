@@ -28,6 +28,9 @@ function MenuContent() {
   const roomState = useAppSelector((state: any) => state.room);
   const listRooms = userState.rooms;
   console.log(roomState);
+  console.log(roomState.getListPic);
+  console.log(roomState.getListFile);
+  
   
 
   const dispatch = useAppDispatch();

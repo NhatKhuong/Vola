@@ -16,10 +16,10 @@ class BussinessService {
         }
     }
 
-    async getListFile(accessToken: string) {
+    async getListFile(accessToken: string, _id: string) {
         try {
             var user = await axios.get(
-                `https://frozen-caverns-53350.herokuapp.com/api/users/profile`,
+                `https://frozen-caverns-53350.herokuapp.com/api/rooms/${_id}/messages?type=file`,
                 {
                     headers: { authorization: accessToken as string },
                 }
@@ -30,10 +30,10 @@ class BussinessService {
         }
     }
 
-    async getListPic(accessToken: string) {
+    async getListPic(accessToken: string, _id: string) {
         try {
             var user = await axios.get(
-                `https://frozen-caverns-53350.herokuapp.com/api/users/profile`,
+                `https://frozen-caverns-53350.herokuapp.com/api/rooms/${_id}/messages?type=image`,
                 {
                     headers: { authorization: accessToken as string },
                 }
