@@ -7,6 +7,7 @@ interface chatItem {
   user: User;
   content: string;
   createdAt: Date;
+  emoji?:string;
 }
 
 interface User {
@@ -52,6 +53,7 @@ const initialState = {
   name: "",
   avatar: "",
   lstMember: [],
+  emoji:"",
   owner:"",
 } as StateType;
 
@@ -118,6 +120,31 @@ export const roomSlice = createSlice({
       }
     );
     builder.addCase(roomAPI.updateSentMessage().rejected, (state) => {});
+
+    builder.addCase(
+      roomAPI.updateChangeMessage().fulfilled,
+      (state: StateType, action) => {
+        state.lstChat?.forEach((item)=>{
+          if(item._id === action.payload.messageId){
+            item.type='unsend'
+          }
+        })
+      }
+    );
+    builder.addCase(roomAPI.updateChangeMessage().rejected, (state) => {});
+
+    builder.addCase(
+      roomAPI.updateChangeIconMessage().fulfilled,
+      (state: StateType, action) => {
+        state.lstChat?.forEach((item)=>{
+          if(item._id === action.payload.messageId){
+            item.emoji=action.payload.react.emoji
+          }
+        })
+      }
+    );
+    builder.addCase(roomAPI.updateChangeIconMessage().rejected, (state) => {});
+    
   },
 });
 

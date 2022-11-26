@@ -1,32 +1,29 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import style from "./WindowChat.module.scss";
 import clsx from "clsx";
 import { BsTelephoneOutboundFill, BsTelephoneXFill } from "react-icons/bs";
 import io, { Socket } from "socket.io-client";
 import { useParams } from "react-router-dom";
 
-
 function WindowChat() {
     const params = useParams();
     const otherUser = {
-        fullName:"User1",
-    }
-    const newSocket = io("http://localhost:5000", {
+        fullName: "User1",
+    };
+    const newSocket = io("https://frozen-caverns-53350.herokuapp.com", {
         query: {
             // token: useState.accessToken,
         },
     });
     useEffect(() => {
         // if (frameUserIsOpen.current) {
-            newSocket.emit("video chat", {
-                roomID: params.roomID,
-            });
+        newSocket.emit("video chat", {
+            roomID: params.roomID,
+        });
 
-            // frameUserIsOpen.current = false;
-    
-     
-    }, [])
-    
+        // frameUserIsOpen.current = false;
+    }, []);
+
     return (
         <div
             className={clsx(style.video_chat)}
@@ -35,33 +32,33 @@ function WindowChat() {
             }}
         >
             {/* {!accept && userState.user._id === callerID.current && ( */}
-                <div className={clsx(style.calling)}>
-                    <div>{`Đang gọi ...`}</div>
+            <div className={clsx(style.calling)}>
+                <div>{`Đang gọi ...`}</div>
+                <button>
+                    <BsTelephoneXFill />
+                </button>
+            </div>
+            {/* )} */}
+            {/* {!accept && userState.user._id === answerID.current && ( */}
+            <div className={clsx(style.answer)}>
+                {otherUser ? (
+                    <div>{otherUser.fullName}</div>
+                ) : (
+                    <div>Đang gọi</div>
+                )}
+
+                <div className={clsx(style.action)}>
                     <button>
                         <BsTelephoneXFill />
                     </button>
+                    <button
+                        // onClick={handleAccept}
+                        className={clsx(style.accept)}
+                    >
+                        <BsTelephoneOutboundFill />
+                    </button>
                 </div>
-            {/* )} */}
-            {/* {!accept && userState.user._id === answerID.current && ( */}
-                <div className={clsx(style.answer)}>
-                    {otherUser ? (
-                        <div>{otherUser.fullName}</div>
-                    ) : (
-                        <div>Đang gọi</div>
-                    )}
-
-                    <div className={clsx(style.action)}>
-                        <button>
-                            <BsTelephoneXFill />
-                        </button>
-                        <button
-                            // onClick={handleAccept}
-                            className={clsx(style.accept)}
-                        >
-                            <BsTelephoneOutboundFill />
-                        </button>
-                    </div>
-                </div>
+            </div>
             {/* )} */}
 
             {/* {accept && (

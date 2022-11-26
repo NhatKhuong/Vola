@@ -21,6 +21,7 @@ export interface IRoom {
     createdAt?: Date;
     updatedAt?: Date;
     owner?:string;
+    emoji?:string;
 }
 interface IUserRoom {
     _id: string;

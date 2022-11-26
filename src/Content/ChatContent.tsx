@@ -13,13 +13,14 @@ import { EmojiButton } from "@joeattardi/emoji-button";
 import { VscReactions } from "react-icons/vsc";
 import ItemMessage from "./ItemMessage";
 import { useDispatch } from "react-redux";
-import { oppenModal } from "../redux/statusCommon/slice";
+import { oppenModal, reLoad } from "../redux/statusCommon/slice";
 import { useAppSelector, useAppDispatch } from "../redux/hook";
 import roomAPI from "../redux/Room/roomAPI";
 import { IoDocumentAttachOutline } from "react-icons/io5";
 import { newSocket } from "../App";
 import axios from "axios";
 import tokenService from "../services/token.service";
+import userAPI from "../redux/user/userAPI";
 const urlUploadFile = "https://frozen-caverns-53350.herokuapp.com/api/storages/upload";
 
 interface Props {
@@ -88,14 +89,15 @@ function ChatContent(prop: Props) {
     }, []);
 
     const call = () => {
-        const roomID = roomState._id;
+        const roomId = roomState._id;
+        newSocket.emit("call-video", { roomId })
         window.open(
             "/voice-chat/" +
-                roomID +
-                "/" +
-                userState.user._id +
-                "/" +
-                roomState._id,
+            roomId +
+            "/" +
+            userState.user._id +
+            "/" +
+            roomState._id,
             "_blank",
             "location=yes,height=520,width=450,scrollbars=yes,status=yes"
         );
@@ -104,8 +106,6 @@ function ChatContent(prop: Props) {
     // files
     function handleUpload(event: any) {
         setFile(event.target.files[0]);
-        
-        
     }
     const clickUploadFile = () => {
         (fileInput.current as any).value = null;
@@ -173,7 +173,10 @@ function ChatContent(prop: Props) {
             </div>
             <div className={style.chatContentWindow} ref={elementListChat}>
                 {roomState.lstChat.map((e: any) => {
-                    const isOwner =  e.user._id === roomState.owner ? true : false;
+                    console.log(e._id);
+
+                    const isOwner =
+                        e.user._id === roomState.owner ? true : false;
                     const isMyMessage =
                         e.user._id === userState.user._id ? true : false;
                     return (
@@ -185,6 +188,8 @@ function ChatContent(prop: Props) {
                             message={e.content}
                             type={e.type}
                             isOwner={isOwner}
+                            _id={e._id}
+                            emoji={e.emoji}
                         />
                     );
                 })}
@@ -234,8 +239,10 @@ function ChatContent(prop: Props) {
                         onKeyUp={(e) => {
                             if (e.key === "Enter") {
                                 sendMessageSocket();
+                                // dispatch(userAPI.getUserInfo()(tokenService.getAccessToken));
                                 dispatch(roomAPI.updateSentMessage()(value));
                                 setValue("");
+                                reLoad();
                             }
                         }}
                     />

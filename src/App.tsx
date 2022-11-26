@@ -19,6 +19,7 @@ import Peer from "simple-peer";
 import WindowChat from "./ChatVideo/WindowChat";
 import Manager from "./manager/Manager";
 import ForgotPassword from "./Account/Login/ForgotPassword";
+import { reLoad } from "./redux/statusCommon/slice";
 
 export let newSocket = io("https://frozen-caverns-53350.herokuapp.com");
 
@@ -70,6 +71,8 @@ function App() {
         newSocket.disconnect();
         newSocket = io("https://frozen-caverns-53350.herokuapp.com");
         newSocket?.on("server-send-message", function (data: any) {
+            console.log(data);
+
             if (roomId.current === data.roomId) {
                 dispatch(roomAPI.updateListChat()(data));
             }
@@ -96,6 +99,34 @@ function App() {
             dispatch(
                 userAPI.updateListRequestAddFriend()(data.friendInvite.user)
             );
+        });
+
+        newSocket.on("call-video", function (data: any) {
+            console.log(data);
+            // dispatch(
+            //     userAPI.updateListRequestAddFriend()(data.friendInvite.user)
+            // );
+        });
+
+        newSocket.on("react-message", function (data: any) {
+            console.log(data);
+            if (roomId.current === data.roomId) {
+                console.log("vào");
+
+                dispatch(roomAPI.updateChangeIconMessage()(data));
+            }
+        });
+
+
+        newSocket.on("unsend-message", function (data: any) {
+            console.log(data);
+            console.log(data.roomId);
+            console.log(roomState._id);
+            if (roomId.current === data.roomId) {
+                console.log("vào");
+
+                dispatch(roomAPI.updateChangeMessage()(data));
+            }
         });
 
         // call video

@@ -4,7 +4,7 @@ import style from "./Content.module.css";
 import MenuContent from "./MenuContent";
 
 function Content(){
-    const [menu2, setMenu2] = useState(true);
+    const [menu2, setMenu2] = useState(false);
     return (
         <div className={style.content}>
             <div className={style.con1} style={{ flex: menu2 ? "0.7" : "1" }}>

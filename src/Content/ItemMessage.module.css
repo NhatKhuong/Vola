@@ -7,7 +7,7 @@
 .ItemMessage_content{
     display: flex;
     width: 100%;
-    
+    position: relative;
 }
 
 .ItemMessage_content_avatar img{
@@ -21,14 +21,19 @@
 }
 
 .ItemMessage_content_mesage{
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     border-radius: 8px;
     background-color: #fff;
     padding: 10px;
+    max-width: 400px;
+    overflow-wrap: break-word;
+    position: relative;
+    /* word-wrap: normal|break-word|initial|inherit; */
+    
 }
 
 .ItemMessage_content_mesage_name{
-    font-size: 13px;
+    font-size: 12px;
     color: rgb(130, 111, 111);
 }
 
@@ -37,11 +42,139 @@
     margin: 5px 0;
 }
 
+.ItemMessage_content_mesage_message_unsent{
+    font-style: italic;
+    font-size: 12px !important;
+    color: #ccc;
+}
+
 .ItemMessage_content_mesage_time{
     font-size: 12px;
     color: rgb(130, 111, 111);
+    margin-bottom: 10px;
 }
 
 .ItemMessage_content_mesage_message_img:hover{
     cursor: pointer;
+}
+
+.ItemMessage_content_mesage_expan{
+    height: 30px;
+    width: 60px;
+    /* background-color: #000; */
+    visibility: hidden;
+    display: flex;
+    background-color: #fff;
+    justify-content: space-around;
+    border-radius: 5px;
+    margin:0 10px;
+
+    
+
+}
+
+.ItemMessage_content_mesage:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.ItemMessage_content:hover .ItemMessage_content_mesage_expan{
+    visibility: visible;
+    animation-duration: 4s;
+    cursor: pointer;
+}
+
+.ItemMessage_content_mesage_expan_respone{
+    text-align: center;
+
+}
+
+.ItemMessage_content_mesage_expan svg{
+    align-items: center;
+    height: 100%;
+    width: 15px;
+    color: #757575;
+}
+
+.ItemMessage_content_mesage_expan svg:hover{
+    opacity: 0.8;
+}
+
+.ItemMessage_content_mesage_expan_thuhoi{
+
+}
+
+.ItemMessage_content_mesage_expan_container{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.ItemMessage_content_mesage_expan_respone_react{
+    position: relative;
+
+}
+
+.ItemMessage_content_mesage_expan_respone_react:hover .ItemMessage_content_mesage_expan_respone_react_container{
+    visibility: visible;
+}
+
+.ItemMessage_content_mesage_expan_respone_react:hover .ItemMessage_content_mesage_expan_respone_react_container_noMyself{
+    visibility: visible;
+}
+
+.ItemMessage_content_mesage_expan_respone_react_container{
+    width: 100px;
+    height: 25px;
+    background-color: #fff;
+    position: absolute;
+    top: -30px;
+    left: -80px;
+    border-radius: 7px;
+    visibility: hidden;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.ItemMessage_content_mesage_expan_respone_react_container_noMyself{
+    width: 100px;
+    height: 25px;
+    background-color: #fff;
+    position: absolute;
+    top: -30px;
+    left: -40px;
+    border-radius: 7px;
+    visibility: hidden;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.ItemMessage_content_mesage_expan_respone_react::before{
+    background-color: transparent;
+    width: 40px;
+    height: 20px;
+    position: absolute;
+    content: "";
+    top: -10px;
+    left: -20px;
+    
+}
+
+.reactIcon:hover{
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.reactIconMysefl{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.reactIconYousefl{
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
