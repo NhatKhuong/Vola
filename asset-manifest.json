@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Vola/static/css/main.a8ffbce3.css",
-    "main.js": "/Vola/static/js/main.3f676dab.js",
+    "main.js": "/Vola/static/js/main.42c45458.js",
     "static/js/787.6e3303a1.chunk.js": "/Vola/static/js/787.6e3303a1.chunk.js",
     "static/media/fontawesome-webfont.svg?v=4.7.0": "/Vola/static/media/fontawesome-webfont.6878d55e3615ccf40c38.svg",
     "static/media/fontawesome-webfont.eot": "/Vola/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
@@ -17,11 +17,11 @@
     "static/media/Material-Design-Iconic-Font.woff2?v=2.2.0": "/Vola/static/media/Material-Design-Iconic-Font.6ee80f4bf5d3f92f3bf7.woff2",
     "index.html": "/Vola/index.html",
     "main.a8ffbce3.css.map": "/Vola/static/css/main.a8ffbce3.css.map",
-    "main.3f676dab.js.map": "/Vola/static/js/main.3f676dab.js.map",
+    "main.42c45458.js.map": "/Vola/static/js/main.42c45458.js.map",
     "787.6e3303a1.chunk.js.map": "/Vola/static/js/787.6e3303a1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a8ffbce3.css",
-    "static/js/main.3f676dab.js"
+    "static/js/main.42c45458.js"
   ]
 }
