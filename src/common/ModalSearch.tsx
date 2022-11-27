@@ -51,7 +51,7 @@ function ModalSearch() {
     const handelSearch = async () => {
         try {
             var user: any = await axios.get(
-                `http://localhost:5000/api/users/email/${email}`,
+                `http://18.140.239.96/api/users/email/${email}`,
                 {
                     headers: { authorization: token as string },
                 }

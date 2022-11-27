@@ -42,6 +42,7 @@ interface StateType {
   avatar?: string;
   owner?:string;
   lstMember: any;
+  emoji:string,
 }
 
 const initialState = {
@@ -62,6 +63,8 @@ export const roomSlice = createSlice({
   initialState,
   reducers: {
     clear: (state) => {
+      console.log("clear===========================");
+      
       state = initialState;
       // state.is_login = false;
       // state.accessToken = "";
@@ -152,6 +155,24 @@ export const roomSlice = createSlice({
       }
     );
     builder.addCase(roomAPI.updateOwnerRoom().rejected, (state) => {});
+
+    builder.addCase(
+      roomAPI.clear2().fulfilled,
+      (state: StateType, action) => {
+        state.lstChat= []
+        state.lstFile= []
+        state.lstPic= []
+        state._id= ""
+        state.messageSent= ""
+        state.name= ""
+        state.avatar= ""
+        state.lstMember= []
+        state.emoji=""
+        state.owner=""
+        
+      }
+    );
+    builder.addCase(roomAPI.clear2().rejected, (state) => {});
   },
 });
 

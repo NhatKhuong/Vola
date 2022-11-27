@@ -59,7 +59,7 @@ function ModalAddMember() {
     useEffect(() => {
         axios
             .get(
-                `http://localhost:5000/api/rooms/${roomId}/user-vailable-add-room`,
+                `http://18.140.239.96/api/rooms/${roomId}/user-vailable-add-room`,
                 {
                     headers: { authorization: token as string },
                 }
@@ -86,7 +86,7 @@ function ModalAddMember() {
         }
         axios
             .put(
-                `http://localhost:5000/api/rooms/${roomId}/users`,
+                `http://18.140.239.96/api/rooms/${roomId}/users`,
                 {
                     userIds: listUserId,
                 },

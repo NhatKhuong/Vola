@@ -6,11 +6,16 @@ import { IRoom } from "../redux/user/slice";
 function FriendList() {
   const userState = useAppSelector((state: any) => state.user);
   const listRoom = userState.rooms;
-  console.log(listRoom);
   
   return (
     <div style={{ height: "85vh", maxHeight: "85vh", overflow: "scroll" }}>
       {listRoom.map((e: IRoom) => {
+        var missing;
+        e.users.forEach((item)=>{
+          if(userState.user._id === item._id){
+            missing = item.missing
+          }
+        })
         return (
           <MesageItem
             avatar={e.avatar}
@@ -26,6 +31,7 @@ function FriendList() {
             info={false}
             _id={e._id}
             owner={e.owner}
+            missing={missing}
           />
         );
       })}

@@ -10,8 +10,10 @@ class UserAPI {
                 if (result.status === 200) {
                     const userResult = result.data;
                     userResult.accessToken = data;
+                    console.log(result);
                     return userResult;
                 }
+                
                 return thunkAPI.rejectWithValue("login_fail");
             }
         );
@@ -64,6 +66,30 @@ class UserAPI {
             "room/delete-room-by-id",
             async (data: any, thunkAPI) => {
                 return data;
+            }
+        );
+    }
+
+    updatChangeOwnerUI() {
+        return createAsyncThunk(
+            "room/update-owner-room",
+            async (data: any, thunkAPI) => {
+                return data;
+            }
+        );
+    }
+
+    reLoad() {
+        return createAsyncThunk(
+            "room/reload-ui",
+            async (data: any, thunkAPI) => {
+                const result: any = await authService.login(data);
+                if (result.status === 200) {
+                    const userResult = result.data;
+                    userResult.accessToken = data;
+                    return userResult;
+                }
+                return thunkAPI.rejectWithValue("login_fail");
             }
         );
     }

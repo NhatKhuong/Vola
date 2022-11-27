@@ -27,6 +27,7 @@ interface IUserRoom {
     _id: string;
     lastMessageRead?: string;
     deletedAt?: Date | null;
+    missing:string;
 }
 
 interface IMessage {
@@ -197,7 +198,63 @@ export const userSlice = createSlice({
         builder.addCase(
             userAPI.deleteRoomByIdUI().rejected,
             (state) => {}
-        );    
+        );  
+        
+        builder.addCase(
+            userAPI.updatChangeOwnerUI().fulfilled,
+            (state: StateType, action) => {
+                // var restult = state.rooms?.filter(function (e) {
+                //     return e._id !== action.payload;
+                // });
+                // state.rooms = restult;
+                console.log(state.rooms);
+                
+                state.rooms.forEach((item)=>{
+                    if(item._id === action.payload.roomId){
+                        console.log(action.payload);
+                        
+                        console.log("update");
+                        console.log(item.owner);
+                        console.log(action.payload.newOwner);
+                        
+                        
+                        item.owner = action.payload.newOwner
+                    }
+                })
+            }
+        );
+        builder.addCase(
+            userAPI.updatChangeOwnerUI().rejected,
+            (state) => {}
+        ); 
+
+        builder.addCase(
+            userAPI.reLoad().fulfilled,
+            (state: StateType, action) => {
+                // tokenService.setAccessToken(action.payload.accessToken);
+                // tokenService.setRefreshToken(action.payload.accessToken);
+                // state.error = false;
+                // state.is_login = true;
+                state.user = action.payload.user;
+                state.rooms = action.payload.rooms;
+                // state.accessToken = action.payload.accessToken;
+                // if (action.payload.user.friendInvites) {
+                //     state.listRequest = action.payload.user.friendInvites.map(
+                //         (e: any) => {
+                //             const element: ItemRequest = {
+                //                 _id: e._id,
+                //                 user: e.userId,
+                //             };
+                //             return element;
+                //         }
+                //     );
+                // }
+            }
+        );
+        builder.addCase(userAPI.reLoad().rejected, (state) => {
+            state.error = true;
+            state.is_login = false;
+        });
     },
 });
 

@@ -76,6 +76,8 @@ const Register = (): JSX.Element => {
         navigate("/login");
       })
       .catch((error: any) => {
+        console.log(error);
+        
         toast.error("Có lỗi xảy ra vui lòng thử lại sau", {
           position: "top-center",
           autoClose: 3000,

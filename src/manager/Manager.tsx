@@ -14,6 +14,7 @@ import ModalInfo from "../common/ModalInfo";
 import axios from "axios";
 import tokenService from "../services/token.service";
 import userAPI from "../redux/user/userAPI";
+import { newSocket } from "../App";
 
 function Manager() {
     const userState = useAppSelector((state: any) => state.user);
@@ -22,7 +23,7 @@ function Manager() {
         console.log("---------========" + id);
         axios
             .post(
-                `http://localhost:5000/api/users/invites`,
+                `http://18.140.239.96/api/users/invites`,
                 {
                     userId: id,
                 },
@@ -39,13 +40,23 @@ function Manager() {
         dispatch(userAPI.deleteRequestAddFriend()(id));
 
         axios
-            .get(`http://localhost:5000/api/rooms/users/${id}`, {
+            .get(`http://18.140.239.96/api/rooms/users/${id}`, {
                 headers: { authorization: token as string },
             })
             .then((r: any) => {
                 console.log({ newData: r, id });
+                console.log({r});
+                
+                // dispatch(userAPI.updateListRoomUI()(r.data));
+                dispatch(userAPI.reLoad()(token))
+                console.log(r.data._id);
 
-                dispatch(userAPI.updateListRoomUI()(r.data));
+                newSocket.emit("client-send-message", {
+                    token: token,
+                    roomId: r.data._id,
+                    content: "Hãy gửi lời chào đến bạn của bạn",
+                    type: "notification",
+                });
             })
             .catch((err) => {
                 console.log(err);
@@ -55,7 +66,7 @@ function Manager() {
     function handlAvoid(id: any) {
         console.log("---------========" + id);
         axios
-            .delete(`http://localhost:5000/api/users/invites`, {
+            .delete(`http://18.140.239.96/api/users/invites`, {
                 data: { userId: id },
                 headers: { authorization: token as string },
             })
@@ -70,7 +81,7 @@ function Manager() {
     function handelAddFriend(id: any) {
         axios
             .post(
-                `http://localhost:5000/api/users/invites`,
+                `http://18.140.239.96/api/users/invites`,
                 {
                     user: id,
                 },
@@ -87,7 +98,7 @@ function Manager() {
 
         function createRoom(id: any) {
             axios
-                .get(`http://localhost:5000/api/rooms/users/${id}`, {
+                .get(`http://18.140.239.96/api/rooms/users/${id}`, {
                     headers: { authorization: token as string },
                 })
                 .then((r: any) => {

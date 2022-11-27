@@ -46,7 +46,6 @@ function MenuContent() {
   roomState.lstPic.forEach((item: any) => {
     arrayPic.push(item.content);
   });
-  console.log(arrayPic);
 
   const dispatch = useAppDispatch();
   const handleClick = () => {
@@ -59,7 +58,7 @@ function MenuContent() {
   const leafRomm = () => {
     axios({
       method: "DELETE",
-      url: `http://localhost:5000/api/rooms/${roomState._id}/users/${userState.user._id}`,
+      url: `http://18.140.239.96/api/rooms/${roomState._id}/users/${userState.user._id}`,
       headers: { authorization: token as string },
     }).then(() => {
       alert("Xóa thành công!")
@@ -73,7 +72,7 @@ function MenuContent() {
     var roomId = roomState._id;
     dispatch(userAPI.deleteRoomByIdUI()(roomId));
     axios
-      .delete(`http://localhost:5000/api/rooms/${roomId}`, {
+      .delete(`http://18.140.239.96/api/rooms/${roomId}`, {
         headers: { authorization: token as string },
       })
       .then(() => {
@@ -112,8 +111,8 @@ function MenuContent() {
                   dispatch(oppenModalUpdateRoomInfo())
                 }
               />
-              <div onClick={()=>dispatch(oppenModalPermission())} className={style.keyperrmission} style={{marginLeft:"20px"}}>
-                <img style={{height: "20px",width: "20px",objectFit: "cover"}}src="https://www.pngitem.com/pimgs/m/34-347182_key-emoji-cutouts-key-emoji-transparent-hd-png.png"alt=""/>
+              <div onClick={() => dispatch(oppenModalPermission())} className={style.keyperrmission} style={{ marginLeft: "20px" }}>
+                <img style={{ height: "20px", width: "20px", objectFit: "cover" }} src="https://www.pngitem.com/pimgs/m/34-347182_key-emoji-cutouts-key-emoji-transparent-hd-png.png" alt="" />
               </div>
             </div>
           ) : (
@@ -129,11 +128,11 @@ function MenuContent() {
                 style.menuContent_header_info_listAction_item
               }
               onClick={() => {
-                if(roomState.owner === userState.user._id){
+                if (roomState.owner === userState.user._id) {
                   var result =
-                  window.confirm("Bạn là nhóm trưởng hãy gán lại quyền trước khi rời nhóm");
+                    window.confirm("Bạn là nhóm trưởng hãy gán lại quyền trước khi rời nhóm");
                   if (result) dispatch(oppenModalPermission());
-                } else{
+                } else {
                   var result =
                     window.confirm("Bạn có muốn rời nhóm ?");
                   if (result) leafRomm();

@@ -52,19 +52,19 @@ const Login = (): JSX.Element => {
 
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
+   
     if (!isAllowSubmit("form_login")) {
       return false;
     } else {
       loginWithEmailAndPassword(username, password)
         .then((result: any) => {
-          // if (!result.user.emailVerified) {
-          //   alert("Email chưa được xác thực vui lòng kiểm tra hộp thư của bạn");
-          //   return;
-          // }
+          if (!result.user.emailVerified) {
+            alert("Email chưa được xác thực vui lòng kiểm tra hộp thư của bạn");
+            return;
+          }
 
           var accessToken = "Bearer " + result.user.accessToken;
           dispatch(userAPI.getUserInfo()(accessToken));
-          dispatch(clear());
           navigate("/");
         })
         .catch((err) => {
@@ -82,6 +82,7 @@ const Login = (): JSX.Element => {
   };
   const handleLoginWithGoogle = () => {
     // loginWithGoogle();
+    dispatch(roomAPI.clear2()({d:"dfdf"}));
     loginWithGoogle()
       .then((user: any) => {
         navigate("/");

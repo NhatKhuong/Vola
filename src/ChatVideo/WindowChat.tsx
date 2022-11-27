@@ -10,7 +10,7 @@ function WindowChat() {
     const otherUser = {
         fullName: "User1",
     };
-    const newSocket = io("http://localhost:5000", {
+    const newSocket = io("http://18.140.239.96", {
         query: {
             // token: useState.accessToken,
         },

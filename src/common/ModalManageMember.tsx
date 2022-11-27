@@ -43,7 +43,7 @@ function ModalManageMember() {
     const deleteUser = (userId: String) => {
         axios
             .delete(
-                `http://localhost:5000/api/rooms/${roomId}/users/${userId}`,
+                `http://18.140.239.96/api/rooms/${roomId}/users/${userId}`,
                 {
                     headers: { authorization: token as string },
                 }
@@ -60,7 +60,7 @@ function ModalManageMember() {
     useEffect(() => {
         if (roomId)
             axios
-                .get(`http://localhost:5000/api/rooms/${roomId}`, {
+                .get(`http://18.140.239.96/api/rooms/${roomId}`, {
                     headers: { authorization: token as string },
                 })
                 .then(({ data }: any) => {

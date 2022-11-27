@@ -24,7 +24,7 @@ export const singUpWithEmailAndPassword = async (
 ) => {
   const result = await createUserWithEmailAndPassword(auth, email, password);
   var actionCodeSettings = {
-    url: "localhost:3000",
+    url: "http://localhost:3000",
     handleCodeInApp: true,
   };
   await sendEmailVerification(result.user, actionCodeSettings);

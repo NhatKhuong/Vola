@@ -31,7 +31,7 @@ function ModalInfo() {
     const handelAddFriend = () => {
         axios
             .post(
-                `http://localhost:5000/api/users/invites`,
+                `http://18.140.239.96/api/users/invites`,
                 {
                     userId: infoState._id,
                 },

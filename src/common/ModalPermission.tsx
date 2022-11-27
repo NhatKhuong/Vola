@@ -46,34 +46,34 @@ function ModalPermission() {
     // let id;
 
     const addUser = (userId: string) => {
-       setUserId(userId)
+        setUserId(userId)
     };
     console.log(userId);
 
-    function handerPermission(){
+    function handerPermission() {
         axios({
-            url:`http://localhost:5000/api/rooms/${roomId}/owner`,
-            method:"PATCH",
-            data:{
+            url: `http://18.140.239.96/api/rooms/${roomId}/owner`,
+            method: "PATCH",
+            data: {
                 userId
             },
             headers: { authorization: token as string }
-        }).then((respon)=>{
+        }).then((respon) => {
             console.log("succsess");
             alert("(Đã cập nhật")
-            dispatch(roomAPI.updateOwnerRoom()({userId,roomId}))
+            dispatch(roomAPI.updateOwnerRoom()({ userId, roomId }))
             dispatch(closeModalPermission());
-        }).catch((err)=>{
+        }).catch((err) => {
             alert(err);
         })
-        
+
     }
-    
+
 
     // const deleteUser = (userId: String) => {
     //     axios
     //         .delete(
-    //             `http://localhost:5000/api/rooms/${roomId}/users/${userId}`,
+    //             `http://18.140.239.96/api/rooms/${roomId}/users/${userId}`,
     //             {
     //                 headers: { authorization: token as string },
     //             }
@@ -90,7 +90,7 @@ function ModalPermission() {
     useEffect(() => {
         if (roomId)
             axios
-                .get(`http://localhost:5000/api/rooms/${roomId}`, {
+                .get(`http://18.140.239.96/api/rooms/${roomId}`, {
                     headers: { authorization: token as string },
                 })
                 .then(({ data }: any) => {
@@ -154,7 +154,7 @@ function ModalPermission() {
                             );
                         })} */}
 
-                            {friends?.map((friend: any) => {
+                        {friends?.map((friend: any) => {
                             return (
                                 <MesageItem
                                     _id={friend.userId._id}
@@ -178,7 +178,7 @@ function ModalPermission() {
 
                         <button
                             className={style.btn_modal_create}
-                            onClick={() => {handerPermission()}}
+                            onClick={() => { handerPermission() }}
                         >
                             Xác nhận
                         </button>

@@ -90,6 +90,18 @@ class RoomAPI {
       }
     );
   }
+
+  clear2() {
+    return createAsyncThunk(
+      "room/clear-room",
+      async (data: any, thunkAPI) => {
+        console.log("clear===================");
+        
+        return data;
+      }
+    );
+  }
+  
 }
 
 export default new RoomAPI();

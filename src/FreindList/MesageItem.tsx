@@ -5,6 +5,8 @@ import { FiMoreHorizontal } from "react-icons/fi";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import roomAPI from "../redux/Room/roomAPI";
 import { CgEnter } from "react-icons/cg";
+import axios from "axios";
+import userAPI from "../redux/user/userAPI";
 interface Props {
   avatar?: string;
   name?: string;
@@ -15,6 +17,7 @@ interface Props {
   addUser?: any;
   owner?: string;
   permission?:boolean;
+  missing?:string;
 }
 function MesageItem({
   avatar,
@@ -26,6 +29,7 @@ function MesageItem({
   addUser,
   owner,
   permission,
+  missing,
 }: Props) {
   const dispatch = useAppDispatch();
   const roomState = useAppSelector((state: any) => state.room);
@@ -33,21 +37,35 @@ function MesageItem({
   const accessToken = userState.accessToken;
   const showRoom = () => {
     if(!info){
+      console.log(roomState._id);
+      
 
       dispatch(roomAPI.getListChat()({ accessToken, _id }));
       dispatch(roomAPI.saveRoomId()({ _id, name, avatar, owner }));
       dispatch(roomAPI.getListFile()({ accessToken, _id }));
       dispatch(roomAPI.getListPic()({ accessToken, _id }));
+
+      
+      axios({
+        url:`http://18.140.239.96/api/rooms/${roomState._id}/read`,
+        method:"POST",
+        headers:{
+          authorization: accessToken as string
+        }
+      }).then(()=>{
+        console.log("success");
+        dispatch(userAPI.reLoad()(accessToken))
+        
+      }).catch((err)=>{
+        console.log(err);
+        
+      })
     }
   };
 
   const onChangeCheckBox = () => {
     addUser(_id);
   };
-  console.log(owner);
-  console.log(roomState._id);
-  
-  
 
   return (
     <div className={style.messageItem} onClick={showRoom}>
@@ -67,9 +85,14 @@ function MesageItem({
             {name}
           </div>
           {!info && (
-            <div className={style.messageInfo_description_inner}>
-              {messages}
+            <div className={style.messageInfo_description_inner_container}>
+
+              <div className={style.messageInfo_description_inner}>
+                {messages}
+              </div>
+              {missing != "0" && <div className={style.messageInfo_description_inner_container_missing}>{missing}</div>} 
             </div>
+
           )}
         </div>
       </div>

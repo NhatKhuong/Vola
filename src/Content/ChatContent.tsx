@@ -21,7 +21,7 @@ import { newSocket } from "../App";
 import axios from "axios";
 import tokenService from "../services/token.service";
 import userAPI from "../redux/user/userAPI";
-const urlUploadFile = "http://localhost:5000/api/storages/upload";
+const urlUploadFile = "http://18.140.239.96/api/storages/upload";
 
 interface Props {
     showMenuChat: React.Dispatch<React.SetStateAction<boolean>>;
@@ -173,7 +173,6 @@ function ChatContent(prop: Props) {
             </div>
             <div className={style.chatContentWindow} ref={elementListChat}>
                 {roomState.lstChat.map((e: any) => {
-                    console.log(e._id);
 
                     const isOwner =
                         e.user._id === roomState.owner ? true : false;
