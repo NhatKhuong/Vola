@@ -10,7 +10,7 @@ function WindowChat() {
     const otherUser = {
         fullName: "User1",
     };
-    const newSocket = io("https://frozen-caverns-53350.herokuapp.com", {
+    const newSocket = io("http://localhost:5000", {
         query: {
             // token: useState.accessToken,
         },

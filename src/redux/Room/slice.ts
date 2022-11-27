@@ -144,7 +144,14 @@ export const roomSlice = createSlice({
       }
     );
     builder.addCase(roomAPI.updateChangeIconMessage().rejected, (state) => {});
-    
+
+    builder.addCase(
+      roomAPI.updateOwnerRoom().fulfilled,
+      (state: StateType, action) => {
+        state.owner = action.payload.userId
+      }
+    );
+    builder.addCase(roomAPI.updateOwnerRoom().rejected, (state) => {});
   },
 });
 

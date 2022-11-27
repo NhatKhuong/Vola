@@ -1,8 +1,9 @@
 import style from "./ItemMessage.module.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { TbArrowBackUp } from "react-icons/tb";
-import { AiOutlineTransaction } from "react-icons/ai";
+import { AiOutlineTransaction, AiOutlineIssuesClose } from "react-icons/ai";
 import { MdOutlineAddReaction } from "react-icons/md";
+
 
 import { BiTransfer } from "react-icons/bi";
 import tokenService from "../services/token.service";
@@ -30,7 +31,7 @@ function ItemMessage(props: Props) {
     }
 
     async function reactMessage(react: any) {
-        // var result = await axios.post(`https://frozen-caverns-53350.herokuapp.com/api/rooms/${roomState._id}/messages/${props._id}/react`,
+        // var result = await axios.post(`http://localhost:5000/api/rooms/${roomState._id}/messages/${props._id}/react`,
         // {
         //     react:react
         // }).then(()=>{
@@ -41,7 +42,7 @@ function ItemMessage(props: Props) {
 
         // })
         axios({
-            url: `https://frozen-caverns-53350.herokuapp.com/api/rooms/${roomState._id}/messages/${props._id}/react`,
+            url: `http://localhost:5000/api/rooms/${roomState._id}/messages/${props._id}/react`,
             method: "POST",
             headers: {
                 authorization: accessToken as string
@@ -63,7 +64,7 @@ function ItemMessage(props: Props) {
 
         var user = await axios
             .delete(
-                `https://frozen-caverns-53350.herokuapp.com/api/rooms/${roomState._id}/messages/${props._id}`,
+                `http://localhost:5000/api/rooms/${roomState._id}/messages/${props._id}`,
                 {
                     headers: { authorization: accessToken as string },
                 }
@@ -173,7 +174,7 @@ function ItemMessage(props: Props) {
                                             style.ItemMessage_content_mesage_expan_thuhoi
                                         }
                                     >
-                                        <TbArrowBackUp></TbArrowBackUp>
+                                        <AiOutlineIssuesClose style={{ color: "red" }}></AiOutlineIssuesClose>
                                     </div>
                                     <div
                                         className={
@@ -187,7 +188,6 @@ function ItemMessage(props: Props) {
                                     >
                                         <MdOutlineAddReaction></MdOutlineAddReaction>
                                         <div className={style.ItemMessage_content_mesage_expan_respone_react_container}>
-                                            <div className={style.reactIcon}>😍</div>
                                             <div onClick={(e: any) => reactMessage(e.currentTarget.textContent)} className={style.reactIcon}>😍</div>
                                             <div onClick={(e: any) => reactMessage(e.currentTarget.textContent)} className={style.reactIcon}>😑</div>
                                             <div onClick={(e: any) => reactMessage(e.currentTarget.textContent)} className={style.reactIcon}>😀</div>

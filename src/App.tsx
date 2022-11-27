@@ -21,7 +21,7 @@ import Manager from "./manager/Manager";
 import ForgotPassword from "./Account/Login/ForgotPassword";
 import { reLoad } from "./redux/statusCommon/slice";
 
-export let newSocket = io("https://frozen-caverns-53350.herokuapp.com");
+export let newSocket = io("http://localhost:5000");
 
 function App() {
     // Call video
@@ -69,7 +69,7 @@ function App() {
             "usereffech ------------------------------------------------------ "
         );
         newSocket.disconnect();
-        newSocket = io("https://frozen-caverns-53350.herokuapp.com");
+        newSocket = io("http://localhost:5000");
         newSocket?.on("server-send-message", function (data: any) {
             console.log(data);
 

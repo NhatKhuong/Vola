@@ -31,7 +31,7 @@ function ModalInfo() {
     const handelAddFriend = () => {
         axios
             .post(
-                `https://frozen-caverns-53350.herokuapp.com/api/users/invites`,
+                `http://localhost:5000/api/users/invites`,
                 {
                     userId: infoState._id,
                 },

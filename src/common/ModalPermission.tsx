@@ -6,14 +6,12 @@ import ReactModal from "react-modal";
 import MesageItem from "../FreindList/MesageItem";
 import style from "./ModalCreateGroup.module.css";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
-import {
-    closeModalAddMember,
-    oppenModalAddMember,
-} from "../redux/statusCommon/slice";
+import { closeManageMember } from "../redux/statusCommon/slice";
 import { useEffect } from "react";
 import axios from "axios";
-import userAPI from "../redux/user/userAPI";
-import UserItem from "../FreindList/UserItem";
+import ManageUserItem from "../FreindList/ManageUserItem";
+import { oppenModalPermission, closeModalPermission } from "../redux/statusCommon/slice";
+import roomAPI from "../redux/Room/roomAPI";
 
 const customStyles = {
     content: {
@@ -30,19 +28,10 @@ const customStyles = {
 
 let listUserId: String[] = [];
 
-const addUser = (userId: String) => {
-    const isExist = listUserId.findIndex((e) => e == userId) != -1;
-    if (isExist) {
-        // remove
-        listUserId = listUserId.filter((e) => e != userId);
-    } else {
-        listUserId.push(userId);
-    }
-};
-
-function ModalAddMember() {
+function ModalPermission() {
     const dispatch = useAppDispatch();
     const commonState = useAppSelector((state: any) => state.statusCommon);
+    const [userId, setUserId] = useState("")
     // const commonState =  useAppSelector((state: any) => state.statusCommon);
 
     // const [modalIsOpen, setIsOpen] = useState(false);
@@ -54,99 +43,86 @@ function ModalAddMember() {
     const roomState = useAppSelector((state: any) => state.room);
     const roomId = String(roomState._id);
     const myRoom = listRooms.find((room: any) => String(room._id) == roomId);
-    console.log(roomId);
+    // let id;
 
-    useEffect(() => {
-        axios
-            .get(
-                `http://localhost:5000/api/rooms/${roomId}/user-vailable-add-room`,
-                {
-                    headers: { authorization: token as string },
-                }
-            )
-            .then((r: any) => {
-                // const listFiendAvalible = r.data.filter((friend: any) => {
-                //   return !myRoom?.users.find((user: any) => {
-                //     return String(user._id) == String(friend.userId._id);
-                //   });
-                // });
-                console.log(r);
-
-                setfriends(r.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, [commonState.isOpenModalAddMember]);
-
-    const addMemberGroup = () => {
-        if (listUserId.length == 0) {
-            alert("Bạn cần chọn ít nhất 1 người");
-            return;
-        }
-        axios
-            .put(
-                `http://localhost:5000/api/rooms/${roomId}/users`,
-                {
-                    userIds: listUserId,
-                },
-                {
-                    headers: { authorization: token as string },
-                }
-            )
-            .then((r: any) => {
-                dispatch(closeModalAddMember());
-                setfriends([]);
-                console.log(r.data);
-
-                // dispatch(userAPI.updateListRoomUI()(r.data));
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+    const addUser = (userId: string) => {
+       setUserId(userId)
     };
+    console.log(userId);
+
+    function handerPermission(){
+        axios({
+            url:`http://localhost:5000/api/rooms/${roomId}/owner`,
+            method:"PATCH",
+            data:{
+                userId
+            },
+            headers: { authorization: token as string }
+        }).then((respon)=>{
+            console.log("succsess");
+            alert("(Đã cập nhật")
+            dispatch(roomAPI.updateOwnerRoom()({userId,roomId}))
+            dispatch(closeModalPermission());
+        }).catch((err)=>{
+            alert(err);
+        })
+        
+    }
+    
+
+    // const deleteUser = (userId: String) => {
+    //     axios
+    //         .delete(
+    //             `http://localhost:5000/api/rooms/${roomId}/users/${userId}`,
+    //             {
+    //                 headers: { authorization: token as string },
+    //             }
+    //         )
+    //         .then(({ data }: any) => {
+    //             setfriends(
+    //                 friends.filter((e: any) => String(e.userId._id) != userId)
+    //             );
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // };
+    useEffect(() => {
+        if (roomId)
+            axios
+                .get(`http://localhost:5000/api/rooms/${roomId}`, {
+                    headers: { authorization: token as string },
+                })
+                .then(({ data }: any) => {
+                    const users: any = data.users.map((e: any) => {
+                        return { userId: e.user };
+                    });
+                    setfriends(users);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+    }, [commonState.isOpenModalPermission]);
 
     return (
         <div>
             <ReactModal
                 style={customStyles}
-                isOpen={commonState.isOpenModalAddMember}
-                onRequestClose={() => dispatch(closeModalAddMember())}
+                isOpen={commonState.isOpenModalPermission}
+                onRequestClose={() => dispatch(closeModalPermission())}
             >
                 <div className={style.Modal_createGroup}>
                     <div className={style.Modal_createGroup_head}>
                         <div className={style.Modal_createGroup_head_title}>
-                            Thêm thành viên vào nhóm
+                            Danh sách thành viên
                         </div>
                         <div className={style.Modal_createGroup_head_close}>
                             <IoMdClose
-                                onClick={() => dispatch(closeModalAddMember())}
+                                onClick={() => dispatch(closeModalPermission())}
                             />
                         </div>
                     </div>
 
-                    {/* <div className={style.Modal_createGroup_name_group}>
-                        <div
-                            className={
-                                style.Modal_createGroup_name_group_iconBlock
-                            }
-                        >
-                            <HiOutlineCamera />
-                        </div>
-                        <div
-                            className={
-                                style.Modal_createGroup_name_group_name_group
-                            }
-                        >
-                            <input
-                                type="text"
-                                placeholder="Nhập tên nhóm..."
-                            />
-                        </div>
-                    </div> */}
-                    {/* <div className={style.add_group_title}>
-                        Thêm bạn vào nhóm
-                    </div> */}
                     <div className={style.search_menber_block}>
                         <div className={style.search_menber_icon}>
                             <FiSearch />
@@ -158,12 +134,12 @@ function ModalAddMember() {
                     </div>
                     <hr />
                     <div className={style.add_group_title_chat_late}>
-                        Trò chuyện gần đây
+                        {/* Trò chuyện gần đây */}
                     </div>
                     <div className={style.listMember}>
-                        {friends?.map((friend: any) => {
+                        {/* {friends?.map((friend: any) => {
                             return (
-                                <UserItem
+                                <ManageUserItem
                                     _id={friend.userId._id}
                                     avatar={
                                         friend.userId.avatar ||
@@ -173,6 +149,24 @@ function ModalAddMember() {
                                     messages="Hello jjj"
                                     time={new Date().toDateString()}
                                     info={true}
+                                    // deleteUser={deleteUser}
+                                />
+                            );
+                        })} */}
+
+                            {friends?.map((friend: any) => {
+                            return (
+                                <MesageItem
+                                    _id={friend.userId._id}
+                                    avatar={
+                                        friend.userId.avatar ||
+                                        "https://hinhgaixinh.com/wp-content/uploads/2021/12/bo-anh-girl-xinh-cap-2.jpg"
+                                    }
+                                    name={friend.userId.email}
+                                    messages="Hello jjj"
+                                    time={new Date().toDateString()}
+                                    info={true}
+                                    permission={true}
                                     addUser={addUser}
                                 />
                             );
@@ -184,9 +178,9 @@ function ModalAddMember() {
 
                         <button
                             className={style.btn_modal_create}
-                            onClick={() => addMemberGroup()}
+                            onClick={() => {handerPermission()}}
                         >
-                            Thêm
+                            Xác nhận
                         </button>
                     </div>
                 </div>
@@ -195,4 +189,4 @@ function ModalAddMember() {
     );
 }
 
-export default ModalAddMember;
+export default ModalPermission;

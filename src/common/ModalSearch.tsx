@@ -51,7 +51,7 @@ function ModalSearch() {
     const handelSearch = async () => {
         try {
             var user: any = await axios.get(
-                `https://frozen-caverns-53350.herokuapp.com/api/users/email/${email}`,
+                `http://localhost:5000/api/users/email/${email}`,
                 {
                     headers: { authorization: token as string },
                 }

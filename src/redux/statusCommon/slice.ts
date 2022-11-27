@@ -8,6 +8,7 @@ interface StatusCommon {
   isOpenModalUpdateRoomInfo: boolean;
   isOpenModalManageMember: boolean;
   isReload:boolean;
+  isOpenModalPermission:boolean,
 }
 
 const initialState: StatusCommon = {
@@ -18,6 +19,7 @@ const initialState: StatusCommon = {
   isOpenModalUpdateRoomInfo: false,
   isOpenModalManageMember: false,
   isReload:false,
+  isOpenModalPermission:false,
 };
 
 export const StatusCommonSlice = createSlice({
@@ -64,6 +66,12 @@ export const StatusCommonSlice = createSlice({
       state.isOpenModalUpdateRoomInfo = false;
       console.log(state.isOpenModalInfo);
     },
+    oppenModalPermission: (state) => {
+      state.isOpenModalPermission = true;
+    },
+    closeModalPermission: (state) => {
+      state.isOpenModalPermission = false;
+    },
     reLoad: (state) => {
       state.isReload = !state.isReload;
     },
@@ -84,4 +92,6 @@ export const {
   oppenManageMember,
   closeManageMember,
   reLoad,
+  oppenModalPermission,
+  closeModalPermission,
 } = StatusCommonSlice.actions;

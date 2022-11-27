@@ -271,3 +271,13 @@
 .preview img {
     width: 100%;
 }
+
+.keyperrmission:hover{
+    cursor: pointer;
+}
+
+.keyperrmission{
+    width: 30px;
+    height: 30px;
+    background-color: "#ccc";
+}

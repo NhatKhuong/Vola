@@ -55,7 +55,7 @@ function ModalCreateGroup(prop: Prop) {
 
     useEffect(() => {
         axios
-            .get(`https://frozen-caverns-53350.herokuapp.com/api/users/friends`, {
+            .get(`http://localhost:5000/api/users/friends`, {
                 headers: { authorization: token as string },
             })
             .then((r: any) => {
@@ -81,7 +81,7 @@ function ModalCreateGroup(prop: Prop) {
         }
         axios
             .post(
-                `https://frozen-caverns-53350.herokuapp.com/api/rooms`,
+                `http://localhost:5000/api/rooms`,
                 {
                     userIds: listUserId,
                     name: name,

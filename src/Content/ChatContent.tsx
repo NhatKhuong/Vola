@@ -21,7 +21,7 @@ import { newSocket } from "../App";
 import axios from "axios";
 import tokenService from "../services/token.service";
 import userAPI from "../redux/user/userAPI";
-const urlUploadFile = "https://frozen-caverns-53350.herokuapp.com/api/storages/upload";
+const urlUploadFile = "http://localhost:5000/api/storages/upload";
 
 interface Props {
     showMenuChat: React.Dispatch<React.SetStateAction<boolean>>;

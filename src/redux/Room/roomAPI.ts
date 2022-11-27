@@ -81,6 +81,15 @@ class RoomAPI {
       }
     );
   }
+
+  updateOwnerRoom() {
+    return createAsyncThunk(
+      "room/update-owner-room",
+      async (data: any, thunkAPI) => {
+        return data;
+      }
+    );
+  }
 }
 
 export default new RoomAPI();

@@ -4,6 +4,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { AiOutlineUserSwitch } from "react-icons/ai";
+import { BiLogOutCircle } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import ImageGrid from "../common/ImageGrid";
 import ExpandComponent from "../common/ExpandComponent";
@@ -15,12 +16,14 @@ import {
   oppenModalAddMember,
   oppenModalUpdateRoomInfo,
   oppenManageMember,
+  oppenModalPermission,
 } from "../redux/statusCommon/slice";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import ModalAddMember from "../common/ModalAddMember";
 import ModalUpdateRoomInfo from "../common/ModalUpdateRoomInfo";
 import ModalManageMember from "../common/ModalManageMember";
 import axios from "axios";
+import ModalPermission from "../common/ModalPermission";
 
 function MenuContent() {
   const userState = useAppSelector((state: any) => state.user);
@@ -28,6 +31,8 @@ function MenuContent() {
   const roomState = useAppSelector((state: any) => state.room);
   const listRooms = userState.rooms;
   console.log(roomState);
+  console.log(userState.user._id);
+
 
   let arrayPic = new Array();
   // let arrayFile = new Array();
@@ -51,11 +56,24 @@ function MenuContent() {
     dispatch(oppenManageMember());
   };
 
+  const leafRomm = () => {
+    axios({
+      method: "DELETE",
+      url: `http://localhost:5000/api/rooms/${roomState._id}/users/${userState.user._id}`,
+      headers: { authorization: token as string },
+    }).then(() => {
+      alert("Xóa thành công!")
+    }).catch((err) => {
+      alert(err)
+    })
+    dispatch(userAPI.deleteRoomByIdUI()(roomState._id));
+  }
+
   const deleteGroupHandleClick = () => {
     var roomId = roomState._id;
     dispatch(userAPI.deleteRoomByIdUI()(roomId));
     axios
-      .delete(`https://frozen-caverns-53350.herokuapp.com/api/rooms/${roomId}`, {
+      .delete(`http://localhost:5000/api/rooms/${roomId}`, {
         headers: { authorization: token as string },
       })
       .then(() => {
@@ -63,14 +81,6 @@ function MenuContent() {
           (e: any) => String(e._id) != roomState._id
         );
         console.log(listRoom);
-
-        // error here
-
-        // dispatch(
-        //   userAPI.updateListRoomUI()(
-        //     listRooms?.filter((e: any) => String(e._id) != roomState._id)
-        //   )
-        // );
       })
       .catch((err) => {
         console.log(err);
@@ -102,24 +112,42 @@ function MenuContent() {
                   dispatch(oppenModalUpdateRoomInfo())
                 }
               />
+              <div onClick={()=>dispatch(oppenModalPermission())} className={style.keyperrmission} style={{marginLeft:"20px"}}>
+                <img style={{height: "20px",width: "20px",objectFit: "cover"}}src="https://www.pngitem.com/pimgs/m/34-347182_key-emoji-cutouts-key-emoji-transparent-hd-png.png"alt=""/>
+              </div>
             </div>
           ) : (
             ""
           )}
 
           <div className={style.menuContent_header_info_listAction}>
+            {/* {roomState.owner === userState.user._id ? 
+      
+            } */}
             <div
               className={
                 style.menuContent_header_info_listAction_item
               }
+              onClick={() => {
+                if(roomState.owner === userState.user._id){
+                  var result =
+                  window.confirm("Bạn là nhóm trưởng hãy gán lại quyền trước khi rời nhóm");
+                  if (result) dispatch(oppenModalPermission());
+                } else{
+                  var result =
+                    window.confirm("Bạn có muốn rời nhóm ?");
+                  if (result) leafRomm();
+                }
+
+              }}
             >
-              <IoMdNotificationsOutline />
+              <BiLogOutCircle />
               <p
                 className={
                   style.menuContent_header_info_listAction_item_name
                 }
               >
-                Tắc thông báo
+                Rời nhóm
               </p>
             </div>
             <div
@@ -195,15 +223,7 @@ function MenuContent() {
         <ExpandComponent title="Ảnh/Video">
           <div className={style.images}>
             <ImageGrid
-              // images={[
-              //   "https://photo-cms-kienthuc.zadn.vn/zoom/800/uploaded/thutrang/2020_11_24/2/dang-chuan-mat-dep-gai-xinh-ha-thanh-khien-dan-tinh-xao-xuyen.jpg",
-              //   "https://media.baodautu.vn/Images/chicuong/2019/07/27/mvl7y4jk.jpg",
-              //   "https://viettelhochiminh.com.vn/wp-content/uploads/2022/05/hinh-anh-gai-xinh-nhat-ban-11.jpg",
-              //   "https://kenh14cdn.com/2020/9/27/img3814-16008495660052057963035-16012244314321556076455.jpg",
-              //   "https://media.baodautu.vn/Images/chicuong/2019/07/27/mvl7y4jk.jpg",
-              //   "https://viettelhochiminh.com.vn/wp-content/uploads/2022/05/hinh-anh-gai-xinh-nhat-ban-11.jpg",
-              //   "https://kenh14cdn.com/2020/9/27/img3814-16008495660052057963035-16012244314321556076455.jpg",
-              // ]}
+
               images={arrayPic}
             />
           </div>
@@ -241,74 +261,7 @@ function MenuContent() {
                 />
               );
             })}
-            {/* <ItemFileLink
-              avatar="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ"
-              name="File PDF"
-              discription="4KB"
-              time={new Date()}
-              isFile={true}
-            />
-            <ItemFileLink
-              avatar="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ"
-              name="File PDF"
-              discription="4KB"
-              time={new Date()}
-              isFile={true}
-            />
-            <ItemFileLink
-              avatar="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ"
-              name="File PDF"
-              discription="4KB"
-              time={new Date()}
-              isFile={true}
-            />
-            <ItemFileLink
-              avatar="https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ"
-              name="File PDF"
-              discription="4KB"
-              time={new Date()}
-              isFile={true}
-            />
-          </div>
-        </ExpandComponent>
 
-        <ExpandComponent title="Links">
-          <div className={style.files}>
-            <ItemFileLink
-              avatar="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
-              name="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
-              discription="4KB"
-              time={new Date()}
-              isFile={false}
-            />
-            <ItemFileLink
-              avatar="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
-              name="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
-              discription="4KB"
-              time={new Date()}
-              isFile={false}
-            />
-            <ItemFileLink
-              avatar="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
-              name="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
-              discription="4KB"
-              time={new Date()}
-              isFile={false}
-            />
-            <ItemFileLink
-              avatar="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
-              name="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
-              discription="4KB"
-              time={new Date()}
-              isFile={false}
-            />
-            <ItemFileLink
-              avatar="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
-              name="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-link-icon-image_1197618.jpg"
-              discription="4KB"
-              time={new Date()}
-              isFile={false}
-            /> */}
           </div>
         </ExpandComponent>
         <ExpandComponent title="Thiết lập bảo mật">
@@ -338,6 +291,7 @@ function MenuContent() {
       <ModalAddMember />
       <ModalUpdateRoomInfo />
       <ModalManageMember />
+      <ModalPermission />
     </div>
   );
 }
