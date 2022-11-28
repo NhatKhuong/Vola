@@ -55,7 +55,7 @@ function ModalCreateGroup(prop: Prop) {
 
     useEffect(() => {
         axios
-            .get(`http://18.140.239.96/api/users/friends`, {
+            .get(`http://54.254.183.128/api/users/friends`, {
                 headers: { authorization: token as string },
             })
             .then((r: any) => {
@@ -81,7 +81,7 @@ function ModalCreateGroup(prop: Prop) {
         }
         axios
             .post(
-                `http://18.140.239.96/api/rooms`,
+                `http://54.254.183.128/api/rooms`,
                 {
                     userIds: listUserId,
                     name: name,

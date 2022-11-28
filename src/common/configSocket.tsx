@@ -20,7 +20,7 @@ const SocketProvider: FunctionComponent<{ children: ReactNode }> = ({
     const accessToken = useAppSelector((state: any) => state.user).accessToken;
     useEffect(() => {
         try {
-            const socketConnection = io("http://18.140.239.96", {
+            const socketConnection = io("http://54.254.183.128", {
                 query: {
                     token: accessToken,
                 },

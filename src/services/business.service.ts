@@ -5,7 +5,7 @@ class BussinessService {
     async getListChat(accessToken: string, _id: string) {
         try {
             var user = await axios.get(
-                `http://18.140.239.96/api/rooms/${_id}/messages`,
+                `http://54.254.183.128/api/rooms/${_id}/messages`,
                 {
                     headers: { authorization: accessToken as string },
                 }
@@ -22,7 +22,7 @@ class BussinessService {
 
         try {
             var user = await axios.get(
-                `http://18.140.239.96/api/rooms/${_id}/messages?type=file`,
+                `http://54.254.183.128/api/rooms/${_id}/messages?type=file`,
                 {
                     headers: { authorization: accessToken as string },
                 }
@@ -37,7 +37,7 @@ class BussinessService {
         const { accessToken, _id } = data;
         try {
             var user = await axios.get(
-                `http://18.140.239.96/api/rooms/${_id}/messages?type=image`,
+                `http://54.254.183.128/api/rooms/${_id}/messages?type=image`,
                 {
                     headers: { authorization: accessToken as string },
                 }

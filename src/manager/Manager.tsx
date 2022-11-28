@@ -23,7 +23,7 @@ function Manager() {
         console.log("---------========" + id);
         axios
             .post(
-                `http://18.140.239.96/api/users/invites`,
+                `http://54.254.183.128/api/users/invites`,
                 {
                     userId: id,
                 },
@@ -40,13 +40,13 @@ function Manager() {
         dispatch(userAPI.deleteRequestAddFriend()(id));
 
         axios
-            .get(`http://18.140.239.96/api/rooms/users/${id}`, {
+            .get(`http://54.254.183.128/api/rooms/users/${id}`, {
                 headers: { authorization: token as string },
             })
             .then((r: any) => {
                 console.log({ newData: r, id });
-                console.log({r});
-                
+                console.log({ r });
+
                 // dispatch(userAPI.updateListRoomUI()(r.data));
                 dispatch(userAPI.reLoad()(token))
                 console.log(r.data._id);
@@ -66,7 +66,7 @@ function Manager() {
     function handlAvoid(id: any) {
         console.log("---------========" + id);
         axios
-            .delete(`http://18.140.239.96/api/users/invites`, {
+            .delete(`http://54.254.183.128/api/users/invites`, {
                 data: { userId: id },
                 headers: { authorization: token as string },
             })
@@ -81,7 +81,7 @@ function Manager() {
     function handelAddFriend(id: any) {
         axios
             .post(
-                `http://18.140.239.96/api/users/invites`,
+                `http://54.254.183.128/api/users/invites`,
                 {
                     user: id,
                 },
@@ -98,7 +98,7 @@ function Manager() {
 
         function createRoom(id: any) {
             axios
-                .get(`http://18.140.239.96/api/rooms/users/${id}`, {
+                .get(`http://54.254.183.128/api/rooms/users/${id}`, {
                     headers: { authorization: token as string },
                 })
                 .then((r: any) => {

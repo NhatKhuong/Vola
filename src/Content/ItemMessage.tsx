@@ -31,7 +31,7 @@ function ItemMessage(props: Props) {
     }
 
     async function reactMessage(react: any) {
-        // var result = await axios.post(`http://18.140.239.96/api/rooms/${roomState._id}/messages/${props._id}/react`,
+        // var result = await axios.post(`http://54.254.183.128/api/rooms/${roomState._id}/messages/${props._id}/react`,
         // {
         //     react:react
         // }).then(()=>{
@@ -42,7 +42,7 @@ function ItemMessage(props: Props) {
 
         // })
         axios({
-            url: `http://18.140.239.96/api/rooms/${roomState._id}/messages/${props._id}/react`,
+            url: `http://54.254.183.128/api/rooms/${roomState._id}/messages/${props._id}/react`,
             method: "POST",
             headers: {
                 authorization: accessToken as string
@@ -64,7 +64,7 @@ function ItemMessage(props: Props) {
 
         var user = await axios
             .delete(
-                `http://18.140.239.96/api/rooms/${roomState._id}/messages/${props._id}`,
+                `http://54.254.183.128/api/rooms/${roomState._id}/messages/${props._id}`,
                 {
                     headers: { authorization: accessToken as string },
                 }

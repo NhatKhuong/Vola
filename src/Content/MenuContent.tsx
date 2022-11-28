@@ -24,6 +24,7 @@ import ModalUpdateRoomInfo from "../common/ModalUpdateRoomInfo";
 import ModalManageMember from "../common/ModalManageMember";
 import axios from "axios";
 import ModalPermission from "../common/ModalPermission";
+import roomAPI from "../redux/Room/roomAPI";
 
 function MenuContent() {
   const userState = useAppSelector((state: any) => state.user);
@@ -58,7 +59,7 @@ function MenuContent() {
   const leafRomm = () => {
     axios({
       method: "DELETE",
-      url: `http://18.140.239.96/api/rooms/${roomState._id}/users/${userState.user._id}`,
+      url: `http://54.254.183.128/api/rooms/${roomState._id}/users/${userState.user._id}`,
       headers: { authorization: token as string },
     }).then(() => {
       alert("Xóa thành công!")
@@ -72,7 +73,7 @@ function MenuContent() {
     var roomId = roomState._id;
     dispatch(userAPI.deleteRoomByIdUI()(roomId));
     axios
-      .delete(`http://18.140.239.96/api/rooms/${roomId}`, {
+      .delete(`http://54.254.183.128/api/rooms/${roomId}`, {
         headers: { authorization: token as string },
       })
       .then(() => {
@@ -102,7 +103,8 @@ function MenuContent() {
       </div>
       <div className={style.menuContent_body}>
         <div className={style.menuContent_header_info}>
-          <img src={roomState.avatar} alt="" />
+          {/* <img src={roomState.avatar} alt="" /> */}
+          {roomState.avatar ? <img src={roomState.avatar} alt="" /> : <img src="https://thumbs.dreamstime.com/z/diverse-group-people-icon-avatar-man-woman-portrait-flat-design-vector-52523541.jpg" alt="" />} 
           {roomState.owner === userState.user._id ? (
             <div className={style.name}>
               {roomState.name}
@@ -202,7 +204,11 @@ function MenuContent() {
                   onClick={() => {
                     var result =
                       window.confirm("Xóa nhóm ?");
-                    if (result) deleteGroupHandleClick();
+                    if (result) {
+                      deleteGroupHandleClick();
+                      dispatch(roomAPI.clear2()({d:"dfd"}))
+
+                    }
                   }}
                 />
                 <p

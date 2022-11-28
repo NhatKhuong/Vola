@@ -21,7 +21,7 @@ import Manager from "./manager/Manager";
 import ForgotPassword from "./Account/Login/ForgotPassword";
 import { reLoad } from "./redux/statusCommon/slice";
 
-export let newSocket = io("http://18.140.239.96");
+export let newSocket = io("http://54.254.183.128");
 
 function App() {
     // Call video
@@ -44,7 +44,7 @@ function App() {
     const roomState = useAppSelector((state: any) => state.room);
     const [socket, setSocket] = useState<Socket | null>(null);
     console.log(userState);
-    
+
 
     const rooms = userState.rooms;
 
@@ -71,7 +71,7 @@ function App() {
             "usereffech ------------------------------------------------------ "
         );
         newSocket.disconnect();
-        newSocket = io("http://18.140.239.96");
+        newSocket = io("http://54.254.183.128");
         newSocket?.on("server-send-message", function (data: any) {
             console.log(data);
             dispatch(userAPI.reLoad()(token))

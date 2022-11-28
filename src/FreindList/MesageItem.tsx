@@ -16,8 +16,8 @@ interface Props {
   _id?: string;
   addUser?: any;
   owner?: string;
-  permission?:boolean;
-  missing?:string;
+  permission?: boolean;
+  missing?: string;
 }
 function MesageItem({
   avatar,
@@ -36,29 +36,29 @@ function MesageItem({
   const userState = useAppSelector((state: any) => state.user);
   const accessToken = userState.accessToken;
   const showRoom = () => {
-    if(!info){
+    if (!info) {
       console.log(roomState._id);
-      
+
 
       dispatch(roomAPI.getListChat()({ accessToken, _id }));
       dispatch(roomAPI.saveRoomId()({ _id, name, avatar, owner }));
       dispatch(roomAPI.getListFile()({ accessToken, _id }));
       dispatch(roomAPI.getListPic()({ accessToken, _id }));
 
-      
+
       axios({
-        url:`http://18.140.239.96/api/rooms/${roomState._id}/read`,
-        method:"POST",
-        headers:{
+        url: `http://54.254.183.128/api/rooms/${roomState._id}/read`,
+        method: "POST",
+        headers: {
           authorization: accessToken as string
         }
-      }).then(()=>{
+      }).then(() => {
         console.log("success");
         dispatch(userAPI.reLoad()(accessToken))
-        
-      }).catch((err)=>{
+
+      }).catch((err) => {
         console.log(err);
-        
+
       })
     }
   };
@@ -71,12 +71,12 @@ function MesageItem({
     <div className={style.messageItem} onClick={showRoom}>
       <div className={style.messageInfo}>
         <div className={style.messageInfo_avata}>
-          <img src={avatar} alt="" />
-        
+          {avatar ? <img src={avatar} alt="" /> : <img src="https://thumbs.dreamstime.com/z/diverse-group-people-icon-avatar-man-woman-portrait-flat-design-vector-52523541.jpg" alt="" />} 
+
         </div>
-      <div className="" style={{display:"flex",alignItems:"center",marginLeft:"5px",marginRight:"5px"}}>
-        {(info && _id === roomState.owner) ? <img style={{width:"15px",height:"15px",borderRadius:"50%"}} src="https://www.pngitem.com/pimgs/m/34-347182_key-emoji-cutouts-key-emoji-transparent-hd-png.png" alt="" /> :""}
-      </div>
+        <div className="" style={{ display: "flex", alignItems: "center", marginLeft: "5px", marginRight: "5px" }}>
+          {(info && _id === roomState.owner) ? <img style={{ width: "15px", height: "15px", borderRadius: "50%" }} src="https://www.pngitem.com/pimgs/m/34-347182_key-emoji-cutouts-key-emoji-transparent-hd-png.png" alt="" /> : ""}
+        </div>
         <div className={style.messageInfo_description}>
           <div
             className={style.messageInfo_description_name}
@@ -90,13 +90,13 @@ function MesageItem({
               <div className={style.messageInfo_description_inner}>
                 {messages}
               </div>
-              {missing != "0" && <div className={style.messageInfo_description_inner_container_missing}>{missing}</div>} 
+              {missing != "0" && <div className={style.messageInfo_description_inner_container_missing}>{missing}</div>}
             </div>
 
           )}
         </div>
       </div>
-      
+
 
       <div className={style.message_time}>
         {info ? (

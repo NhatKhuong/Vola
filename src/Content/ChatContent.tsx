@@ -21,7 +21,7 @@ import { newSocket } from "../App";
 import axios from "axios";
 import tokenService from "../services/token.service";
 import userAPI from "../redux/user/userAPI";
-const urlUploadFile = "http://18.140.239.96/api/storages/upload";
+const urlUploadFile = "http://54.254.183.128/api/storages/upload";
 
 interface Props {
     showMenuChat: React.Dispatch<React.SetStateAction<boolean>>;
@@ -134,7 +134,8 @@ function ChatContent(prop: Props) {
         <div className={style.chatContent}>
             <div className={style.chatContentHeader}>
                 <div className={style.chatContentHeader_left}>
-                    <img src={roomState.avatar} alt="" />
+                    {/* <img src={roomState.avatar} alt="" /> */}
+                    {roomState.avatar ? <img src={roomState.avatar} alt="" /> : <img src="https://thumbs.dreamstime.com/z/diverse-group-people-icon-avatar-man-woman-portrait-flat-design-vector-52523541.jpg" alt="" />} 
                     <div className={style.chatContentHeader_info}>
                         <div className={style.chatContentHeader_info_name}>
                             {roomState.name}
@@ -146,7 +147,7 @@ function ChatContent(prop: Props) {
                                     style.chatContentHeader_info_number_member
                                 }
                             >
-                                3 Thành viên
+                                Thành viên
                             </div>
                         </div>
                     </div>
